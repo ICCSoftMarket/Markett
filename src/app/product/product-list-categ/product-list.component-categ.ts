@@ -44,9 +44,9 @@ export class ProductListComponentCateg implements OnInit {
   page = 1;
 
   nbrLike:any;
-  listLike = [];
+  listLike: Cart[] = [];
   nbrNoLike:any;
-  listNoLike = [];
+  listNoLike: Cart[] = [];
   dejaLike:any;
   dejaNoLike:any;
   listComment: Cart[] = [];
@@ -280,10 +280,10 @@ like(product:any){
     });
   }
   //********************DONNEZ DES NOLIKE */
-  noLike(product){
+  noLike(product:any){
     console.log(product);
 
-    this.firedataMenu.child(product.$key).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+    this.firedataMenu.child(product.$key).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
         console.log(snapshot.val());
         if (snapshot.val()){
           console.log('il a déjà no voté');
@@ -299,14 +299,14 @@ like(product:any){
       })
     }
 
-    nobreNoVote(key){
+    nobreNoVote(key:any){
       this.nbrNoLike = 0;
       const x = this.db.list('/menu/'+ key + '/nolike');
       console.log(x);
-      x.snapshotChanges().subscribe(prod => {
+      x.snapshotChanges().subscribe((prod:any) => {
         this.spinnerService.hide();
         this.listNoLike = [];
-        prod.forEach(element => {
+        prod.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           this.listNoLike.push(y as Cart);
@@ -320,18 +320,18 @@ like(product:any){
   //*****************AJOUT DE COMMENTAIRE */
 
   //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-    open(content, key) {
+    open(content:any, key:any) {
       this.modalService.open(content);
 
     }
 
 
   //AJOUTER UN COMMENTAIRE
-  addCommentaire(commentForm: NgForm, key) {
+  addCommentaire(commentForm: NgForm, key:any) {
     const dataform = commentForm.value;
     console.log(dataform);
 
-    this.firedataMenu.child(key).child('comment').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+    this.firedataMenu.child(key).child('comment').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
       console.log(snapshot.val());
       console.log(this.infos.image_profile);
 
@@ -351,7 +351,7 @@ like(product:any){
     }
 
     //COMPTER LE NOMBRE DE COMMENTAIRES
-    nobreComment(key){
+    nobreComment(key:any){
       this.nbrcomment = 0;
       const x = this.db.list('/menu/'+ key + '/comment');
       console.log(x);
@@ -373,9 +373,9 @@ like(product:any){
       console.log(this.infoUser.uid);
       const x = this.productService.getUsers(this.infoUser.uid);
       console.log(x);
-      x.snapshotChanges().subscribe(use => {
+      x.snapshotChanges().subscribe((use:any) => {
         console.log(use);
-        use.forEach(element => {
+        use.forEach((element:any) => {
           const inf = element.payload.toJSON();
           console.log(inf);
           this.infos = inf;
@@ -400,7 +400,7 @@ like(product:any){
     }
 
 
-    ouvrepagecateg(categ){
+    ouvrepagecateg(categ:any){
       // this.router.navigate(['/products/categ-products/', categ]);
       this.getProductsCateg(categ);
       this.categ = categ;
