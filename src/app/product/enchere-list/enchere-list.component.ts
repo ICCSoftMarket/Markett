@@ -23,7 +23,7 @@ export class enchereListComponent implements OnInit {
  clotureList: Product[];
   enchereId: Product[];
   user: Observable<firebase.User>;
-  categoryList= [];
+  categoryList: any[] = [];
   segment: string = 'vetement_homme';
   selectedSegment: string = this.segment;
   dateDeLenchere:any;
@@ -52,7 +52,7 @@ export class enchereListComponent implements OnInit {
   categ:any;
   searchAmount:any;
   searchAmountmin:any;
-  paysList= [];
+  paysList: any[] = [];
 
   slides: any = [[]];
   chunk(arr:any, chunkSize:any) {

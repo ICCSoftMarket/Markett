@@ -30,13 +30,13 @@ export class UserAccountComponent implements OnInit {
   loggedUser: User;
   // Enable Update Button
 infoUser;
-detailUser;
-infos;
+detailUser:any;
+infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
 productList: Product[];
 page = 1;
-lisAddress= [];
+lisAddress: Cart[] = [];
 myToggle= {};
 data = {};
 modal: NgbModalRef;
@@ -45,14 +45,14 @@ supp = {};
 selectedFiles: FileList;
 currentUpload: FileItem;
 url = '';
-bg;
+bg:any;
 latUser: number;
 lngUser: number;
 firedataVente = firebase.database().ref('/vente');
-nbrVente;
-nbrAchat;
-tabVente = [];
-tabAchat = [];
+nbrVente:any;
+nbrAchat:any;
+tabVente: any[] = [];
+tabAchat: any[] = [];
 
   constructor(private authService: AuthService, private productService: ProductService, private firebaseAuth: AngularFireAuth,
               config: NgbModalConfig, private modalService: NgbModal, private db: AngularFireDatabase, private spinnerService: LoaderSpinnerService,
@@ -63,17 +63,17 @@ tabAchat = [];
     //this.infoUser2 = this.productService.getUsers(this.infoUser)
 
     this.users = firebaseAuth.authState;
-    this.users.subscribe(user => {
+    this.users.subscribe((user:any) => {
       if (user) {
         //this.infoUser = user;
-      
+
         //console.log(this.infoUser);
         const x = this.db.list('/users/'+ user.uid + '/address');
         console.log(x);
-        x.snapshotChanges().subscribe(address => {
+        x.snapshotChanges().subscribe((address:any) => {
           this.spinnerService.hide();
           this.lisAddress = [];
-          address.forEach(element => {
+          address.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.lisAddress.push(y as Cart);
@@ -85,7 +85,7 @@ tabAchat = [];
         //this.infoUser = null;
       }
     });
-    
+
   }
 
   ngOnInit() {
@@ -94,11 +94,11 @@ tabAchat = [];
     this.getProductUser();
   }
 
-  
 
-  
+
+
 //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-  open(content, data) {
+  open(content:any, data:any) {
     if (data){
       console.log(data);
       this.data = data;
@@ -106,16 +106,16 @@ tabAchat = [];
     }else{
       this.modalService.open(content);
     }
-    
+
   }
 
   //OUVRIR LE CREER TEMPLATE ADRESSE LIVRAISON
-  openCreer(contentCreer) {
+  openCreer(contentCreer:any) {
     this.modalService.open(contentCreer);
-  
+
 }
 //AJOUTER UNE ADRESSE DE LIVRAISON
-adressLivraison(addressForm: NgForm, data) {
+adressLivraison(addressForm: NgForm, data:any) {
   const dataform = addressForm.value;
   console.log(data);
   if(data){
@@ -141,7 +141,7 @@ adressLivraison(addressForm: NgForm, data) {
         pin: addressForm.value["pin"],
       });
     }
-    
+
     this.modalService.dismissAll();
   }
   const toastOption: ToastOptions = {
@@ -152,7 +152,7 @@ adressLivraison(addressForm: NgForm, data) {
     theme: "material"
   };
   this.toastyService.success(toastOption);
-    
+
   }
 
 
@@ -161,9 +161,9 @@ adressLivraison(addressForm: NgForm, data) {
     console.log(this.infoUser);
     const x = this.productService.getUsers(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(use => {
+    x.snapshotChanges().subscribe((use:any) => {
       console.log(use);
-      use.forEach(element => {
+      use.forEach((element:any) => {
         const inf = element.payload.toJSON();
         console.log(inf);
         this.infos = inf;
@@ -188,7 +188,7 @@ adressLivraison(addressForm: NgForm, data) {
 //compte les ventes
       this.nbrVente = 0;
       console.log(this.infoUser)
-      this.firedataVente.child(this.infoUser).once('value', (snapshot) =>{
+      this.firedataVente.child(this.infoUser).once('value', (snapshot:any) =>{
         this.tabVente = [];
         if(snapshot.val()){
           for (var i in snapshot.val()){
@@ -206,7 +206,7 @@ adressLivraison(addressForm: NgForm, data) {
 
 
       //POUR LES ACHATS
-      this.firedataVente.child(this.infoUser).orderByChild("uid_client").equalTo(this.infoUser).once('value', (snapshot) =>{
+      this.firedataVente.child(this.infoUser).orderByChild("uid_client").equalTo(this.infoUser).once('value', (snapshot:any) =>{
         this.tabAchat = [];
         console.log(snapshot.val());
         if(snapshot.val()){
@@ -227,7 +227,7 @@ adressLivraison(addressForm: NgForm, data) {
   }
 
   //FONCTION DU TOGGLE
-  showMessage(value) {
+  showMessage(value:any) {
     console.log(value);
     if (value == 'false') {
       this.firedata.child(this.infoUser).update({   // set
@@ -268,10 +268,10 @@ adressLivraison(addressForm: NgForm, data) {
     console.log(this.infoUser);
     const x = this.productService.getProductUser(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(pro => {
+    x.snapshotChanges().subscribe((pro:any) => {
       console.log(pro);
       this.productList = [];
-      pro.forEach(element => {
+      pro.forEach((element:any) => {
         const y = element.payload.toJSON();
         console.log(y);
         y["$key"] = element.key;
@@ -286,11 +286,11 @@ adressLivraison(addressForm: NgForm, data) {
 
   //CHANGER LE TOGGLE
   togleChange(){
-    this.firedata.child(this.infoUser).once('value', (snapshot) =>{
+    this.firedata.child(this.infoUser).once('value', (snapshot:any) =>{
       console.log(snapshot.val().vendeur);
       var toggle = snapshot.val().vendeur;
 
-      if (toggle == false) { 
+      if (toggle == false) {
         this.firedata.child(this.infoUser).update({    // set
           vendeur: true
         });
@@ -302,7 +302,7 @@ adressLivraison(addressForm: NgForm, data) {
           theme: "material"
         };
         this.toastyService.success(toastOption);
-       }else { 
+       }else {
         this.firedata.child(this.infoUser).update({    // set
           vendeur: false
         });
@@ -317,15 +317,15 @@ adressLivraison(addressForm: NgForm, data) {
        }
 
     })
-    
+
   }
   // CONFIRMEZ AVANT DE SUPPRIMER UNE ADRESSE LIVRAISON
-  openSm(contentSupp, item) {
+  openSm(contentSupp:any, item:any) {
     this.supp = item;
     this.modalService.open(contentSupp, { size: 'sm' });
   }
 
-  supprimAddressLivraison(supp){
+  supprimAddressLivraison(supp:any){
     console.log(supp);
     console.log(supp.$key);
     this.firedata.child(this.infoUser).child("address").child(supp.$key).remove();
@@ -343,14 +343,14 @@ adressLivraison(addressForm: NgForm, data) {
 
   //ONJOUTER UNE IMAGE DE PROFILE
 
-  openImage(contentImage, bg) {
+  openImage(contentImage:any, bg:any) {
     console.log(bg);
     this.bg = bg;
     this.modalService.open(contentImage, this.bg);
   }
 
 
-  onFileChanged(event) {
+  onFileChanged(event:any) {
     const file = event.target.files;
     console.log(event);
     console.log(file);
@@ -367,7 +367,7 @@ adressLivraison(addressForm: NgForm, data) {
     }
   }
 
-  uploadImage(bg){
+  uploadImage(bg:any){
     console.log(bg);
     let file = this.selectedFiles.item(0)
     this.currentUpload = new FileItem(file);
@@ -382,17 +382,17 @@ adressLivraison(addressForm: NgForm, data) {
     this.toastyService.wait(toastOption);
   }
 
-  pushUpload(upload: FileItem, bg) {
+  pushUpload(upload: FileItem, bg:any) {
     console.log(bg);
     let storageRef = firebase.storage().ref();
     let uploadTask = storageRef.child('profiles/'+ upload.file.name).put(upload.file);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+      (snapshot:any) =>  {
         // upload in progress
         upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100
       },
-      (error) => {
+      (error:any) => {
         // upload failed
         console.log(error)
       },
@@ -406,12 +406,12 @@ adressLivraison(addressForm: NgForm, data) {
     );
   }
 
-  private saveFileData(image:any, url, name, bg) {
+  private saveFileData(image:any, url:any, name:any, bg:any) {
     console.log(bg);
-    
+
     if(bg == 'bg'){
       //on supprime lancienne photo de bg
-      this.firedata.child(this.infoUser).once('value', (snapshot)=>{
+      this.firedata.child(this.infoUser).once('value', (snapshot:any)=>{
         console.log(snapshot.val().name_img_bg)
         if(snapshot.val().name_img_bg){
           this.deleteFileStorageProfile(snapshot.val().name_img_bg);
@@ -424,7 +424,7 @@ adressLivraison(addressForm: NgForm, data) {
       })
     }else{
       //on supprime lancienne photo de profile
-      this.firedata.child(this.infoUser).once('value', (snapshot)=>{
+      this.firedata.child(this.infoUser).once('value', (snapshot:any)=>{
         console.log(snapshot.val().name_img)
         if(snapshot.val().name_img){
           this.deleteFileStorageProfile(snapshot.val().name_img);
@@ -436,7 +436,7 @@ adressLivraison(addressForm: NgForm, data) {
         name_img: name
       })
     }
-    
+
     this.modalService.dismissAll();
    }
 
@@ -449,7 +449,7 @@ adressLivraison(addressForm: NgForm, data) {
        this.latUser = position.coords.latitude;
        this.lngUser = position.coords.longitude;
        this.geo.setLocation(this.infoUser, [this.latUser, this.lngUser], this.infos.image_profile, this.infos.name, this.infos.telephone, description);
-      
+
        const toastOption: ToastOptions = {
         title: "localisation",
         msg: "votre position a été Ajouté avec le succes",
@@ -458,17 +458,17 @@ adressLivraison(addressForm: NgForm, data) {
         theme: "material"
       };
       this.toastyService.success(toastOption);
-      
+
       });
-      
+
     }
-    
+
 
   }
 
 
   //suppression du produit
-  removeProduct(key: string, name) {
+  removeProduct(key: string, name:any) {
     this.productService.deleteProduct(key);
     this.deleteFileStorage(name);
   }
@@ -486,7 +486,7 @@ adressLivraison(addressForm: NgForm, data) {
 
 
   //tabs function
-  openCity(evt, cityName) {
+  openCity(evt:any, cityName:any) {
     // Declare all variables
     console.log(evt);
     console.log(cityName);
@@ -514,7 +514,7 @@ adressLivraison(addressForm: NgForm, data) {
   openForm() {
     document.getElementById("myForm").style.display = "block";
   }
-  
+
   closeForm() {
     document.getElementById("myForm").style.display = "none";
   }
@@ -538,17 +538,17 @@ adressLivraison(addressForm: NgForm, data) {
       title:{
         text: "Rapport des ventes par produit"
       },
-      
+
       data: [{
         type: "pie",
         showInLegend: true,
         toolTipContent: "<b>{name}</b>: n°{y} (#percent%)",
         indexLabel: "{name} - #percent%",
-        
+
         dataPoints: tablo
       }]
     });
-      
+
     chart.render();
   }//fin grapg
 
@@ -570,17 +570,17 @@ adressLivraison(addressForm: NgForm, data) {
       title:{
         text: "Rapport de vos achats"
       },
-      
+
       data: [{
         type: "pie",
         showInLegend: true,
         toolTipContent: "<b>{name}</b>: n°{y} (#percent%)",
         indexLabel: "{name} - #percent%",
-        
+
         dataPoints: tablo
       }]
     });
-      
+
     chart.render();
   }//fin grapg
 

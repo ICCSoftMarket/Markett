@@ -18,19 +18,19 @@ export class OrderMyAccountComponent implements OnInit {
   loggedUser: User;
   // Enable Update Button
 infoUser;
-detailUser;
-infos;
+detailUser:any;
+infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
 firedataOrder = firebase.database().ref('/orders');
 firedataMenu = firebase.database().ref('/menu');
 orderListMy: Product[];
 page = 1;
-lisAddress= [];
+lisAddress: any[] = [];
 myToggle= {};
 data = {};
 modal: NgbModalRef;
-text;
+text:any;
 
   constructor(private authService: AuthService, private productService: ProductService,
               config: NgbModalConfig, private modalService: NgbModal) {
@@ -46,11 +46,11 @@ text;
     this.getProductOrderMy();
   }
 //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-  open(content) {
+  open(content:any) {
 
       this.modalService.open(content);
 
-    
+
   }
 
 
@@ -58,9 +58,9 @@ text;
     console.log(this.infoUser);
     const x = this.productService.getUsers(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(use => {
+    x.snapshotChanges().subscribe((use:any) => {
       console.log(use);
-      use.forEach(element => {
+      use.forEach((element:any) => {
         const inf = element.payload.toJSON();
         console.log(inf);
         this.infos = inf;
@@ -88,10 +88,10 @@ text;
     console.log(this.infoUser);
     const x = this.productService.getProductOrderMy(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(pro => {
+    x.snapshotChanges().subscribe((pro:any) => {
       console.log(pro);
       this.orderListMy = [];
-      pro.forEach(element => {
+      pro.forEach((element:any) => {
         const y = element.payload.toJSON();
         console.log(y);
         y["$key"] = element.key;
@@ -102,17 +102,17 @@ text;
        console.log(this.orderListMy);
 
        //verifie si le produit est encore dispo
-       this.firedataMenu.once('value', (snapshot)=>{
+       this.firedataMenu.once('value', (snapshot:any)=>{
          console.log(snapshot.val())
         if(snapshot.hasChild(y["product_id"]) == true){
-          
+
          this.text = 1;
          console.log(this.text)
          this.firedataOrder.child(y["$key"]).update({
            encore : 1
          })
         }else{
-          
+
           this.text = 0;
           console.log(this.text)
           this.firedataOrder.child(y["$key"]).update({
@@ -126,7 +126,7 @@ text;
   }
 
 
-  retour(produit){
+  retour(produit:any){
     this.firedataOrder.child(produit.$key).remove();
     }
 
