@@ -262,15 +262,15 @@ like(product:any){
     })
   }
 
-  nobreVote(key){
+  nobreVote(key:any){
     this.nbrLike = 0;
     const x = this.db.list('/menu/'+ key + '/like');
     console.log(x);
-    x.snapshotChanges().subscribe(prod => {
+    x.snapshotChanges().subscribe((prod:any) => {
       this.spinnerService.hide();
       console.log(prod);
       this.listLike = [];
-      prod.forEach(element => {
+      prod.forEach((element:any) => {
         const y = element.payload.toJSON();
         y["$key"] = element.key;
         this.listLike.push(y as Cart);
