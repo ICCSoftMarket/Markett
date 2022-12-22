@@ -1,0 +1,172 @@
+
+
+  <div class="container">
+    <div class="view overlay rounded z-depth-2 mb-4" style="height: 150px;">
+      <img class="img-fluid" src="/assets/images/reputation.jpg" width="100%" height="150px" alt="Sample image">
+      <a>
+        <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
+      </a>
+    </div>
+  </div>
+
+  <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+              [animation]="'slide'">
+  <mdb-carousel-item *ngFor="let item of slides; let i = index">
+    <div class="col-md-2" style="height: 80px;" *ngFor="let card of item; let cardIndex = index" >
+      <div class="media d-block d-md-flex" (click)="ouvrepagecateg(card.nom)">
+        <img class="d-flex rounded-circle avatar z-depth-1-half mb-3 mx-auto" style="height: 40px;width: 40;" [src]="card.image"
+          alt="Avatar">
+        <div class="media-body text-center text-md-left ml-md-3 ml-0">
+          <p class="mt-0 font-weight-bold black-text">{{card.nom}}</p>
+        </div>
+      </div>
+    </div>
+  </mdb-carousel-item>
+</mdb-carousel>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">filtrer par prix</div>
+          <div class="form-group row" style="margin:2px;">
+            <label for="inputEmail3MD" class="col-sm-5 col-form-label">Maximum</label>
+            <div class="col-sm-7">
+              <div class="md-form mt-0">
+                <input mdbInput type="text" [(ngModel)]="searchAmount" class="form-control" id="inputEmail3MD" placeholder="$">
+              </div>
+            </div>
+          </div>
+          <!-- Grid row -->
+        
+          <!-- Grid row -->
+          <div class="form-group row" style="margin:2px;">
+            <label for="inputPassword3MD" class="col-sm-5 col-form-label">Minimum</label>
+            <div class="col-sm-7">
+              <div class="md-form mt-0">
+                <input mdbInput type="text" class="form-control" [(ngModel)]="searchAmountmin" id="inputPassword3MD" placeholder="$">
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-md-9">
+
+      <div class="container">
+        <!--Navbar-->
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+          <links>
+              <ul class="navbar-nav mr-auto">
+                  <!-- <li class="nav-item active">
+                      <a class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+                  </li>-->
+                  <li class="nav-item active">
+                      <a class="nav-link waves-light" mdbWavesEffect>{{categ}}</a>
+                  </li> 
+                  <li class="nav-item">
+                      <a class="nav-link waves-light" *ngIf="authService.isLoggedIn()" [routerLink]="['/products/add-product']" mdbWavesEffect>Ajouter un Produit<span class="sr-only">(current)</span></a>
+                  </li>
+
+                  <li class="nav-item dropdown" dropdown>
+                      <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                      Filter par Pays<span class="caret"></span></a>
+                      <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu"  >
+                        <a class="dropdown-item waves-light" mdbWavesEffect (click)="paysFunction()">Tout le monde</a>
+                          <a class="dropdown-item waves-light" mdbWavesEffect *ngFor="let pays of paysList" (click)="paysFunction(pays.code)">{{pays.nom}}</a>
+                      </div>
+                  </li>
+
+              </ul>
+              <div class="form-inline waves-light" mdbWavesEffect>
+                  <div class="md-form my-0" style="color: white;">Recherche
+                      <input class="form-control mr-sm-2 waves-light" type="text" [(ngModel)]="searchText" placeholder="...">
+                  </div>
+              </div>
+          </links>
+        </mdb-navbar>
+        <!--/.Navbar-->
+
+
+        <br>
+      <div class="container">
+        <div class="row">
+          <!-- List of Products -->
+          <div class="col-sm-4 mb-2" *ngFor="let product of productList | filterByBrand: selectedBrand | filterdata: searchText : 'name' | filterAmountMax: searchAmount : 'price' | filterAmountMin: searchAmountmin : 'price' | paginate: { itemsPerPage: 12, currentPage: page }">
+              <!--<div class="col-sm-4 mb-2" *ngFor="let product of productList | filterByBrand:searchText | paginate: { itemsPerPage: 6, currentPage: page }">-->
+                
+                <div class="item">
+              <div class=" mb-r">
+                <!--Card-->
+                <div class="card card-cascade wider" style="margin:0px;">
+                  <!--Card image-->
+                  <a [routerLink]="['/products/product', product.$key]">
+                    <div class="view overlay hm-white-slight" style="width:100%;height:200px;">
+                      <img [src]="product.image" class="img-fluid" style="width: 100%;height: 100%;" alt="{{product.name}}"  >
+                      <a>
+                        <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                      </a>
+                    </div>
+                  </a>
+                  <!--/.Card image-->
+                  <!--Card content-->
+                  <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
+                    <p class="card-title" style="margin:1px;">
+                      <strong>
+                        <a [routerLink]="['/products/product', product.$key]" routerLinkActive="router-link-active" style="font-size:12px;color:#FF0808;">{{ product.name }}</a>
+                      </strong>
+                    </p>
+                    <!--Description-->
+                    <p class="card-text" style="font-size:10px;margin:1px;padding:5px;">{{ product.description.substr(0, 80) }} ....
+                    </p>
+                    <!--Card footer-->
+                    <div class="card-footer" style="padding:5px;margin:5px;">
+                      <div class="row">
+                          <span class="left badge badge-pill badge-danger" style="font-weight: bold;font-size:10px;">{{ product.price }} FCFA</span>
+                          <del class="right" style="color: red;font-size:10px;margin-left:70px;" *ngIf="product.reduct != 1">{{product.reduct}} Fcfa </del>
+                      </div>
+                      
+                      <span class="right">
+                        
+                          <!--<a><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+
+
+                        <a placement="top" mdbTooltip="Ajouter aux favoris" container="body" (click)="addFavourite(product)">
+                          <i class="fa fa-heart"></i>
+                        </a>
+                        <!-- <a placement="top" mdbTooltip="Ajoutez au pannier" container="body" (click)="addToCart(product)">
+                          <i class="fa fa-shopping-cart"></i>
+                        </a> -->
+                        <a placement="top" mdbTooltip="Retirer le produit" container="body" *ngIf="userConnect == product.idvendeur" (click)="removeProduct(product.$key, product.name_img)">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                        
+                      </span>
+                    </div>
+
+                  </div>
+                  <!--/.Card content-->
+
+                </div>
+                <!--/.Card-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="text-center mt-3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+
+      <!--/.Card-->
+    </div>
+
+    
+  </div>
+</div>
+<!--<app-add-product></app-add-product>-->
+<ng2-toasty></ng2-toasty>

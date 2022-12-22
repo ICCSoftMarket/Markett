@@ -1,0 +1,90 @@
+<br/>
+<!--<br/>
+<div class="row">
+  <div class="col-6 col-md-4"><strong>Localiser les vendeurs sur la carte</strong></div>
+  <div class="col-6 col-md-4"><button [routerLink]="['/products/map']" class="btn btn-light waves-light"><i class="fa fa-map-marker fa-2x" style="color: red;" aria-hidden="true"></i>geolocalisation</button></div>
+  <div class="col-6 col-md-4"></div>
+</div>-->
+
+<br>
+<div class="container">
+    <div class="row ng-scope">
+        <div class="col-sm-3 col-md-pull-9">
+            <button [routerLink]="['/products/map']" class="btn btn-light waves-light"><i class="fa fa-map-marker fa-2x" style="color: red;" aria-hidden="true"></i>geolocalisation</button>
+          <p>.</p>
+        </div>
+        <div class="col-sm-9 col-md-pull-3">
+          <strong>Localiser les vendeurs sur la carte</strong>
+          <br/>
+          <br/>          
+          <div class="row">
+              <div class="col-sm-3">
+                <div class="float-left">
+                  <button type="button" class="btn btn-danger waves-light" data-toggle="modal" data-target="#exampleModalLong" (click)="paysFunction('mon')" style="width:200px;">
+                    Mon pays
+                  </button>
+                </div>
+              </div>
+              <div class="col-sm-3">
+              <div class="float-left">
+                  <button type="button" class="btn btn-danger waves-light" data-toggle="modal" data-target="#exampleModalLong" (click)="paysFunction('monde')">
+                    Dans le monde
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br>
+
+
+
+              <section class="search-result-item" *ngFor="let user of listusers | paginate: { itemsPerPage: 6, currentPage: page }" [routerLink]="['/products/userid', user.uid]">
+                  <a class="image-link" href="#"><img class="image" [src]="user.image_profile" width="180px" height="180px">
+                  </a>
+                  <div class="search-result-item-body">
+                      <div class="row">
+                          <div class="col-sm-9">
+                              <h4 class="search-result-item-heading"><a href="#"><strong>{{ user.name }}</strong></a></h4> 
+                              <span class="badge bg-danger fw-normal pull-right" *ngIf="user.vendeur == true">Vendeur</span>
+                              <p class="info">Pays : {{ user.country }}</p>
+                              <p class="description">{{ user.description }}</p>
+                              <p class="description"><strong>Quartier : </strong>{{ user.quartier }}</p>
+                              <p class="description"><strong>Ville : </strong>{{ user.ville }}</p>
+                          </div>
+                          <div class="col-sm-3 text-align-center">
+                              <p class="value3 mt-sm">{{user.telephone}}</p>
+                              <p class="fs-mini text-muted">
+                                {{user.nbrlike}}<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> | 
+                                {{user.nbrnolike}}<i class="fa fa-thumbs-o-down" aria-hidden="true"></i> |
+                                {{user.nbrcomment}}<i class="fa fa-comment" aria-hidden="true"></i>
+                              </p>
+                              <a class="btn btn-primary btn-info btn-sm" [routerLink]="['/products/userid', user.uid]">Détails</a>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+                <!--  <div class="view overlay hm-white-slight" style="height:180px;">
+                    <img [src]="user.image_profile" alt="{{user.name}}" style="width:100%" height="180px">
+                  </div>
+              
+                    <h1 style="font-size: 14px;"><strong>{{ user.name }}</strong></h1>
+                    <p class="title" style="font-size: 12px;">{{ user.country }}</p>
+                    <p style="font-size: 12px;">{{ user.description }}</p>
+                    <div class="row">
+                        <div class="col"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                        <div class="col"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                        <div class="col"><a href="#"><i class="fa fa-linkedin"></i></a> </div>
+                        <div class="col"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                      </div>  
+                    <p><button style="font-size: 12px;">{{user.telephone}} </button></p>
+                  
+              </div>-->
+              <hr>
+        </div>
+      </div>
+    </div>
+
+  <div class="text-center mt-3">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+

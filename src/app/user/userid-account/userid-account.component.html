@@ -1,0 +1,260 @@
+<br>
+
+<div class="container">
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Ajoutez un commentaire</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Vous pouvez donner votre appréciation sur ce vendeur</p>
+
+          <div style="height: 250px;overflow-y: auto;">
+
+            <div class="media" *ngFor ="let comment of listComment">
+              <img class="mr-3" [src]="comment.image" alt="{{comment.name}}" style="width:40px; height:40px;" (click) = "openCommentateur(comment.uid)">
+              <div class="media-body">
+                <div style="background-color:#B5E0E0;border-radius: 10px;padding:8px;height:60px;">
+                    <h5 class="mt-0" style="font-size:12px;color:crimson;" (click) = "openCommentateur(comment.uid)">{{comment.name}}</h5>
+                    <p style="font-size:12px;">{{comment.comment }}</p>
+                    <p style="background-color:#E0F3F3;border-radius: 10px;font-size:10px;">{{comment.date | date: "yyyy-MM-dd à H:mm"}}</p>
+                    <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+                </div>
+                <br>
+              </div>
+            </div>
+            
+          </div>
+
+          <form #commentForm="ngForm" (ngSubmit)="addCommentaire(commentForm)" >
+            <div class="md-form" style="height: 45px;">
+              <i class="fa fa-comment"></i>
+              <input style="background-color:#E5F1F1;border-radius: 10px;" type="text" id="commentaire" class="form-control" name="commentaire" [(ngModel)]="data.commentaire"
+                autocomplete="commentaire">
+              <label for="commentaire">Votre commentaire...</label>
+            </div>
+          
+            <div class="modal-footer"style="height: 40px;">
+              <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+              <button type="submit" style="background-color:#E94343;border-radius: 10px;" class="btn btn-danger waves-light" >Save</button>
+            </div>
+          </form>
+        </div>
+    </ng-template>
+
+    <button mdbTooltip="pour etre notifier lorsqu'il ajoute un nouveau produit" class="btn btn-info waves-light" id="signUpButton" mdbRippleRadius>abonne toi a ce vendeur
+        <i class="fa fa-sign-in ml-1"></i>
+      </button>
+  <div class="row">
+    <div class="col-sm-4">
+      <ul class="list-group">
+        <li class="list-group-item hoverable">
+          <a>Evaluation de ce vendeur</a>
+        </li>
+        <li class="list-group-item hoverable">
+          <div (click)="like(detailUser)">
+              <a *ngIf="!dejaLike">{{nbrLike}}<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> j'aime </a>
+              <a (click)="like(detailUser)" style="color:red;" *ngIf="dejaLike == true"> {{nbrLike}}<i class="fa fa-thumbs-up" aria-hidden="true"></i> j'aime </a>
+          </div>
+          <div (click)="noLike(detailUser)">
+              <a *ngIf="!dejaNoLike">{{nbrNoLike}}<i class="fa fa-thumbs-o-down" aria-hidden="true"></i> j'aime pas </a>
+              <a (click)="noLike(detailUser)" style="color:red;" *ngIf="dejaNoLike == true"> {{nbrNoLike}}<i class="fa fa-thumbs-down" aria-hidden="true"></i> j'aime pas </a>
+          </div>
+          <div>
+              <a (click)="open(content)" style="color:red;">{{nbrcomment}}<i class="fa fa-comment" aria-hidden="true"></i> commentaires</a>
+          </div>
+         
+          
+        </li>
+        <li class="list-group-item hoverable">
+            <div class="row">
+              <div class="col"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+              <div class="col"><a href="#"><i class="fa fa-twitter"></i></a></div>
+              <div class="col"><a href="#"><i class="fa fa-linkedin"></i></a> </div>
+              <div class="col"><a href="#"><i class="fa fa-facebook"></i></a></div>
+            </div> 
+        </li>
+        <li class="list-group-item hoverable">
+            <div *ngIf="markers.length == 0" class="alert alert-warning" role="alert">
+                Ce vendeur n'a pas activé sa localisation
+              </div>
+            <agm-map *ngFor="let marker of markers" [latitude]="marker.location[0]" [longitude]="marker.location[1]" >
+                <agm-marker 
+                [latitude]="marker.location[0]"
+                [longitude]="marker.location[1]"
+                [iconUrl]="'https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/images%2Fmymarket2.png?alt=media&token=c6437485-d38c-4b69-b2a6-b5378d95e78e'">
+              
+                  <agm-info-window >
+                      <div class="card" style="width: 8rem;height: 12rem;top: 0px;" [routerLink]="['/products/userid', marker.uid]">
+                        <img class="card-img-top" [src]="marker.photo" alt="{{marker.name}}" height="80px" width="80px" >
+                        <div class="card-body">
+                          <h5 class="card-title" style="font-size:10px;">{{ marker.name }}</h5>
+                          <p class="card-text" style="font-size:10px;">Ce vendeur est à <strong>{{marker.distance}}</strong> km de vous!</p>
+                          
+                          <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                        </div>
+                      </div>
+                  </agm-info-window>
+                </agm-marker>
+              </agm-map>
+        </li>
+
+        
+      </ul>
+    </div>
+    <div class="col-sm-8">
+
+        <div class="fb-profile">
+
+            <img align="left" class="fb-image-lg" src="{{infos.image_bg}}" alt="{{infos.name}}" style="height:250px;"/>
+            <img align="left" class="fb-image-profile thumbnail" src="{{infos.image_profile}}" alt="{{infos.name}}"/>
+
+            <div class="fb-profile-text">
+              <h1>{{infos.name}}</h1>
+
+              <div>
+                Nombre de produits vendu <span class="badge badge-danger">{{nbreVente}}</span>
+              </div>
+
+            </div>
+        </div>
+
+        <br >
+        
+        <div>
+          <div class="list card" style="padding: 15px;">
+            <div style="min-height: 20px;" class="item item-divider">                
+              <div style="text-align: center;height: 40px;">
+                  <a><i class="fa fa-user"></i> {{infos.name}}</a>
+              </div>
+              <div style="text-align: center;height: 40px;">
+                  <p>{{infos.description}}</p>
+              </div>
+            </div>
+            <div >
+              <div class="row">
+                <div class="col">
+                  <strong>Pays:</strong> {{infos.country}} 
+                </div>
+                <div class="col">
+                  <strong>Quartier:</strong> {{infos.quartier}} 
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <strong>Ville:</strong> {{infos.ville}} 
+                </div>
+                <div class="col">
+                  <strong>Téléphone:</strong> {{infos.telephone}} 
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="list card" style="padding: 15px;">
+            <div style="min-height: 20px;" class="item item-divider">                
+              <div style="float: left;height: 40px;">
+                  <a><i class="fa fa-map-marker fa-2x" style="color: red;" aria-hidden="true"></i> Les adresses de livraison :</a>
+              </div>
+            </div>
+            <div class="list card" *ngFor="let item of lisAddress" >
+        
+                    <div class="row" style="padding: 10px;">
+                      <div class="col">
+                        <strong>Ville:</strong> {{item.address}} 
+                      </div>
+                      <div class="col">
+                        <strong>Pin:</strong> {{item.pin}}
+                      </div>
+                      <div class="col">
+                        <strong>Téléphone:</strong> {{item.phone}}
+                      </div>
+                      <div class="col">
+                          <strong>Quartier:</strong> {{item.quartier}}
+                        </div>
+                      <div class="col">
+                        </div>
+                    </div>
+            </div>
+          </div>
+        </div>
+        <br >
+
+
+  <div class="row">
+
+      <div *ngIf="productList.length == 0" class="alert alert-warning" role="alert">
+        Ce vendeur n'a pas encore ajouté de produit à vendre
+      </div>
+      <!-- List of Products -->
+      <div class="col-sm-4 mb-2" *ngFor="let product of productList | paginate: { itemsPerPage: 9, currentPage: page }">
+          <!--<div class="col-sm-4 mb-2" *ngFor="let product of productList | filterByBrand:searchText | paginate: { itemsPerPage: 6, currentPage: page }">-->
+        <div class="item">
+          <div class=" mb-r">
+            <!--Card-->
+            <div class="card card-cascade wider" style="margin:0px;">
+              <!--Card image-->
+              <a [routerLink]="['/products/product', product.$key]">
+                <div class="view overlay hm-white-slight" style="width:100%;height:160px;">
+                  <img [src]="product.image" class="img-fluid" alt=""  width="100%" height="100%">
+                  <a>
+                    <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                  </a>
+                </div>
+              </a>
+              <!--/.Card image-->
+              <!--Card content-->
+              <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
+                <p class="card-title" style="margin:1px;">
+                  <strong>
+                    <a [routerLink]="['/products/product', product.$key]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.name }}</a>
+                  </strong>
+                </p>
+                <!--Description-->
+                <p class="card-text" style="font-size:10px;margin:1px;padding:5px;">{{ product.description.substr(0, 25) }}....
+                </p>
+                <!--Card footer-->
+                <div class="card-footer" style="padding:5px;margin:5px;">
+                  <span class="left" style="font-weight: bold;font-size:10px;">{{ product.price }} FCFA</span>
+                  <del class="right" style="color: red;font-size:10px;" *ngIf="product.reduct != 1">{{product.reduct}} Fcfa </del>
+                  <span class="right">
+                    <a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">
+                      <i class="fa fa-heart"></i>
+                    </a>
+                    <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart(product)">
+                      <i class="fa fa-shopping-cart"></i>
+                    </a>
+                    <a placement="top" mdbTooltip="Remove Product" container="body" *ngIf="authService.isAdmin()" (click)="removeProduct(product.$key)">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </span>
+                </div>
+  
+              </div>
+              <!--/.Card content-->
+  
+            </div>
+            <!--/.Card-->
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+
+    </div>
+  </div>
+</div>
+<ng2-toasty></ng2-toasty> 
+    
+    
+    
+

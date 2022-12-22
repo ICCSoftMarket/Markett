@@ -1,0 +1,69 @@
+
+<br>
+<div class="container" *ngIf="favoruiteProducts.length > 0">
+  <div class="row">
+    <!-- List of Products -->
+    <div class="col-sm-4" *ngFor="let product of favoruiteProducts">
+      <div class="item">
+        <div class=" mb-r">
+
+          <!--Card-->
+          <div class="card card-cascade wider">
+
+            <!--Card image-->
+            <a [routerLink]="['/products/product', product.$key ]">
+
+              <div class="view overlay hm-white-slight" style="width:100%;height:260px;">
+                <img [src]="product.image" class="img-fluid" alt="" width="100%" height="100%">
+                <a>
+                  <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                </a>
+              </div>
+            </a>
+
+            <!--/.Card image-->
+
+            <!--Card content-->
+            <div class="card-body text-center no-padding">
+              <h5 class="card-title">
+                <strong>
+                  <a [routerLink]="['/products/product', product.$key]" style="font-size:12px;">{{ product.name }}</a>
+                </strong>
+              </h5>
+
+              <!--Description-->
+              <p class="card-text" style="font-size:12px;height:20px;">{{ product.description }}
+              </p>
+
+              <!--Card footer-->
+              <div class="card-footer">
+                <span class="left" style="color:crimson;font-size:12px">{{ product.price }} Fcfa</span>
+                <span class="right">
+                  <a placement="top" mdbTooltip="Quick Look" container="body" [routerLink]="['/products/product', product.$key]">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a placement="top" mdbTooltip="Remove Product" container="body" (click)="removeFavourite(product)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                  <!-- <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart(product)">
+                    <i class="fa fa-shopping-cart"></i>
+                  </a> -->
+                </span>
+              </div>
+
+            </div>
+            <!--/.Card content-->
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="favoruiteProducts.length === 0">
+
+  <app-no-products-found [title]="messageTitle" [description]="messageDescription"></app-no-products-found>
+</div>

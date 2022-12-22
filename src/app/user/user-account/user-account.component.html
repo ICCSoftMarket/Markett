@@ -1,0 +1,446 @@
+<br/>
+<form #userForm="ngForm" (ngSubmit)="updateUser(userForm)" >
+    <div class="container">
+        <div class="fb-profile">
+            <a class="fb-image-lg" (click)="openImage(contentImage, '')" style="margin-right: 10px;position: absolute;margin-top: 165px;margin-left: 50px;color:red;">
+              <i class="fa fa-camera-retro fa-2x"></i></a>
+
+            <a class="fb-image-lg" (click)="openImage(contentImage, 'bg')" style="position: absolute;margin-top: 212px;margin-right: 10px;margin-left: 545px;color:red;"><i class="fa fa-camera-retro fa-2x"></i></a>
+            
+            <img align="left" class="fb-image-lg" src="{{infos.image_bg}}" alt="{{infos.name}}" style="height:250px;"/>
+            <img align="left" class="fb-image-profile thumbnail" src="{{infos.image_profile}}" alt="{{infos.name}}"/>
+
+            
+            <div class="fb-profile-text">
+              <h1>{{infos.name}}</h1>
+              <button [routerLink]="['/products/add-product']" style="width:100%;" class="btn btn-danger waves-light">Ajouter un produit</button>
+
+
+              <div class="row">
+                <div class="col-sm">
+                  <!--<p data-notifications="{{nbrVente}}" class="button2" href="#">Nombre de produits vendu</p>-->
+                  <div>
+                    Nombre de produits vendu <span class="badge badge-danger">{{nbrVente}}</span>
+                  </div>
+                </div>
+                <div class="col-sm">
+                  <button class="btn btn-light waves-light" (click) = "meLocaliser()"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i> localise moi</button>
+                </div>
+                <div class="col-sm">
+                  <div (click)="togleChange()">
+                    <a *ngIf="infos.vendeur == false">vendeur? <i class="fa fa-toggle-off fa-2x" aria-hidden="true"></i></a>
+                    <a *ngIf="infos.vendeur == true" >vendeur? <i class="fa fa-toggle-on fa-2x" style="color:red;" aria-hidden="true"></i></a>
+                </div>
+                </div>
+              </div>
+
+
+
+              <p>Vos informations</p>
+              <div class="row" style="height:80px;">
+                <div class="md-form">
+                    <i class="fa fa-gear prefix"></i>
+                    <input mdbActive type="text" id="country" class="form-control" name="country" [(ngModel)]="infos.country" mdbInputValidate
+                      autocomplete="country">
+                    <label for="country"><strong>Pays</strong></label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-phone prefix"></i>
+                    <input mdbActive type="number" id="telephone" class="form-control" name="telephone" [(ngModel)]="infos.telephone" mdbInputValidate
+                      autocomplete="telephone">
+                    <label for="telephone">Téléphone</label>
+                  </div>
+                </div>
+                <div class="row" style="height:80px;">
+                  <div class="md-form">
+                      <i class="fa fa-home prefix"></i>
+                      <input mdbActive type="text" id="ville" class="form-control" name="ville" [(ngModel)]="infos.ville" mdbInputValidate
+                        autocomplete="ville">
+                      <label for="ville"><strong>Ville</strong></label>
+                    </div>
+                    <div class="md-form">
+                      <i class="fa fa-home prefix"></i>
+                      <input mdbActive type="text" id="quartier" class="form-control" name="quartier" [(ngModel)]="infos.quartier" mdbInputValidate
+                        autocomplete="quartier">
+                      <label for="quartier">Quartier</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+  <!--<div class="row">
+
+    <img [src]="loggedUser.avatar" [alt]="loggedUser.userName" style="width: 35%; height: 35%;">
+    <div class="col-md-8 mt-3">
+      <label for="userName">User Name</label>
+      <p style="font-size: 15px;">{{loggedUser.userName}}</p>
+    </div>
+    <div class="col-md-8 mb-3">
+      <label for="emailId">Email Id</label>
+      <p style="font-size: 15px;">{{loggedUser.emailId}}</p>
+    </div>
+  </div>-->
+  
+  
+
+
+
+  <div class="row">
+    <div class="col col-50">
+      <button style="width:100%;" (click)="cancel()" class="btn btn-light waves-light">Cancel</button>
+    </div>
+    <div class="col col-50">
+      <button style="width:100%;" type="submit" class="btn btn-danger waves-light">Save</button>
+    </div>
+  </div>
+</form>
+
+<br >
+
+<div>
+  <div class="list card" style="padding: 15px;">
+    <div style="min-height: 20px;" class="item item-divider">
+        
+        <div style="float: left;height: 40px;">
+            <a><i class="fa fa-user"></i> {{loggedUser.userName}}</a>
+          </div>
+        <div style="float: right;">
+          <a class="fa fa-plus-circle" (click)="openCreer(contentCreer)" style="font-size: 15px;">Ajoutez</a>
+        </div>
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header light-blue darken-3 white-text">
+              <h4 class="title">
+                <i class="fa fa-user-plus"> </i> Modifiez adresse de livraison</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <form #addressForm="ngForm" (ngSubmit)="adressLivraison(addressForm, data)" >
+              <div class="row" style="height:50px;padding:30px;">
+                <div class="md-form">
+                    <i class="fa fa-home prefix"></i>
+                    <input mdbActive type="text" id="nickname" class="form-control" name="nickname" [(ngModel)]="data.nickname" mdbInputValidate
+                      autocomplete="nickname">
+                    <label for="nickname"><strong>Nom</strong></label>
+                  </div>
+              </div>
+              <div class="row" style="height:50px;padding:30px;">
+                  <div class="md-form">
+                    <i class="fa fa-gear prefix"></i>
+                    <input mdbActive type="text" id="address" class="form-control" name="address" [(ngModel)]="data.address" mdbInputValidate
+                      autocomplete="address">
+                    <label for="address"><strong>Ville</strong></label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-phone prefix"></i>
+                    <input mdbActive type="number" id="phone" class="form-control" name="phone" [(ngModel)]="data.phone" mdbInputValidate
+                      autocomplete="phone">
+                    <label for="phone">Téléphone</label>
+                  </div>
+                </div>
+                <div class="row" style="height:50px;padding:30px;">
+                  <div class="md-form">
+                      <i class="fa fa-home prefix"></i>
+                      <input mdbActive type="number" id="pin" class="form-control" name="pin" [(ngModel)]="data.pin" mdbInputValidate
+                        autocomplete="pin">
+                      <label for="pin"><strong>Pin</strong></label>
+                    </div>
+                    <div class="md-form">
+                      <i class="fa fa-home prefix"></i>
+                      <input mdbActive type="text" id="quartier" class="form-control" name="quartier" [(ngModel)]="data.quartier" mdbInputValidate
+                        autocomplete="quartier">
+                      <label for="quartier">Quartier</label>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <center>
+                  <!--<button type="submit" class="btn btn-outline-dark" >Save</button>-->
+                  <button type="submit" class="btn btn-info waves-light" id="signUpButton" mdbRippleRadius>Enregistrer
+                      <i class="fa fa-sign-in ml-1"></i>
+                    </button>
+                </center>
+                
+            </form>
+          </ng-template>
+
+          <!--POUR LA CREATION ADDRESS DE LIVRAISON-->
+          <!--TEMPLATE POUR LA CREATION-->
+    <ng-template #contentCreer let-c="close" let-d="dismiss" style="border-radius: 20px 20px 20px 20px !important;">
+        
+        <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="title">
+              <i class="fa fa-user-plus"> </i> Ajouter Adresse de livraison</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+          </div>
+        <form #addressForm="ngForm" (ngSubmit)="adressLivraison(addressForm)" >
+          <div class="row" style="height:50px;padding:30px;">
+            <div class="md-form">
+                <i class="fa fa-home prefix"></i>
+                <input mdbActive type="text" id="nickname" class="form-control" name="nickname" [(ngModel)]="data.nickname" mdbInputValidate
+                  autocomplete="nickname">
+                <label for="nickname"><strong>Nom</strong> {{data.$id}}</label>
+              </div>
+          </div>
+          <div class="row" style="height:50px;padding:30px;">
+              <div class="md-form">
+                <i class="fa fa-gear prefix"></i>
+                <input mdbActive type="text" id="address" class="form-control" name="address" [(ngModel)]="data.address" mdbInputValidate
+                  autocomplete="address">
+                <label for="address"><strong>Ville</strong></label>
+              </div>
+              <div class="md-form">
+                <i class="fa fa-phone prefix"></i>
+                <input mdbActive type="number" id="phone" class="form-control" name="phone" [(ngModel)]="data.phone" mdbInputValidate
+                  autocomplete="phone">
+                <label for="phone">Téléphone</label>
+              </div>
+            </div>
+            <div class="row" style="height:100px;padding:30px;">
+              <div class="md-form">
+                  <i class="fa fa-home prefix"></i>
+                  <input mdbActive type="number" id="pin" class="form-control" name="pin" [(ngModel)]="data.pin" mdbInputValidate
+                    autocomplete="pin">
+                  <label for="pin"><strong>Pin</strong> (code secrèt)</label>
+                </div>
+                <div class="md-form">
+                  <i class="fa fa-home prefix"></i>
+                  <input mdbActive type="text" id="quartier" class="form-control" name="quartier" [(ngModel)]="data.quartier" mdbInputValidate
+                    autocomplete="quartier">
+                  <label for="quartier">Quartier</label>
+                </div>
+            </div>
+            <br>
+            <center>
+              <!--<button type="submit" class="btn btn-danger" >Save</button>-->
+              <button type="submit" class="btn btn-info waves-light" id="signUpButton" mdbRippleRadius>ENREGISTRER
+                <i class="fa fa-sign-in ml-1"></i>
+              </button>
+            </center>
+            <br>
+        </form>
+      </ng-template>
+      
+
+      <ng-template #contentSupp let-modal>
+        <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="title">
+              <i class="fa fa-user-plus"> </i> Confirmation</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <p>Vous etes sur le point de supprimer cette adresse de livraison</p>
+          </div>
+          <div class="modal-footer">
+            <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-light" (click)="supprimAddressLivraison(supp)">Close</button>-->
+            <button type="submit" class="btn btn-info waves-light" id="signUpButton" (click)="supprimAddressLivraison(supp)" mdbRippleRadius>Confirmer
+                <i class="fa fa-sign-in ml-1"></i>
+              </button>
+          </div>
+        </ng-template>
+
+        <!--ADD IMAGE-->
+        <ng-template #contentImage let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title">Ajoutez une image</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  
+                  <h3>Selectionnez une image *</h3>
+                  
+                  <button class="well drop-zone">
+                    <input type="file" (change)="onFileChanged($event)">
+                      <img src="/assets/images/drop-images.png" *ngIf="!url"/>
+                  </button>
+                  <img [src]="url" height="200">
+                  
+                </div>
+                
+          </div>
+          <div class="modal-footer">
+            <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+            <button type="button" class="btn btn-light" (click)="uploadImage(bg)">Envoyez</button>
+          </div>
+        </ng-template>
+
+    </div>
+    <div class="list card" *ngFor="let item of lisAddress" style="padding: 10px;">
+
+            <div class="row">
+              <div class="col">
+                <strong>Ville:</strong> {{item.address}} 
+              </div>
+              <div class="col">
+                <strong>Pin:</strong> {{item.pin}}
+              </div>
+              <div class="col">
+                <strong>Téléphone:</strong> {{item.phone}}
+              </div>
+              <div class="col">
+                  <strong>Quartier:</strong> {{item.quartier}}
+                </div>
+              <div class="col" style="text-align: right">
+                  <a class="fa fa-pencil-square-o fa-3x" style="color:red;" (click)="open(content, item, item.$id)" style="font-size: 20px;"></a>
+                  <a class="fa fa-trash-o fa-3x" style="color:red;" (click)="openSm(contentSupp, item)" style="font-size: 20px;"></a>
+                </div>
+            </div>
+    </div>
+  </div>
+</div>
+<br >
+
+
+
+  <!-- Tab links -->
+
+<div class="tab">
+    <button class="tablinks" (click)="openCity($event, 'London')" >Mes produits</button>
+    <button class="tablinks" (click)="openCity($event, 'vente')">Mes ventes</button>
+    <button class="tablinks" (click)="openCity($event, 'achats')">Mes achats</button>
+    <button class="tablinks" (click)="openCity($event, 'retour')">Mes retours</button>
+    <button class="tablinks" (click)="openCity($event, 'finance')">analyses financiers</button>
+  </div>
+  
+  <!-- Tab content -->
+  <div id="London" class="tabcontent">
+      <div class="alert alert-warning" role="alert" *ngIf="productList.length == 0">
+          Vous n'avez pas encore ajouté de produit
+        </div>
+      <div class="row">
+          <!-- List of Products -->
+          <div class="col-sm-4 mb-2" *ngFor="let product of productList | paginate: { itemsPerPage: 9, currentPage: page }">
+              <!--<div class="col-sm-4 mb-2" *ngFor="let product of productList | filterByBrand:searchText | paginate: { itemsPerPage: 6, currentPage: page }">-->
+            <div class="item">
+              <div class=" mb-r">
+                <!--Card-->
+                <div class="card card-cascade wider" style="margin:0px;">
+                  <!--Card image-->
+                  <a [routerLink]="['/products/product', product.$key]">
+                    <div class="view overlay hm-white-slight" style="width:100%;height:160px;">
+                      <img [src]="product.image" class="img-fluid" alt=""  width="100%" height="100%">
+                      <a>
+                        <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                      </a>
+                    </div>
+                  </a>
+                  <!--/.Card image-->
+                  <!--Card content-->
+                  <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
+                    <p class="card-title" style="margin:1px;">
+                      <strong>
+                        <a [routerLink]="['/products/product', product.$key]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.name }}</a>
+                      </strong>
+                    </p>
+                    <!--Description-->
+                    <p class="card-text" style="font-size:10px;margin:1px;padding:5px;">{{ product.description.substr(0, 25) }}....
+                    </p>
+                    <!--Card footer-->
+                    <div class="card-footer" style="padding:1px;margin:5px;">
+                      <span class="left" style="font-weight: bold;font-size:10px;">{{ product.price }} FCFA</span>
+                      <del class="right" style="color: red;font-size:10px;" *ngIf="product.reduct != 1">{{product.reduct}} Fcfa </del>
+                      <span class="right">
+                        <a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">
+                          <i class="fa fa-heart"></i>
+                        </a>
+                        <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart(product)">
+                          <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <a placement="top" mdbTooltip="Remove Product" container="body" (click)="removeProduct(product.$key, product.name_img)">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                      </span>
+                    </div>
+      
+                  </div>
+                  <!--/.Card content-->
+      
+                </div>
+                <!--/.Card-->
+      
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+  </div>
+  
+  <div id="vente" class="tabcontent active">
+    <h3>Comptabilisation des ventes</h3><br/>
+    <table >
+      <tr>
+        <th style="width:30%">Nom du produit</th>
+        <th>Qté à vendre</th>
+        <th>Prix</th>
+        <th>Client</th>
+        <th>Phone Client</th>
+        <th>Date</th>
+      </tr>
+      <tr *ngFor="let vente of tabVente">
+        <td>{{vente.product_name}}</td>
+        <td>{{vente.nbre_vente}}</td>
+        <td>{{vente.product_price}}</td>
+        <td>{{vente.clent}}</td>
+        <td>{{vente.phoneclient}}</td>
+        <td>{{vente.date | date: "dd/MM/yyyy à H:mm"}}</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div id="retour" class="tabcontent">
+      <h3>Retour</h3>
+      <p>Mes produits retournés par les clients</p>
+      <div class="alert alert-warning" role="alert">
+          aucun produit retourné
+        </div>
+  </div>
+  <div id="achats" class="tabcontent">
+      <h3>Comptabilisation de vos Achats</h3>
+      <table >
+          <tr>
+            <th style="width:30%">Nom du produit</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+            <th>vendeur</th>
+            <th>Phone du vendeur</th>
+            <th>Date</th>
+          </tr>
+          <tr *ngFor="let achat of tabAchat">
+            <td>{{achat.product_name}}</td>
+            <td>{{achat.nbre_vente}}</td>
+            <td>{{achat.product_price}}</td>
+            <td>{{achat.vendeur || ''}}</td>
+            <td>{{achat.phonevendeur}}</td>
+            <td>{{achat.date | date: "dd/MM/yyyy à H:mm"}}</td>
+          </tr>
+        </table>
+  </div>
+
+  <div id="finance" class="tabcontent">
+    <h3>Rapport des ventes</h3>
+    <div id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+
+    <h3>Rapport des Achats</h3>
+    <div id="chartContainerAchat" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+    
+  </div>
+  <br/><br/><br/>
+
+
+  
+
+  <ng2-toasty></ng2-toasty> 

@@ -1,0 +1,406 @@
+<br/>
+<div class="container">
+
+
+    <ng-template #content let-modal class="container-fluid wrapper">
+        <div class="modal-header">
+          <h4 class="modal-title">Ajoutez un commentaire</h4>
+          <button type="button" style="width:15px;border-radius: 20px;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+
+          <div style="height: 250px;overflow-y: auto;">
+            
+            <div class="media" *ngFor ="let comment of listComment">
+              <img class="mr-3" [src]="comment.image" alt="{{comment.name}}" style="width:40px; height:40px;" (click) = "openCommentateur(comment.uid)">
+              <div class="media-body">
+                <div style="background-color:#B5E0E0;border-radius: 10px;padding:8px;height:60px;">
+                    <h5 class="mt-0" style="font-size:12px;color:crimson;" (click) = "openCommentateur(comment.uid)">{{comment.name}}</h5>
+                    <p style="font-size:12px;">{{comment.comment}}</p>
+                    <p style="background-color:#E0F3F3;border-radius: 10px;font-size:10px;">{{comment.date | date: "yyyy-MM-dd à H:mm"}}</p>
+                    <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+                </div>
+                <br>
+              </div>
+            </div>
+            
+          </div>
+        
+          <form #commentForm="ngForm" (ngSubmit)="addCommentaire(commentForm)" >
+            <div class="md-form" style="height: 45px;">
+              <i class="fa fa-comment"></i>
+              <input style="background-color:#E5F1F1;border-radius: 10px;" type="text" id="commentaire" class="form-control" name="commentaire" [(ngModel)]="data.commentaire"
+                autocomplete="commentaire">
+              <label for="commentaire">Votre commentaire...</label>
+            </div>
+          
+            <div class="modal-footer"style="height: 40px;">
+              <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+              <button type="submit" style="border-radius: 10px;width: 150px;" class="btn btn-danger waves-light" >Save</button>
+            </div>
+          </form>
+        
+        </div>
+    </ng-template>
+
+    <!--discussion de prix quand cest le vendeur qui ouvre-->
+    <ng-template #contentPrix let-modal class="container-fluid wrapper" >
+      <div class="modal-header" style="background-color:rgba(119, 118, 118, 0.5);">
+        <h4 class="modal-title">Discussion du prix de ce produit</h4>
+        <button type="button" style="width:15px;border-radius: 20px;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!--quand cest le vendeur qui ouvre-->
+      <div class="modal-body" *ngIf="product.idvendeur == infoUser.uid">
+        <div style="height: 550px;overflow-y: auto;">
+          <div class="media" *ngFor ="let prix of listPrix">
+            <img class="mr-3" [src]="prix.image" alt="{{prix.name}}" style="width:40px; height:40px;">
+            <div class="media-body">
+              <div style="background-color:#B5E0E0;border-radius: 10px;height:60px;">
+                  <h5 class="mt-0" style="font-size:14px;color:crimson;"><strong>{{prix.name}} a proposé {{prix.prix}} pour cette article</strong></h5>
+                  <p style="background-color:#B5E0E0;border-radius: 10px;font-size:10px;">le {{prix.date | date: "yyyy-MM-dd à H:mm"}}</p>
+                  
+                  <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+              </div>
+              <button (click) = "discussionClient(prix, contentPrixDiscut)" style="border-radius:10px;width:95%;height:33px;position:relative;" class="btn btn-danger waves-light">discutez avec ce client</button>
+              <br/><br/>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+
+      <!--si cest le client qui ouvre -->
+      <div class="modal-body" *ngIf="product.idvendeur != infoUser.uid">
+        <div style="height: 350px;overflow-y: auto;background-color: transparent !important;"> 
+          <div class="media" *ngFor ="let prix of allPrix2">
+            <img class="mr-3" [src]="prix.image" alt="{{prix.name}}" style="width:40px; height:40px;">
+            <div class="media-body">
+              <div style="background-color:#DCE6E6;border-radius: 10px;height:60px;">
+                  <h3 class="mt-0" style="font-size:16px;color:crimson;" *ngIf="prix.name != infos.name">{{prix.name}} a proposé {{prix.prix}}</h3>
+                  <h3 class="mt-0" style="font-size:16px;color:crimson;" *ngIf="prix.name == infos.name">vous avez proposé {{prix.prix}}</h3>
+                  <p style="background-color:#DCE6E6;border-radius: 10px;font-size:10px;">le {{prix.date | date: "dd/MM/yyyy à H:mm"}}</p>
+                  <button (click) = "validPrix(prix)" style="border-radius: 10px;width:200px;height:30px;position:relative;" class="btn btn-danger waves-light" *ngIf="prix.uid != infoUser.uid">accepter ce prix</button>
+                  
+                  <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+                </div>
+                <br/><br/>
+              </div>
+            </div>
+          </div>
+  
+          <form #prixForm="ngForm" (ngSubmit)="donPix(prixForm)" >
+            <div class="md-form" style="height: 35px;">
+              <input style="background-color:#E5F1F1;border-radius: 10px;" type="number" id="prix" class="form-control" name="prix" [(ngModel)]="data.prix"
+                autocomplete="prix">
+              <label for="prix" style="top: 12px;left:15px;"><i class="fa fa-comment"></i>Donner votre prix...</label>
+            </div>
+          
+            <div class="modal-footer"style="height: 40px;">
+              <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+              <button type="submit" style="border-radius: 10px;width: 150px;" class="btn btn-danger waves-light" >Save</button>
+            </div>
+          </form>
+        
+        </div>
+
+
+
+  </ng-template>
+
+  <!--discussion entre le vendeur un un client id-->
+  <ng-template #contentPrixDiscut let-modal class="container-fluid wrapper">
+    <div class="modal-header">
+      <h4 class="modal-title">Discuter le prix avec ce client</h4>
+      <button type="button" style="width:15px;border-radius: 20px;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="height: 500px;overflow-y: auto;">
+        <div class="media" *ngFor ="let prix of tablistPrix">
+          <img class="mr-3" [src]="prix.image" alt="{{prix.name}}" style="width:40px; height:40px;">
+          <div class="media-body">
+            <div style="background-color:#B5E0E0;border-radius: 10px;height:60px;">
+                <h5 class="mt-0" style="font-size:14px;color:crimson;" *ngIf="prix.name != infos.name"><strong>{{prix.name}}</strong> a proposé {{prix.prix}}</h5>
+                <h5 class="mt-0" style="font-size:14px;color:crimson;" *ngIf="prix.name == infos.name">vous avez proposé {{prix.prix}}</h5>
+                <p style="background-color:#B5E0E0;border-radius: 10px;font-size:10px;">le {{prix.date | date: "yyyy-MM-dd à H:mm"}}</p>
+                <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+                <button (click) = "validPrix(prix)" style="border-radius: 10px;width:200px;height:30px;position:relative;" class="btn btn-danger waves-light" *ngIf="prix.uid != infoUser.uid">accepter ce prix</button>
+              </div>
+              
+            <br/><br/>
+          </div>
+        </div>
+      </div>
+    
+      <form #prixForm="ngForm" (ngSubmit)="donPixvendeur(prixForm, model)" >
+        <div class="md-form" style="height: 35px;">
+          <input style="background-color:#E5F1F1;border-radius: 10px;" type="text" id="prix" class="form-control" name="prix" [(ngModel)]="data.prix"
+            autocomplete="prix">
+          <label for="prix" style="top: 12px;left:15px;"><i class="fa fa-comment"></i>Donner votre prix...</label>
+        </div>
+      
+        <div class="modal-footer"style="height: 40px;">
+          <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+          <button type="submit" style="border-radius: 10px;width: 150px;" class="btn btn-danger waves-light" >Save</button>
+        </div>
+      </form>
+    
+    </div>
+</ng-template>
+
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+         
+        <!-- <div class="view hm-zoom z-depth-2" style="cursor: pointer">
+          <img [src]="product.image" [alt]="product.name" width="100%" class="img-fluid rounded">
+        </div> -->
+        
+      <img [imageZoom]="product.image" [src]="product.image" [hidden]="hidde1" [style.width.px]="340" [style.height.px]="250">
+      <img [imageZoom]="product.url_image2" [src]="product.url_image2" [hidden]="hidde2" [style.width.px]="340" [style.height.px]="250">
+      <img [imageZoom]="product.url_image3" [src]="product.url_image3" [hidden]="hidde3" [style.width.px]="340" [style.height.px]="250">
+
+      <div class="btn-group">
+        <div><img [src]="product.image" (click)="changeImageBg(1)" height="50px" width="60px" class="img-fluid " alt=""></div>
+        <div><img [src]="product.url_image2" (click)="changeImageBg(2)" height="50px" width="60px" class="img-fluid " alt=""></div>
+        <div><img [src]="product.url_image3" (click)="changeImageBg(3)" height="50px" width="60px" class="img-fluid " alt=""></div>
+        
+      </div>
+        <!-- <mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(88).jpg" alt="First slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(121).jpg" alt="Second slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg" alt="Third slide">
+          </mdb-carousel-item>
+        </mdb-carousel> -->
+
+      </div>
+
+        <div class="" style="margin-top:15px">
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Prix du produit</h6>
+              </div>
+              <span class="badge badge-pill badge-danger" style="color:#FFFFFF !important">{{product.price}} Fcfa</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed" *ngIf="product.reduct != 1">
+              <div>
+                <h6 class="my-0">Au lieu de</h6>
+              </div>
+              <span class="text-muted" style="color:crimson !important">
+                <del class="right" style="color: red;font-size:13px;" *ngIf="product.reduct">{{product.reduct}} Fcfa </del></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed" *ngIf="ench == 'true'">
+                <div>
+                  <h6 class="my-0">La meilleure offre est </h6>
+                </div>
+                  <div class="row" style="color: red;font-size:18px;text-shadow: 
+                      1px 1px 0px #ccc,
+                      2px 2px 0px #ccc,
+                      3px 3px 0px #999,
+                      4px 4px 0px #999,
+                      5px 5px 0px #999,
+                      6px 6px 0px #999,
+                      5px 5px 15px #aaa;"> {{getMaxOffre(product.$key)}} Fcfa
+                  </div>
+              </li>
+            <li class="list-group-item d-flex justify-content-between lh-condensed"  *ngIf="product.discut == 'Discutable'">
+                <a><span class="badge badge-pill badge-success" style="height: 30px;width:260px;padding-top:5px;padding-left:15px;font-size:16px" (click)="openPrix(contentPrix)" *ngIf="ench == 'false'">
+                    Démarrer la discussion du prix</span>
+                </a>
+                <span class="badge badge-pill badge-success" style="height:30px;width:120px;padding-top:10px;" *ngIf="ench == 'true'"> 
+                    <a class="fa fa-plus-circle" mdbTooltip="Un formulaire s'affiche ou vous devez faire une offre pour ce produit" (click)="openOffre(contentOffre, product)" style="font-size: 15px;">Faire une offre</a>
+                </span>
+            </li>
+          </ul>
+            <a href="https://web.whatsapp.com/send?phone=+237{{product.phone_vendeur}}&text=Bonjour M. {{product.nomvendeur}} Je%20suis%20intéressé%20par%20votre%20 {{product.name}} %20à%20vendre ur mymarket">
+              <button mdbBtn type="button" color="success" rounded="true" mdbWavesEffect>
+              whatsapp
+            </button>
+            </a>
+          <button mdbBtn type="button" color="danger" rounded="true" (click)="voirNum()" [hidden]="cachenum" mdbWavesEffect>Voir numéro</button>
+          <button mdbBtn type="button" color="danger" rounded="true" [hidden]="cachenum2" mdbWavesEffect>{{product.phone_vendeur}}</button>
+        </div>
+      
+    </div>
+    
+    <div class="col-sm-8">
+      <div class="product-detail">
+          <div style="font-size:22px;margin-left:200px;" *ngIf="ench == 'true'"><strong>{{compte_a_rebour(product.$key)}}</strong></div>
+        <h5 class="product-head">Details du Produit</h5>
+        <table class="table" cellspacing="0" style="max-height: 28px">
+          <tbody>
+            <tr>
+                <th scope="row">Appréciation </th>
+              <td colspan="2">
+                
+                <div class="row">
+                  <div class="col-sm">
+                    <div (click)="like()">
+                      <a *ngIf="!dejaLike" style="font-size:14px;">{{nbrLike}}<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> j'aime </a>
+                      <a (click)="like()" *ngIf="dejaLike == true" style="color:red;font-size:14px;"> {{nbrLike}}<i class="fa fa-thumbs-up" aria-hidden="true"></i> j'aime </a>
+                  </div>
+                  </div>
+                  <div class="col-sm">
+                    <div (click)="noLike()">
+                      <a *ngIf="!dejaNoLike"style="font-size:14px;">{{nbrNoLike}}<i class="fa fa-thumbs-o-down" aria-hidden="true"></i> pas</a>
+                      <a (click)="noLike()" *ngIf="dejaNoLike == true" style="color:red;font-size:14px;"> {{nbrNoLike}}<i class="fa fa-thumbs-down" aria-hidden="true"></i> j'aime pas</a>
+                  </div>
+                  </div>
+                  <div class="col-sm">
+                    <div>
+                      <a (click)="open(content)" style="color:red;font-size:14px;">{{nbrcomment}}<i class="fa fa-comment" aria-hidden="true"></i> posts</a>
+                  </div>
+                  </div>
+                </div>
+
+              </td>
+            </tr>
+            <tr *ngIf="ench == 'true'">
+              <th></th>
+              <td colspan="2" class="alert alert-warning" role="alert"> Ce produit est en vente aux enchères vous devez faire une offre sur la liste des produits aux enchères</td>
+            </tr>
+            <tr>
+              <th scope="row">Nom du produit</th>
+              <td colspan="2">{{product.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Description</th>
+              <td colspan="2">{{product.description}}</td>
+              <td>
+                  
+              </td>
+            </tr>
+            <!--<tr>
+              <th scope="row">Categorie</th>
+              <td>{{product.category}}</td>
+            </tr>-->
+            <tr>
+              <th scope="row">Quantité</th>
+              <td colspan="2">{{product.stock}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Information du produit</th>
+              <td style="width:150px;"><span class="badge badge-pill badge-success" style="height: 30px;width:90px;padding-top:10px;">{{product.discut}}</span></td>
+              <td style="width:150px;">
+              </td>
+              <td><strong>Etat : </strong> <span class="badge badge-pill badge-success" style="height:30px;width:80px;padding-top:10px;"> {{product.etat}}</span></td>
+            </tr>
+            <tr>
+                <th [routerLink]="['/products/userid', product.idvendeur]"> 
+                    <ul class="list-group mb-3" style="font-size:12px;">
+                     
+                      <p class="my-0">Localisez le venveur </p>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <p class="my-0"><strong>Nom: </strong></p>
+                        </div>
+                        <span class="text-muted" style="color:crimson !important">{{product.nomvendeur}}</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <p class="my-0"><strong>Pays: </strong></p>
+                          </div>
+                          <span class="text-muted" style="color:crimson !important">{{product.country}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <p class="my-0"><strong>Ville: </strong></p>
+                          </div>
+                          <span class="text-muted" style="color:crimson !important">{{product.ville_vendeur}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <p class="my-0"><strong>Quartier: </strong></p>
+                          </div>
+                          <span class="text-muted" style="color:crimson !important">{{product.quartier_vendeur}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                              <p class="my-0"><strong>Téléphone: </strong></p>
+                            </div>
+                            <span class="text-muted" style="color:crimson !important">{{product.phone_vendeur}}</span>
+                        </li>
+                    </ul>
+                </th>
+                <td colspan="3">
+
+                  <div *ngIf="!markers" class="alert alert-warning" role="alert">
+                    Ce vendeur n'a pas activé sa localisation
+                  </div>
+                  <agm-map *ngFor="let marker of markers" [latitude]="marker.location[0]" [longitude]="marker.location[1]" >
+                      <agm-marker
+                      [latitude]="marker.location[0]"
+                      [longitude]="marker.location[1]"
+                      [iconUrl]="'https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/images%2Fmymarket2.png?alt=media&token=c6437485-d38c-4b69-b2a6-b5378d95e78e'">
+                    
+                        <agm-info-window >
+                            <div class="card" style="width: 8rem;height: 12rem;top: 0px;" [routerLink]="['/products/userid', marker.uid]">
+                              <img class="card-img-top" [src]="marker.photo" alt="{{marker.name}}" height="80px" width="80px" >
+                              <div class="card-body">
+                                <h5 class="card-title" style="font-size:10px;">{{ marker.name }}</h5>
+                                <p class="card-text" style="font-size:10px;">Ce vendeur est à <strong>{{marker.distance}}</strong> km de vous!</p>
+                                <p style="font-size:10px;">Secteur: {{marker.description}}</p>
+                                <a href="#"><i class="fa fa-dribbble"></i></a> 
+                                <a href="#"><i class="fa fa-twitter"></i></a> 
+                                <a href="#"><i class="fa fa-linkedin"></i></a> 
+                                <a href="#"><i class="fa fa-facebook"></i></a> 
+                                <p ><button style="font-size:10px;">{{marker.tel}} </button></p>
+                                <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                              </div>
+                            </div>
+                        </agm-info-window>
+                      </agm-marker>
+                    </agm-map>
+                  
+                </td>
+
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- FAIRE UN OFFRE -->
+<ng-template #contentOffre let-c="close" let-d="dismiss">
+    <div class="modal-header light-blue darken-3 white-text">
+      <h4 class="modal-title" id="modal-basic-title">Faire un offre pour ce produit</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+    <form #offreForm="ngForm" (ngSubmit)="offreEnchere(offreForm, data)" >
+      <div class="modal-body">
+          <div class="md-form">
+            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+              <input mdbActive type="number" id="montant" class="form-control" name="montant" [(ngModel)]="data.montant" mdbInputValidate
+                autocomplete="montant">
+              <label for="montant" style="padding-left: 40px;"><strong>Montant</strong></label>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+        <button type="submit" style="background-color:#E94343;border-radius: 10px;" class="btn btn-danger waves-light" >Enregistrer</button>
+      </div>
+      
+    </form>
+    
+    
+  </ng-template>
+<ng2-toasty></ng2-toasty> 

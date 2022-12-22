@@ -1,0 +1,52 @@
+<div class="container">
+
+  <app-navbar></app-navbar>
+
+  
+
+
+  <!-- <div style="width: 100%; margin-left: 0px;" *ngIf="categoryList">
+    <div class="scrolling-wrapper">
+      <div class="card" style="height: 50px;width: 100px;" *ngFor="let cat of categoryList">
+        <div lines="none" [routerLink]="['/list-produit/', cat.code]" style="text-align: center;">
+          <div class="avatar">
+            <img src="{{cat.image}}" width="30px" height="25px" />
+          </div>
+          <span style="font-size: 12px;">{{cat.nom}}</span>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+  <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <router-outlet #o="outlet"></router-outlet>
+  </main>
+
+  <!-- <app-footer></app-footer> -->
+  <app-loader-spinner></app-loader-spinner>
+
+
+  <button type="button" class="open-button" (click)="openForm()"><img src="https://img.icons8.com/color/52/000000/secured-letter.png"></button>
+  
+    <div class="form-popup" id="myForm">
+      <form action="" class="form-container">
+        <button type="button" class="btn cancel" (click)="closeForm()">Fermer</button>
+        <chat-dialog></chat-dialog>
+      </form>
+      
+    </div>
+
+    <ul id=menu>
+        <a target="_blank" class="mt-facebook mt-share-inline-bar-sm" title="Partagez sur Facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fshopping-8abd0.firebaseapp.com%2F&amp;src=sdkpreparse" rel="nofollow" onclick="javascript:window.open(this.href, 'mon titre', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;"><img src="http://mojotech-static.s3.amazonaws.com/facebook@2x.png" alt="Facebook" /></a>
+        <a target="_blank" class="mt-twitter mt-share-inline-bar-sm" title="Partagez sur Twitter" href="https://twitter.com/share?url=https://shopping-8abd0.firebaseapp.com" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;"><img src="http://mojotech-static.s3.amazonaws.com/twitter@2x.png" alt="Twitter" /></a>
+        <a target="_blank" class="mt-google mt-share-inline-bar-sm" title="Partagez sur Google +" href="https://plus.google.com/share?url=https://shopping-8abd0.firebaseapp.com" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="http://mojotech-static.s3.amazonaws.com/google@2x.png" alt="Google Plus" /></a>
+        <a target="_blank" class="mt-linkedin mt-share-inline-bar-sm" title="Partagez sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://shopping-8abd0.firebaseapp.com" rel="nofollow" onclick="javascript:window.open(this.href, '','menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=450,width=650');return false;"><img src="http://mojotech-static.s3.amazonaws.com/linkedin@2x.png" alt="Linkedin" /></a>
+        <a target="_blank" class="mt-message mt-share-inline-bar-sm"title="Envoyer par mail" href="mailto:?Subject=Découvre le nouveau réseau social des ventes en ligne !&amp;Body=Découvre%20ce%20nouveau%20réseau%20social%20qui%20directement%20en%20relation%20le%20vendeur%20et%20le%20client%20c'est%20super !%20 https://shopping-8abd0.firebaseapp.com" rel="nofollow"><img src="https://img.icons8.com/material-rounded/30/000000/email.png" alt="email" /></a>
+    </ul>
+    
+    
+</div>
+

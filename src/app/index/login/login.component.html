@@ -1,0 +1,156 @@
+<br>
+<section class="container">
+
+  <!-- Login form -->
+  <div class="col-sm-6">
+    <form style="width:22rem" #loginForm="ngForm" (ngSubmit)="signInWithEmail(loginForm)">
+      <p class="h5 text-center mb-4">CONNEXION</p>
+
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input mdbActive type="email" id="loginEmailId" class="form-control" name="emailId" [(ngModel)]="user.emailId" mdbInputValidate
+          [email]="true" autocomplete="email">
+        <label for="emailId">Votre email</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-lock prefix grey-text"></i>
+        <input type="password" id="loginPassword" name="loginPassword" [(ngModel)]="user.loginPassword" class="form-control" mdbActive
+          autocomplete="current-password">
+        <label for="defaultForm-pass">Votre password</label>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary waves-light" id="loginButton" mdbRippleRadius>Login</button>
+
+        <button type="button" class="btn waves-light" (click)="signInWithGoogle()" style="background-color: #dd4b39">
+          <i class="fa fa-google" aria-hidden="true"></i>
+          via Google
+        </button>
+
+      </div>
+    </form>
+  </div>
+  <br>
+  <p>Pas de compte ?
+    <a data-toggle="modal" data-target="#createUserForm" style="color:dodgerblue">Créez un compte ici!</a>
+  </p>
+  <!-- Login form -->
+
+  <!--Modal: Register Form-->
+  <div class="modal fade" id="createUserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+      <form #userForm="ngForm" (ngSubmit)="addUser(userForm)">
+        <div class="modal-content">
+
+          <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="title">
+              <i class="fa fa-user-plus"></i> ENREGISTREMENT</h4>
+            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert" *ngIf="errorInUserCreate">
+              {{errorMessage.message}}
+            </div>
+            <table height="50px">
+              <tr style="height:20px;">
+                <td style="height:20px;">
+                    <div class="md-form form-sm">
+                        <i class="fa fa-envelope prefix"></i>
+                        <input mdbActive type="email" id="emailId" class="form-control" name="emailId" [(ngModel)]="createUser.emailId" mdbInputValidate
+                          [email]="true" autocomplete="email">
+                        <label for="emailId">Your email</label>
+                      </div>
+                </td>
+                <td style="height:20px;">
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        <input mdbActive type="password" id="password" class="form-control" name="password" [(ngModel)]="createUser.password" mdbInputValidate
+                          autocomplete="new-password">
+                        <label for="password">password</label>
+                      </div>
+                </td>
+              </tr>
+              <tr>
+                  <td style="height:20px;">
+                      <div class="md-form form-sm">
+                          <i class="fa fa-gear prefix"></i>
+                          <input mdbActive type="text" id="nameId" class="form-control" name="nameId" [(ngModel)]="createUser.nameId" mdbInputValidate
+                            autocomplete="name">
+                          <label for="nameId">Nom</label>
+                        </div>
+                  </td>
+                  <td style="height:20px;">
+                      <div class="md-form form-sm">
+                          <i class="fa fa-phone prefix"></i>
+                          <input mdbActive type="number" id="telephoneId" class="form-control" name="telephoneId" [(ngModel)]="createUser.telephoneId" mdbInputValidate
+                            autocomplete="telephone">
+                          <label for="telephoneId">Téléphone</label>
+                        </div>
+                  </td>
+                </tr>
+                <tr>
+                    <td style="height:20px;">
+                        <div class="md-form form-sm">
+                            <i class="fa fa-home prefix"></i>
+                            <input mdbActive type="text" id="villeId" class="form-control" name="villeId" [(ngModel)]="createUser.villeId" mdbInputValidate
+                              autocomplete="ville">
+                            <label for="villeId">Ville</label>
+                          </div>
+                    </td>
+                    <td style="height:20px;">
+                        <div class="md-form form-sm">
+                            <i class="fa fa-home prefix"></i>
+                            <input mdbActive type="text" id="quartierId" class="form-control" name="quartierId" [(ngModel)]="createUser.quartierId" mdbInputValidate
+                              autocomplete="quartier">
+                            <label for="quartierId">Quartier</label>
+                          </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="height:20px;">
+                        <label for="description">Décrire ce que vous vendez</label>
+                        <input type="text" id="description" class="form-control" name="description" [(ngModel)]="createUser.description"
+                          autocomplete="description">
+                    </td>
+                  </tr>
+            </table>
+            
+            <div class="row" style="height:35px;padding-top:0px;margin-top:20px;width:100%;">
+              <div class="col">
+                <label class="item item-input item-select">Pays:
+                    <select class="form-control" name="paysId" id="pays_select" [(ngModel)]="createUser.paysId">
+                      <option *ngFor="let pays of paysList" [ngValue]="pays.code">{{pays.nom}}</option>
+                    </select>
+                  </label>
+              </div>
+              <div class="col">
+                <label class="item item-input item-select">
+                    <span style="color: #616060;" class="input-label">
+                      etes-vous vendeur(euse)?
+                    </span>
+                    <select id="vendeur_select" class="form-control" name="vendeurId" [(ngModel)]="createUser.vendeurId">
+                        <option [ngValue]="true">oui</option>
+                        <option [ngValue]="false">non</option>
+                    </select>
+                  </label>  
+              </div>
+            </div>
+            
+            <div class="text-center mt-2" style="height:70px;">
+              <button class="btn btn-info waves-light" id="signUpButton" mdbRippleRadius>Sign up
+                <i class="fa fa-sign-in ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<br>
+<br>
+<br>
+<ng2-toasty></ng2-toasty>

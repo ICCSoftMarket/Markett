@@ -1,0 +1,34 @@
+<div class="container">
+    
+    
+
+
+    <div class="row">
+            <div class="col-8">
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let product of checkoutProducts">
+                        <div>
+                            <img [src]="product.item_image" [alt]="product.name" width="150" height="100">
+                        </div>
+                        <div style="padding: 10px">
+                            <h6 class=" my-0 ">{{product.item_name}}</h6>
+                            <p><strong>Quantité :</strong> {{product.item_qty}}</p>
+                            <p><strong>Vendeur :</strong> {{product.item_nomvendeur}}</p>
+                        </div>
+                        <span class="badge badge-pill badge-success" style="height:30px;width:80px;padding-top:10px;">{{product.item_price}} FCFA</span>
+                    </li>
+                    <hr>
+                    <li class="list-group-item d-flex justify-content-between ">
+                        <span>Total (FCFA)</span>
+                        <span class="badge badge-pill badge-success" style="height:30px;width:80px;padding-top:10px;">{{totalPrice}} FCFA</span>
+                    </li>
+                
+                </ul>
+            </div>
+            <div class="col-4">
+                <div class="float-right">
+                    <a class="btn btn-danger " [routerLink]="['/checkouts', {outlets: {'checkOutlet': ['shipping-details']}}]" routerLinkActive="active">Next</a>
+                </div>
+            </div>
+          </div>
+</div>

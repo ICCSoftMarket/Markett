@@ -1,0 +1,31 @@
+
+  <div class="row">
+    <div class="col-sm-3">
+      <img src="https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/phone_call_babiphone.jpg?alt=media&token=cac18abc-889a-4ba8-8eb3-b1820a11a4a8" height="84px" width="84px" />  
+    </div>
+    <div class="col-sm-9">
+        <strong style="font-family: cursive;">Besoin d'aide?</strong>
+      </div>
+  </div>
+  <div style="height: 280px;overflow-y: auto;">
+    <ng-container *ngFor="let message of messages | async"><!--style="height: 350px;overflow-y: auto;"-->
+      
+        <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot','to':   message.sentBy === 'user' }">
+          {{ message.content }}
+        </div>
+      
+      </ng-container>
+  </div>
+  
+  <label for="nameField" style="font-family: cursive;">Booster vos ventes : 697182623</label>
+  <div class="card-footer">
+      <div class="input-group">
+        <input [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" class="type_msg" placeholder="Tapez votre message...">
+        <button (click)="sendMessage()" class="send_btn">Envoyer</button>
+      </div>
+  </div>
+
+
+
+
+

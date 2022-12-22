@@ -1,0 +1,85 @@
+
+<br/>
+<div><strong>Les commandes de vos clients</strong></div>
+<div class="alert alert-warning" role="alert">
+  Vous pouvez appeler le client pour les modalités de livraison
+</div>
+<br>
+
+  <div class="row">
+    <!-- List of Products -->
+    <div class="col-sm-4 mb-2" *ngFor="let product of orderList | paginate: { itemsPerPage: 9, currentPage: page }">
+        <!--<div class="col-sm-4 mb-2" *ngFor="let product of productList | filterByBrand:searchText | paginate: { itemsPerPage: 6, currentPage: page }">-->
+      <div class="item">
+        <div class=" mb-r">
+          <!--Card-->
+          <div class="card card-cascade wider" style="margin:0px;">
+            <!--Card image-->
+            <a [routerLink]="['/products/product', product.product_id]">
+              <div class="view overlay hm-white-slight" style="width:100%;height:160px;">
+                <img [src]="product.product_image" class="img-fluid" alt=""  width="100%" height="100%">
+                <a>
+                  <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                </a>
+              </div>
+            </a>
+            <!--/.Card image-->
+            <!--Card content-->
+            <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
+              <p class="card-title" style="margin:1px;">
+                <strong>
+                  <a [routerLink]="['/products/product', product.product_id]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.product_name }}</a>
+                </strong>
+              </p>
+              <!--Description-->
+              <p class="card-text" style="font-size:10px;margin:1px;padding:5px;">{{ product.message }}
+              </p>
+              <p style="font-size:10px;">Qté : {{ product.item_qty }}</p>
+              <p style="font-size:10px;">Total: {{ product.item_qty * product.product_price }} FCFA</p>
+              <!--Card footer-->
+              <div class="card-footer" mdbTooltip="Informations du client">
+                <a [routerLink]="['/products/userid', product.idvendeur]">
+                  <div class="row" >
+                      <span class="left" style="font-weight: bold;font-size:10px;">Nom du client: </span><p style="font-weight: bold;font-size:10px;color:black;margin-left:5px;"> {{ product.user_acheteur }} </p>
+                  </div>
+                  <div class="row">
+                      <span class="left" style="font-weight: bold;font-size:10px;">Téléphone: </span><p style="font-weight: bold;font-size:10px;color:black;margin-left:5px;"> {{ product.user_phone }} </p>
+                  </div>
+                  <div class="row">
+                      <span class="left" style="font-weight: bold;font-size:10px;">Depuis le: </span> <p style="font-weight: bold;font-size:10px;color:black;margin-left:5px;">{{product.date_commande | date: "dd/MM/yyyy à H:mm"}}</p>
+                  </div>
+                </a>
+                
+
+
+                
+                
+                
+                <!--<del class="right" style="color: red;font-size:10px;" *ngIf="product.reduct != 1">Ancien Prix: {{product.reduct}} Fcfa </del>-->
+                <span class="right">
+                  <!--<a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">
+                    <i class="fa fa-heart"></i>
+                  </a>
+                  <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart(product)">
+                    <i class="fa fa-shopping-cart"></i>
+                  </a>
+                  <a placement="top" mdbTooltip="Remove Product" container="body" *ngIf="authService.userDetails.uid == product.idvendeur" (click)="removeProduct(product.$key)">
+                    <i class="fa fa-trash"></i>
+                  </a>-->
+                  
+                </span>
+              </div>
+
+            </div>
+            <!--/.Card content-->
+            <button (click)="vendu(product)" mdbTooltip="Confirmer la vente" style="width:100%;" class="btn btn-danger waves-light">Vendu</button>
+          </div>
+          <!--/.Card-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>

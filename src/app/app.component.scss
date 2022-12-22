@@ -1,0 +1,172 @@
+:host {
+  main {
+    position: relative;
+  }
+}
+
+
+
+/* Mon tchat bot 
+
+  {box-sizing: border-box;}*/
+  
+  /* Button used to open the chat form - fixed at the bottom of the page */
+  .open-button {
+    background-color: rgba(241, 10, 10, 0.84);
+    color: white;
+    padding: 14px 18px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 100px;
+    border-radius: 40px;
+  }
+  
+  /* The popup chat - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    border-radius: 20px 20px 20px 20px !important;
+    overflow-y: auto;
+  }
+  
+  /* Add styles to the form container */
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 20px 20px 20px 20px !important;
+    overflow-y: auto;
+  }
+  
+  /* Full-width textarea */
+  .form-container textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 200px;
+  }
+  
+  /* When the textarea gets focus, do something */
+  .form-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for the submit/login button */
+  .form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .form-container .cancel {
+    background-color: red;
+    height: 18px;
+  }
+  
+  /* Add some hover effects to buttons */
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+  }
+
+
+  /*menu gauche*/
+  #menu {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    width: 10em;
+    margin-top: -2.5em;
+  }
+
+
+  /*bouton share social*/
+a.mt-share-inline-bar-sm img {
+  width: 34px;
+  height: auto;
+  border: 0px;
+}
+a.mt-share-inline-bar-sm:hover {
+  z-index: 50;
+  transform: scale3d(1.075, 1.075, 1.075);
+}
+a.mt-share-inline-bar-sm {
+  display: inline-block;
+  width: 144px;
+  height: 48px;
+  border-radius: 0px;
+  margin-right: 0px;
+  text-align: center;
+  position: relative;
+  transition: all 100ms ease-in 0s;
+  transform: scale3d(1, 1, 1);
+}
+.mt-google:hover {
+  background-color: rgb(225, 95, 79);
+}
+.mt-google {
+  background-color: rgb(221, 75, 57);
+}
+.mt-linkedin:hover {
+  background-color: rgb(16, 135, 192);
+}
+.mt-linkedin {
+  background-color: rgb(14, 118, 168);
+}
+.mt-twitter:hover {
+  background-color: rgb(8, 187, 255);
+}
+.mt-twitter {
+  background-color: rgb(0, 172, 238);
+}
+.mt-facebook:hover {
+  background-color: rgb(66, 100, 170);
+}
+.mt-facebook {
+  background-color: rgb(59, 89, 152);
+}
+.mt-pinterest:hover {
+  background-color: rgb(221, 42, 48);
+}
+.mt-pinterest {
+  background-color: rgb(204, 33, 39);
+}
+.mt-message {
+  background-color: rgb(204, 33, 39);
+}
+
+
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  animation-delay: initial;
+  animation-direction: normal;
+
+  .card {
+    display: inline-block;
+    margin: 5px;
+  }
+
+  &::-webkit-scrollbar {
+      display: none;
+    }
+}

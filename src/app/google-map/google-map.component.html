@@ -1,0 +1,35 @@
+
+<!--<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>-->
+<agm-map [latitude]="lat" [longitude]="lng" >
+  <agm-marker *ngFor="let marker of markers"
+  [latitude]="marker.location[0]"
+  [longitude]="marker.location[1]"
+  [iconUrl]="'https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/images%2Fmymarket2.png?alt=media&token=c6437485-d38c-4b69-b2a6-b5378d95e78e'">
+
+    <agm-info-window >
+      <!--<h3><strong>Detail de la position</strong></h3>
+
+      <p>Ce vendeur est à {{marker.distance}} km de vous!</p>-->
+
+        <div class="card" style="width: 12rem;" [routerLink]="['/products/userid', marker.uid]">
+          <img class="card-img-top" [src]="marker.photo" alt="{{marker.name}}" height="180px" width ="100%">
+          <div class="card-body">
+            <h5 class="card-title" style="font-size: 14px;">{{ marker.name }}</h5>
+            <p class="card-text" style="font-size: 14px;">Ce vendeur est à <strong>{{marker.distance}}</strong> km de vous!</p>
+            <p style="font-size: 14px;">Secteur: {{marker.description}}</p>
+            <a href="#"><i class="fa fa-dribbble"></i></a> 
+            <a href="#"><i class="fa fa-twitter"></i></a> 
+            <a href="#"><i class="fa fa-linkedin"></i></a> 
+            <a href="#"><i class="fa fa-facebook"></i></a> 
+            <p><button style="font-size: 14px;">{{marker.tel}} </button></p>
+            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+          </div>
+        </div>
+
+    </agm-info-window>
+
+  </agm-marker>
+
+</agm-map>

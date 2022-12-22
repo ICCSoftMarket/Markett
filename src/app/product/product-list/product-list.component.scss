@@ -1,0 +1,251 @@
+.section .section-heading {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+.section-heading {
+  text-align: center;
+}
+.section-description {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.section-description {
+  color: #757575;
+  margin-bottom: 4rem;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+}
+.section img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card.card-cascade.narrower {
+  margin-top: 10px;
+}
+.card.card-cascade {
+  width: 100%;
+}
+.card:not([class*="card-outline-"]) {
+  border: 0;
+}
+
+.card.card-cascade.narrower .view {
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: -20px;
+}
+.card.card-cascade .view {
+  border-radius: 4px;
+}
+.btn-floating:hover,
+.card-overlay,
+.card.card-cascade .view,
+.colorful-select .dropdown-content li a:hover,
+.colorful-select .dropdown-content li span:hover,
+.comments-list img,
+.modal-dialog.cascading-modal.modal-avatar .modal-header img,
+.reply-form img,
+.testimonial-carousel .testimonial .avatar img,
+.z-depth-2 {
+  -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card.card-cascade .card-body {
+  padding-top: 1.8rem;
+}
+.btn .fa,
+.card .card-body {
+  position: relative;
+}
+.card .rating {
+  color: #ffa000;
+}
+.rating {
+  list-style-type: none;
+}
+.no-padding .fa,
+.rating {
+  padding: 0;
+}
+.rating li {
+  display: inline-block;
+}
+.no-padding .fa,
+.rating {
+  padding: 0;
+}
+
+.card-text {
+  line-height: 20px;
+  height: 60px;
+  overflow: hidden;
+}
+
+.card .card-footer {
+  background-color: transparent;
+}
+
+.card .card-footer .left {
+  float: left;
+}
+
+.card .card-footer .right {
+  float: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.card .card-footer .right a.active {
+  color: #d50000;
+}
+.card .card-footer .right a {
+  color: #757575;
+  margin-left: 1rem;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.card .card-footer .right a .fa-heart {
+  color: #3f51b5;
+}
+
+
+
+// .scrolling-wrapper {
+//   overflow-x: scroll;
+//   overflow-y: scroll;
+//   white-space: nowrap;
+//   animation-delay: initial;
+//   animation-direction: normal;
+
+//   .card {
+//     display: inline-block;
+//     margin: 5px;
+//   }
+
+//   &::-webkit-scrollbar {
+//       display: none;
+//     }
+// }
+
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .card {
+    display: inline-block;
+    margin: 5px;
+  }
+}
+
+
+.scrolling-wrapper-flexbox {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+ 
+  
+
+  .card {
+    flex: 0 0 auto;
+    margin: 5px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+nav#menu-container {
+  background:#586e75;
+  position:relative;
+  width:100%;
+  height: 56px;
+}
+#btn-nav-previous {
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  left: 0px;
+  padding: 9px 12px;
+  background: #8f9a9d;
+  fill:#FFF;
+}
+#btn-nav-next {
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  right: 0px;
+  padding: 9px 12px;
+  background: #8f9a9d;
+  fill:#FFF;
+}
+.menu-inner-box
+{ 
+  width: 100%;
+  white-space: nowrap;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0px 54px;
+  box-sizing: border-box;
+}
+.menu
+{  
+  padding:0;
+  margin: 0;
+  list-style-type: none;
+  display:block;
+  text-align: center;
+}
+.menu-item
+{
+  height:100%;
+  padding: 0px 25px;
+  color:#fff;
+  display:inline;
+  margin:0 auto;
+  line-height:57px;
+  text-decoration:none;
+  text-align:center;
+  white-space:no-wrap;
+}
+.menu-item:hover {
+  text-decoration:underline;
+}
+
+@media only screen and (max-width: 480px) {
+#btn-nav-previous {
+  display:none;
+}
+#btn-nav-next {
+  display:none;
+}
+  .menu-inner-box
+  { 
+      width:100%;
+      overflow-x:auto;
+  }
+}

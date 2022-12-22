@@ -1,0 +1,280 @@
+
+<br/>
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" #addProductForm="ngForm" (ngSubmit)="createProduct(addProductForm)">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="productName">Product Name</label>
+              <input type="text" class="form-control" id="productName" name="productName" [(ngModel)]="product.productName" placeholder="Product Name"
+                value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="productCategory">Product Category</label>
+              <input type="text" class="form-control" id="productCategory" name="productCategory" [(ngModel)]="product.productCategory"
+                placeholder="Product Category" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="productDescription">Product Description
+              <span class="text-muted">(Optional)</span>
+            </label>
+            <textarea type="text" class="form-control" id="productDescription" placeholder="Product Description" name="productDescription"
+              [(ngModel)]="product.productDescription"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="productPrice">Product Price</label>
+              <input type="number" name="productPrice" class="form-control" [(ngModel)]="product.productPrice" placeholder="Product Price"
+                id="productPrice" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="productQuatity">Product Quantity</label>
+              <input type="text" class="form-control" id="productQuatity" name="productQuatity" [(ngModel)]="product.productQuatity" placeholder="Product Quantity"
+                value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="productSeller">Product Seller</label>
+            <input type="text" class="form-control" id="productSeller" [(ngModel)]="product.productSeller" name="productSeller" placeholder="Product Seller"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="productImageUrl">Product Image</label>
+            <input type="text" class="form-control" id="productImageUrl" [(ngModel)]="product.productImageUrl" name="productImageUrl"
+              placeholder="Image Url" required>
+          </div>
+
+          <hr class="mb-4">
+
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Add Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>-->
+
+
+
+  <div class="modal-dialog" role="document" style="left: 200px">
+    <div class="modal-content">
+
+        <div class="modal-body">
+          <form class="needs-validation" #addProductForm="ngForm" (ngSubmit)="createProduct(addProductForm)">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="name">Nom du produit *</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" placeholder="name"
+                 autocomplete="name" value="" required>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="name2">Autre nom</label>
+                <input type="text" class="form-control" id="name2" name="name2" [(ngModel)]="product.name2"
+                  placeholder="Autre nom" value="" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="country">Catégorie: *
+                <select mdbActive class="form-control" name="categ" id="categ" [(ngModel)]="product.categ" mdbInputValidate autocomplete="categ">
+                  <option *ngFor="let categ of categList" [ngValue]="categ.code">{{categ.nom}}</option>
+                </select>
+                </label>
+            </div>
+
+            <div class="mb-3">
+              <label for="description">Description du produit *
+              </label>
+              <textarea mdbActive type="text" class="form-control" id="description" placeholder="Description" name="description" mdbInputValidate autocomplete="description"
+                [(ngModel)]="product.description"></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="price">Prix du Produit *</label>
+                <input mdbActive type="number" name="price" class="form-control" [(ngModel)]="product.price" placeholder="Prix" mdbInputValidate autocomplete="Prix"
+                  id="price" value="" required>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="stock">Quantité *</label>
+                <input mdbActive type="text" class="form-control" id="stock" name="stock" [(ngModel)]="product.stock" placeholder="Quantité" mdbInputValidate autocomplete="stock"
+                  value="" required>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="reduct">Ancien Prix</label>
+                <input type="number" name="reduct" class="form-control" [(ngModel)]="product.reduct" placeholder="Ancien Prix"
+                  id="reduct" value="" >
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="etat">Etat *</label>
+                <input mdbActive type="text" class="form-control" id="etat" name="etat" [(ngModel)]="product.etat" placeholder="Etat"  autocomplete="etat"
+                  value="" required>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+            </div>
+
+            
+           
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="enchere">
+                  <span style="color: #616060;" class="input-label">
+                    Vente aux enchère? *
+                  </span>
+                  <select mdbActive id="enchere" class="form-control" name="enchere" [(ngModel)]="product.enchere" autocomplete="enchere" required>
+                      <option [ngValue]="true">oui</option>
+                      <option [ngValue]="false">non</option>
+                  </select>
+                </label>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="discutable">
+                  <span style="color: #616060;" class="input-label">
+                    Le prix est-il discutable? *
+                  </span>
+                  <select mdbActive id="discutable" class="form-control" name="discutable" [(ngModel)]="product.discutable" mdbInputValidate autocomplete="discutable" required>
+                      <option [ngValue]="true">oui</option>
+                      <option [ngValue]="false">non</option>
+                  </select>
+                </label>
+                <div class="invalid-feedback" *ngIf="obligatoire == true">
+                  Ce champ est obligatoire.
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="mb-3" *ngIf="product.enchere">
+              <label for="temps">Nombre de jour</label>
+              <input type="number" name="temps" class="form-control" [(ngModel)]="product.temps" mdbInputValidate placeholder="Nombre de jour aux enchères"
+                id="temps" value="" required>
+            </div>
+            <!--<div class="mb-3">
+              <label for="productSeller">Product Seller</label>
+              <input type="text" class="form-control" id="productSeller" [(ngModel)]="product.productSeller" name="productSeller" placeholder="Product Seller"
+                required>
+            </div>-->
+
+    <!--vehicule-->
+    <div class="row" *ngIf="product.categ == 'voiture'" >
+      <div class="col-md-6 mb-3">
+        <label for="model">Model : </label>
+        <input mdbActive class="form-control" type="text" id="model" name="model" [(ngModel)]="product.model" autocomplete="model">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="kilometrage">Kilometrage : </label>
+        <input mdbActive class="form-control" type="number" id="kilometrage" name="kilometrage" [(ngModel)]="product.kilometrage" autocomplete="kilometrage">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Transmission : </label>
+        <select mdbActive class="form-control" placeholder="Selection" [(ngModel)]="product.transmission" name="transmission" id="transmission">
+          <option value="manuelle">Manuelle</option>
+          <option value="automatique">Automatique</option>
+        </select>
+      </div>
+    </div>
+
+    <!--immobilier-->
+    <div class="row" *ngIf="product.categ == 'immobilier'" >
+      <div class="col-md-6 mb-3">
+        <label for="nbr_piece">Nombre de pièces : </label>
+        <input mdbActive class="form-control" type="number" id="nbr_piece" name="nbr_piece" [(ngModel)]="product.nbr_piece" autocomplete="nbr_piece">
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="superficie">Superficie : </label>
+        <input mdbActive class="form-control" type="number" id="superficie" name="superficie" [(ngModel)]="product.superficie" autocomplete="superficie">
+      </div>
+    </div>
+
+    <!--vetement-->
+    <div class="row" *ngIf="product.categ == 'mode_homme' || product.categ == 'mode_femme'" >
+      <div class="col-md-6 mb-3">
+        <label for="taille">Taille : </label>
+        <input mdbActive class="form-control" type="number" id="taille" name="taille" [(ngModel)]="product.taille" autocomplete="taille">
+      </div>
+    </div>
+
+    <!--chaussure-->
+    <div class="row" *ngIf="product.categ == 'chaussure_homme' || product.categ == 'chaussure_femme'" >
+      <div class="col-md-6 mb-3">
+        <label for="pointure">Pointure : </label>
+        <input mdbActive class="form-control" type="number" id="pointure" name="pointure" [(ngModel)]="product.pointure" autocomplete="pointure">
+      </div>
+    </div>
+
+            
+            <div class="mb-3">
+              
+              <h3>Selectionnez une image *</h3>
+              
+              <button class="well drop-zone" *ngIf="url3==''">
+                <input type="file" (change)="onFileChanged($event)">
+                  <img src="/assets/images/drop-images.png" *ngIf="!url"/>
+              </button>
+              <div *ngIf="url"><img [src]="url" height="200">
+                <a (click)="suppImg()"><i class="fas fa-trash-alt"></i></a>
+              </div>
+              <div *ngIf="url2"><img [src]="url2" height="200">
+                <a (click)="suppImg1()"><i class="fas fa-trash-alt"></i></a></div>
+              <div *ngIf="url3"><img [src]="url3" height="200">
+                <a (click)="suppImg2()"><i class="fas fa-trash-alt"></i></a></div>
+            </div>
+
+            <div *ngIf="currentUpload">
+              <div class="progress">
+                <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+              </div>
+              Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+            </div>
+
+            <hr class="mb-4">
+
+            <button class="btn btn-primary btn-lg btn-block" type="submit" mdbRippleRadius>Ajoutez le Produit</button>
+          </form>
+        </div>
+
+
+    </div>
+  </div>

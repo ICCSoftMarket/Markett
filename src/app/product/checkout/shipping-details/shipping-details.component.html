@@ -1,0 +1,196 @@
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+
+            <div class="col-md order-md-1">
+              <br>
+                <h4 class="mb-3">Selectionnez une adresse de livraison</h4>
+                <form class="needs-validation" #userDetailsForm="ngForm" (ngSubmit)="updateUserDetails(userDetailsForm)">
+                <a class="fa fa-plus-circle fa-5x" (click)="openCreer(contentCreer)" style="font-size: 14px;"> Ajoutez une adresse de livraison</a>
+                  <br>
+                  <br>
+                  <div class="list card" *ngFor="let item of addressList" >
+                   
+                        <div class="btn-group" data-toggle="buttons" >
+                          <label class="btn btn-sm btn-default" style="width:100%;height: 70px;" (click)="getValue(item)">
+                            <div style="float: left;">
+                              <input type="radio" id="userName" name="userName" >
+                            </div>
+            
+                            <div style="float: middle;">
+                                <div class="row" style="height: 30px;">
+                                    <div class="col">
+                                        <strong>{{item.nickname}}</strong>
+                                    </div>
+                                    <div class="col">
+                                      
+                                    </div>
+                                    <div class="col">
+                                      
+                                    </div>
+                                    <div class="col">
+                                        
+                                      </div>
+                                  </div>
+                            </div>
+            
+                            <div style="float: middle;">
+                              <div class="row">
+                                <div class="col">
+                                  <strong>Ville:</strong> {{item.address}} 
+                                </div>
+                                <div class="col">
+                                  <strong>Pin:</strong> {{item.pin}}
+                                </div>
+                                <div class="col">
+                                  <strong>Téléphone:</strong> {{item.phone}}
+                                </div>
+                                <div class="col">
+                                    <strong>Quartier:</strong> {{item.quartier}}
+                                  </div>
+                                <div class="col">
+                                    <a class="fa fa-pencil-square-o fa-3x" (click)="open(content, item, item.$key)" style="font-size: 20px;"></a>
+                                    <a class="fa fa-trash-o fa-3x" (click)="openSm(contentSupp, item)" style="font-size: 20px;"></a>
+                                  </div>
+                              </div>
+                            </div>
+                          </label>
+                  </div>
+                </div>
+
+                  <hr class="mb-4">
+                  <button class="btn btn-danger btn-lg btn-block" type="submit">COMMANDER</button>
+                </form>
+              </div>
+        </div>
+        <div class="col-4">
+          .
+        </div>
+      </div>
+
+  
+
+
+  
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ajoutez une adresse de livraison</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form #addressForm="ngForm" (ngSubmit)="adressLivraison(addressForm, data)" >
+      <div class="row" style="height:80px;">
+        <div class="md-form">
+            <i class="fa fa-home prefix"></i>
+            <input mdbActive type="text" id="nickname" class="form-control" name="nickname" [(ngModel)]="data.nickname" mdbInputValidate
+              autocomplete="nickname">
+            <label for="nickname"><strong>Nom</strong> {{data.$id}}</label>
+          </div>
+      </div>
+      <div class="row" style="height:80px;">
+          <div class="md-form">
+            <i class="fa fa-gear prefix"></i>
+            <input mdbActive type="text" id="address" class="form-control" name="address" [(ngModel)]="data.address" mdbInputValidate
+              autocomplete="address">
+            <label for="address"><strong>Ville</strong></label>
+          </div>
+          <div class="md-form">
+            <i class="fa fa-phone prefix"></i>
+            <input mdbActive type="number" id="phone" class="form-control" name="phone" [(ngModel)]="data.phone" mdbInputValidate
+              autocomplete="phone">
+            <label for="phone">Téléphone</label>
+          </div>
+        </div>
+        <div class="row" style="height:80px;">
+          <div class="md-form">
+              <i class="fa fa-home prefix"></i>
+              <input mdbActive type="number" id="pin" class="form-control" name="pin" [(ngModel)]="data.pin" mdbInputValidate
+                autocomplete="pin">
+              <label for="pin"><strong>Pin</strong></label>
+            </div>
+            <div class="md-form">
+              <i class="fa fa-home prefix"></i>
+              <input mdbActive type="text" id="quartier" class="form-control" name="quartier" [(ngModel)]="data.quartier" mdbInputValidate
+                autocomplete="quartier">
+              <label for="quartier">Quartier</label>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-outline-dark" >Save</button>
+
+
+    </form>
+  </ng-template>
+
+
+  <ng-template #contentSupp let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Vous etes sur le point de supprimer cette adresse de livraison</p>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+        <button type="button" class="btn btn-light" (click)="supprimAddressLivraison(supp)">Close</button>
+      </div>
+    </ng-template>
+
+
+    <!--TEMPLATE POUR LA CREATION-->
+    <ng-template #contentCreer let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Ajoutez une adresse de livraison</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form #addressForm="ngForm" (ngSubmit)="adressLivraison(addressForm)" >
+          <div class="row" style="height:80px;">
+            <div class="md-form">
+                <i class="fa fa-home prefix"></i>
+                <input mdbActive type="text" id="nickname" class="form-control" name="nickname" [(ngModel)]="data.nickname" mdbInputValidate
+                  autocomplete="nickname">
+                <label for="nickname"><strong>Nom</strong> {{data.$id}}</label>
+              </div>
+          </div>
+          <div class="row" style="height:80px;">
+              <div class="md-form">
+                <i class="fa fa-gear prefix"></i>
+                <input mdbActive type="text" id="address" class="form-control" name="address" [(ngModel)]="data.address" mdbInputValidate
+                  autocomplete="address">
+                <label for="address"><strong>Ville</strong></label>
+              </div>
+              <div class="md-form">
+                <i class="fa fa-phone prefix"></i>
+                <input mdbActive type="number" id="phone" class="form-control" name="phone" [(ngModel)]="data.phone" mdbInputValidate
+                  autocomplete="phone">
+                <label for="phone">Téléphone</label>
+              </div>
+            </div>
+            <div class="row" style="height:80px;">
+              <div class="md-form">
+                  <i class="fa fa-home prefix"></i>
+                  <input mdbActive type="number" id="pin" class="form-control" name="pin" [(ngModel)]="data.pin" mdbInputValidate
+                    autocomplete="pin">
+                  <label for="pin"><strong>Pin</strong></label>
+                </div>
+                <div class="md-form">
+                  <i class="fa fa-home prefix"></i>
+                  <input mdbActive type="text" id="quartier" class="form-control" name="quartier" [(ngModel)]="data.quartier" mdbInputValidate
+                    autocomplete="quartier">
+                  <label for="quartier">Quartier</label>
+                </div>
+            </div>
+    
+    
+            <button type="submit" class="btn btn-outline-dark" >Save</button>
+    
+    
+        </form>
+      </ng-template>

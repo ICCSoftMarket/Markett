@@ -1,0 +1,53 @@
+.message {
+    border-radius: 50px;
+    margin: 0 15px 10px;
+    padding: 15px 20px;
+    position: relative;
+    font-weight: bold;
+}
+.message.to {
+    background-color: #2095FE;
+    color: #fff;
+    margin-left: 100px;
+    text-align: right;
+}
+.message.from {
+    background-color: #E5E4E9;
+    color: #363636;
+    margin-right: 100px;
+
+}
+.message.to + .message.to,
+.message.from + .message.from {
+margin-top: -10px;
+}
+
+.card-footer{
+    border-radius: 0 0 15px 15px !important;
+        border-top: 0 !important;
+}
+
+.send_btn{
+	border-radius: 0 0 15px 15px !important;
+	background-color: rgba(253, 6, 6, 0.66) !important;
+    border:0 !important;
+    color: white !important;
+    cursor: pointer;
+    height: 30px;
+    width: 300px;
+}
+
+.type_msg{
+    border-radius: 15px 15px 0 0 !important;
+    background-color: rgba(117, 115, 115, 0.27) !important;
+    border:0 !important;
+    color:rgba(7, 7, 7, 0.75) !important;
+    height: 40px !important;
+    overflow-y: auto;
+    width: 300px;
+
+}
+    .type_msg:focus{
+        box-shadow:none !important;
+    outline:0px !important;
+}

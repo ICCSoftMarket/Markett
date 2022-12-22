@@ -1,0 +1,145 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark danger-color">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="#">myMarket
+      <img [src]="'https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/images%2Fmymarket2.png?alt=media&token=c6437485-d38c-4b69-b2a6-b5378d95e78e'" width="25px" height="25px" alt="" />
+  </a>
+  
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:;;" [routerLink]="[ '/' ]">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="jaascript:;;" [routerLink]="[ '/products/all-products' ]">Produits</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="jaascript:;;" [routerLink]="[ '/products/all-enchere' ]">Enchères</a>
+      </li>
+      <li class="nav-item">
+        <!--<a class="nav-link" href="jaascript:;;" [routerLink]="[ '/products/google-map' ]">Vendeurs</a>-->
+        <a class="nav-link" href="jaascript:;;" [routerLink]="[ '/products/userall' ]">Vendeurs</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li> -->
+    </ul>
+    <!-- Links -->
+
+   <!-- <div class="navbar-header">
+        <a class="navbar-brand" href=""><img [src]="infos.image_profile" width="25px" height="25px" alt="" class="img-circle" />
+        </a>
+    </div>-->
+    
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/favourite-products']">
+            <i class="fa fa-heart">
+              <span class="mt-2"> {{productService.navbarFavProdCount}}</span>
+            </i>
+          </a>
+        </div>
+
+      </li>
+      <!-- <li class="nav-item">
+        <div>
+          <a class="nav-link" href="javascript:;;" [routerLink]="['/products/cart-items']">
+            <i class="fa fa-shopping-cart">
+              <span class="mt-2"> {{productService.navbarCartCount}}</span>
+            </i>
+          </a>
+        </div>
+      </li> -->
+      <li class="nav-item active">
+        <a class="nav-link" href="javascript:;;">
+          <i class="fa fa-envelope"></i> Contact
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" [routerLink]="['/users']">
+          <img [src]="infos.image_profile"  width="25px" height="25px" alt="" class="img-circle" style="border-radius: 10px;" /> Ma boutique</a>
+      </li>
+      <li class="nav-item" *ngIf="!authService.isLoggedIn()">
+        <a class="nav-link" [routerLink]="[ '/index/login' ]">
+          <i class="fa fa-sign-in"></i> Signin / Signup</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" (click)="logout()">
+          <i class="fa fa-sign-in"></i>Logout</a>
+      </li>
+    </ul>
+  </div>
+  <!-- Collapsible content -->
+
+  
+</nav>
+<!--/.Navbar-->
+
+<!-- <div class="container-fluid" style="width: 700px;">
+  <div class="row flex-row flex-nowrap">
+      <div class="col-3">
+          <div class="card card-block">Card</div>
+      </div>
+      <div class="col-3">
+          <div class="card card-block">Card</div>
+      </div>
+      <div class="col-3">
+          <div class="card card-block">Card</div>
+      </div>
+      <div class="col-3">
+          <div class="card card-block">Card</div>
+      </div>
+      <div class="col-3">
+        <div class="card card-block">Card</div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Image -->
+<!-- <div class="view overlay rounded z-depth-2 mb-4" style="height: 150px;">
+  <img class="img-fluid" src="/assets/images/reputation.jpg" width="100%" height="150px" alt="Sample image">
+  <a>
+    <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
+  </a>
+</div> -->
+
+<!-- <img src="/assets/images/reputation.jpg" width="100%" height="50px" class="img-fluid" alt="Responsive image"> -->
+
+
+
+
+
+
+<!-- <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+              [animation]="'slide'">
+  <mdb-carousel-item *ngFor="let item of slides; let i = index">
+    <div class="col-md-2" style="height: 80px;" *ngFor="let card of item; let cardIndex = index" (click)="onClick()">
+      <div class="media d-block d-md-flex" [routerLink]="['/products/categ-products/', card.nom]">
+        <img class="d-flex rounded-circle avatar z-depth-1-half mb-3 mx-auto" style="height: 40px;width: 40;" [src]="card.image"
+          alt="Avatar">
+        <div class="media-body text-center text-md-left ml-md-3 ml-0">
+          <p class="mt-0 font-weight-bold black-text">{{card.nom}}</p>
+        </div>
+      </div>
+    </div>
+  </mdb-carousel-item>
+</mdb-carousel> -->
+
+
+
+

@@ -1,0 +1,96 @@
+<br>
+<br>
+
+<div class="container">
+
+    <ng-template #content let-modal class="container-fluid wrapper">
+        <div class="modal-header">
+          <h4 class="modal-title">Ajoutez un commentaire</h4>
+          <button type="button" style="width:15px;border-radius: 20px;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+
+          <div style="height: 250px;overflow-y: auto;">
+            
+            <div class="media" *ngFor ="let comment of listComment">
+              <img class="mr-3" [src]="comment.image" alt="{{comment.name}}" style="width:40px; height:40px;" (click) = "openCommentateur(comment.uid)">
+              <div class="media-body">
+                <div style="background-color:#B5E0E0;border-radius: 10px;padding:8px;height:60px;">
+                    <h5 class="mt-0" style="font-size:12px;color:crimson;" (click) = "openCommentateur(comment.uid)">{{comment.name}}</h5>
+                    <p style="font-size:12px;">{{comment.comment}}</p>
+                    <p style="background-color:#E0F3F3;border-radius: 10px;font-size:10px;">{{comment.date | date: "yyyy-MM-dd à H:mm"}}</p>
+                    <!--<a (click)="likeComment(comment.$key)">{{nbrLikeComment}} j'aime <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>-->
+                </div>
+                <br>
+              </div>
+            </div>
+            
+          </div>
+        
+          <form #commentForm="ngForm" (ngSubmit)="addCommentaire(commentForm)" >
+            <div class="md-form" style="height: 45px;">
+              <i class="fa fa-comment"></i>
+              <input style="background-color:#E5F1F1;border-radius: 10px;" type="text" id="commentaire" class="form-control" name="commentaire" [(ngModel)]="data.commentaire"
+                autocomplete="commentaire">
+              <label for="commentaire">Votre commentaire...</label>
+            </div>
+          
+            <div class="modal-footer"style="height: 40px;">
+              <!--<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>-->
+              <button type="submit" style="border-radius: 10px;width: 150px;" class="btn btn-danger waves-light" >Save</button>
+            </div>
+          </form>
+        
+        </div>
+    </ng-template>
+
+
+  <div class="row">
+    <div class="col-sm-4">
+      <ul class="list-group">
+        <li class="list-group-item hoverable btn btn-outline-danger">
+          <a [routerLink]="['/users']">MA PAGE DE PROFILE</a>
+        </li>
+        <li class="list-group-item hoverable">
+          <!--<a [routerLink]="['/users', {outlets: {'profileOutlet': ['favourite-products']}}]">MES PRODUITS FAVORIS</a>-->
+          <a [routerLink]="['/products/favourite-products']">MES PRODUITS FAVORIS</a>
+          
+        </li>
+        <li class="list-group-item hoverable">
+          <!--<a [routerLink]="['/users', {outlets: {'profileOutlet': ['cart-items']}}]">MON PANNIER</a>-->
+          <a [routerLink]="['/products/cart-items']">MON PANNIER</a>
+        </li>
+        <li class="list-group-item hoverable">
+          <a [routerLink]="['/users', {outlets: {'profileOutlet': ['order']}}]">COMMANDES DE MES CLIENTS</a>
+          <span class="badge badge-pill badge-danger" style="color:#FFFFFF !important; margin-left:40px;">{{nbreOrderClient}} </span>
+        </li>
+        <li class="list-group-item hoverable">
+          <a [routerLink]="['/users', {outlets: {'profileOutlet': ['ordermy']}}]">MES COMMANDES</a>
+          <span class="badge badge-pill badge-danger" style="color:#FFFFFF !important; margin-left:140px;">{{nbreOrderMy}} </span>
+        </li>
+
+        <li class="list-group-item hoverable">
+ 
+          <div class="row">
+            <div class="col-sm">
+              <a>{{nbrLike}}<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+            </div>
+            <div class="col-sm">
+              <a>{{nbrNoLike}}<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+            </div>
+            <div class="col-sm">
+              <a style="color:red;" (click)="open(content)" >{{nbrcomment}}<i class="fa fa-comment" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+    <div class="col-sm-8">
+      <router-outlet name="profileOutlet"></router-outlet>
+    </div>
+  </div>
+</div>
