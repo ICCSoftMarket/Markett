@@ -18,8 +18,8 @@ export class OrderAccountComponent implements OnInit {
   loggedUser: User;
   // Enable Update Button
 infoUser;
-detailUser;
-infos;
+detailUser:any;
+infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
 firedataOrder = firebase.database().ref('/orders');
@@ -28,7 +28,7 @@ firedataEchere = firebase.database().ref('/enchere');
 firedataVente = firebase.database().ref('/vente');
 orderList: Product[];
 page = 1;
-lisAddress= [];
+lisAddress: any[] = [];
 myToggle= {};
 data = {};
 modal: NgbModalRef;
@@ -48,7 +48,7 @@ modal: NgbModalRef;
     this.getProductOrderClient();
   }
 //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-  open(content, data) {
+  open(content:any, data:any) {
     if (data){
       console.log(data);
       this.data = data;
@@ -56,7 +56,7 @@ modal: NgbModalRef;
     }else{
       this.modalService.open(content);
     }
-    
+
   }
 
 
@@ -64,9 +64,9 @@ modal: NgbModalRef;
     console.log(this.infoUser);
     const x = this.productService.getUsers(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(use => {
+    x.snapshotChanges().subscribe((use:any) => {
       console.log(use);
-      use.forEach(element => {
+      use.forEach((element:any) => {
         const inf = element.payload.toJSON();
         console.log(inf);
         this.infos = inf;
@@ -94,10 +94,10 @@ modal: NgbModalRef;
     console.log(this.infoUser);
     const x = this.productService.getProductOrderClient(this.infoUser);
     console.log(x);
-    x.snapshotChanges().subscribe(pro => {
+    x.snapshotChanges().subscribe((pro:any) => {
       console.log(pro);
       this.orderList = [];
-      pro.forEach(element => {
+      pro.forEach((element:any) => {
         const y = element.payload.toJSON();
         console.log(y);
         y["$key"] = element.key;
@@ -107,17 +107,17 @@ modal: NgbModalRef;
        // this.productList.push(y["$key"]);
        console.log(this.orderList);
 
-       
+
       });
     });
   }
 
 
-  vendu(product){
+  vendu(product:any){
     console.log(product);
-    this.firedataMenu.child(product.product_id).once('value', (snapshot)=>{
+    this.firedataMenu.child(product.product_id).once('value', (snapshot:any)=>{
       console.log(snapshot.val());
-      
+
       console.log('si le produit existe dans le menu');
       if(snapshot.val()){
         console.log('sil existe dans le menu');
@@ -129,7 +129,7 @@ modal: NgbModalRef;
             this.firedataMenu.child(product.product_id).update({
               stock: nbre
             });
-            this.firedataOrder.child(product.$key).remove(); 
+            this.firedataOrder.child(product.$key).remove();
           }else{
             console.log('sinon retir le produit');
             this.firedataMenu.child(product.product_id).remove();
@@ -143,8 +143,8 @@ modal: NgbModalRef;
         }
 
       })
-      
-      this.firedataVente.child(this.infoUser).orderByChild("product_name").equalTo(product.product_name).once('value', (snapshot)=>{
+
+      this.firedataVente.child(this.infoUser).orderByChild("product_name").equalTo(product.product_name).once('value', (snapshot:any)=>{
         if(snapshot.val()){
           //sil a déjà vendu ce produit on modifie la quantité juste
           this.firedataVente.child(this.infoUser).child(product.product_id).update({

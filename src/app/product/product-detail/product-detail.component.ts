@@ -32,14 +32,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   private sub: any;
   product: Product;
 
-  user: Observable<firebase.User>;
+  user!: Observable<firebase.User>;
   nbrLike:any;
-  listLike = [];
+  listLike:any[] = [];
   nbrNoLike:any;
-  listNoLike = [];
+  listNoLike:Cart[] = [];
   dejaLike:any;
   dejaNoLike:any;
-  listComment = [];
+  listComment:Cart[] = [];
   nbrcomment:any;
   infoUser:any;
   firedataMenu = firebase.database().ref('/menu');
@@ -49,34 +49,34 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   infos:any;
   productId:any;
   users;
-  loggedUser: User;
+  loggedUser!: User;
   data = {};
   geoFire: any;
   markers: any;
-  lat: number;
-  lng: number;
-  distance: number;
+  lat!: number;
+  lng!: number;
+  distance!: number;
   idvendeur = [];
   ench = "false";
   paslocal:any;
   nbrPrix:any;
   listPrix:any;
   tablistPrix:any;
-  listPrixTemp = [];
-  allPrix2 = [];
+  listPrixTemp:any[] = [];
+  allPrix2:any[] = [];
   model:any;
   OneSignal:any;
 
-  enchereList: Product[];
-  dateDeLenchere;
-  date_actuelle;
-  date_evenement;
-  minutes;
-  heures;
-  jours;
-  secondes;
-  enchere;
-  max;
+  enchereList!: Product[];
+  dateDeLenchere:any;
+  date_actuelle:any;
+  date_evenement:any;
+  minutes:any;
+  heures:any;
+  jours:any;
+  secondes:any;
+  enchere:any
+  max:any;
   cachenum = false;
   cachenum2 = true;
   hidde1 = false;
@@ -103,7 +103,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
 
     this.users = firebaseAuth.authState;
-    this.users.subscribe(user => {
+    this.users.subscribe((user:any) => {
       if (user) {
         this.infoUser = user;
         this.getInfoUser();
@@ -131,7 +131,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.spinnerService.show();
     const x = this.productService.getProductById(id);
     this.idvendeur = [];
-    x.snapshotChanges().subscribe(product => {
+    x.snapshotChanges().subscribe((product:any) => {
       this.spinnerService.hide();
       const y = product.payload.toJSON() as Product;
       console.log(y)
@@ -144,14 +144,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.nobreVote();
         this.nobreNoVote();
         this.nobreComment();
-        
+
         //appel de geolocalisation du vendeur pour prendre la key du vendeur
       //this.localise(this.product.idvendeur)
       }else{
         this.spinnerService.show();
         const x = this.productService.getEnchereById(id);
         this.idvendeur = [];
-        x.snapshotChanges().subscribe(product => {
+        x.snapshotChanges().subscribe((product:any) => {
           this.spinnerService.hide();
           const y = product.payload.toJSON() as Product;
 
@@ -163,12 +163,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           this.nobreVote();
           this.nobreNoVote();
           this.nobreComment();
-          
+
         });
       }
     });
 
-    
+
   }
 
   ngOnDestroy() {
@@ -187,7 +187,7 @@ like(){
     alert("Vous devez vous connter svp!!!")
   }else{
     if(this.ench == "false"){
-      this.firedataMenu.child(this.productId).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+      this.firedataMenu.child(this.productId).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
         console.log(snapshot.val());
         if (snapshot.val()){
           console.log('il a déjà voté');
@@ -197,12 +197,12 @@ like(){
             uid: this.infoUser.uid,
             name: this.infoUser.displayName,
             dejavote: true
-          
+
           });
         }
       })
     }else{
-      this.firedataEnchere.child(this.productId).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+      this.firedataEnchere.child(this.productId).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
         console.log(snapshot.val());
         if (snapshot.val()){
           console.log('il a déjà voté');
@@ -212,25 +212,25 @@ like(){
             uid: this.infoUser.uid,
             name: this.infoUser.displayName,
             dejavote: true
-          
+
           });
         }
       })
     }
-    
+
   }
 }
-  
+
   nobreVote(){
     console.log(this.ench)
     if(this.ench == "true"){
       this.nbrLike = 0;
       const x = this.db.list('/enchere/'+ this.productId + '/like');
       console.log(x);
-      x.snapshotChanges().subscribe(prod => {
+      x.snapshotChanges().subscribe((prod:any) => {
         this.spinnerService.hide();
         this.listLike = [];
-        prod.forEach(element => {
+        prod.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           this.listLike.push(y as Cart);
@@ -244,10 +244,10 @@ like(){
       this.nbrLike = 0;
       const x = this.db.list('/menu/'+ this.productId + '/like');
       console.log(x);
-      x.snapshotChanges().subscribe(prod => {
+      x.snapshotChanges().subscribe((prod:any) => {
         this.spinnerService.hide();
         this.listLike = [];
-        prod.forEach(element => {
+        prod.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           this.listLike.push(y as Cart);
@@ -258,18 +258,18 @@ like(){
         });
       });
     }
-    
+
   }
 
-  
+
   //********************DONNEZ DES NOLIKE */
   noLike(){
     if(this.infoUser == null){
       alert("Vous devez vous connter svp!!!")
     }else{
-     
+
       if(this.ench == "true"){
-        this.firedataEnchere.child(this.productId).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+        this.firedataEnchere.child(this.productId).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
           console.log(snapshot.val());
           if (snapshot.val()){
             console.log('il a déjà no voté');
@@ -279,12 +279,12 @@ like(){
               uid: this.infoUser.uid,
               name: this.infoUser.displayName,
               dejanovote: true
-            
+
             });
           }
         })
       }else{
-        this.firedataMenu.child(this.productId).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+        this.firedataMenu.child(this.productId).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
           console.log(snapshot.val());
           if (snapshot.val()){
             console.log('il a déjà no voté');
@@ -294,23 +294,23 @@ like(){
               uid: this.infoUser.uid,
               name: this.infoUser.displayName,
               dejanovote: true
-            
+
             });
           }
         })
       }
     }
   }
-    
+
     nobreNoVote(){
       if(this.ench == "true"){
         this.nbrNoLike = 0;
         const x = this.db.list('/enchere/'+ this.productId + '/nolike');
         console.log(x);
-        x.snapshotChanges().subscribe(prod => {
+        x.snapshotChanges().subscribe((prod:any) => {
           this.spinnerService.hide();
           this.listNoLike = [];
-          prod.forEach(element => {
+          prod.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.listNoLike.push(y as Cart);
@@ -322,10 +322,10 @@ like(){
         this.nbrNoLike = 0;
         const x = this.db.list('/menu/'+ this.productId + '/nolike');
         console.log(x);
-        x.snapshotChanges().subscribe(prod => {
+        x.snapshotChanges().subscribe((prod:any) => {
           this.spinnerService.hide();
           this.listNoLike = [];
-          prod.forEach(element => {
+          prod.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.listNoLike.push(y as Cart);
@@ -334,7 +334,7 @@ like(){
           });
         });
       }
-      
+
 
 
       if(this.ench == "true" && this.infoUser != null){
@@ -357,8 +357,8 @@ like(){
               });
             });
             this.listPrix = this.listPrix.sort((a, b) => a["prix"] < b["prix"] ? 1 : a["prix"] === b["prix"] ? 0 : -1);
-            
-            
+
+
           }else{
             //654879167
             this.allPrix2 = [];
@@ -366,13 +366,13 @@ like(){
                 for(var i in snapshot.val()){
                   this.allPrix2.push(snapshot.val()[i])
                 }
-                
+
               this.firedataEnchere.child(this.productId).child('prix').child(this.infoUser.uid).child(this.infoUser.uid).once('value', (snapshotirem)=>{
                   for(var i in snapshotirem.val()){
                     this.allPrix2.push(snapshotirem.val()[i])
                   }
                   console.log( this.allPrix2);
-                  
+
                 })
               })
               this.allPrix2 = this.allPrix2.sort((a, b) => a["prix"] < b["prix"] ? 1 : a["prix"] === b["prix"] ? 0 : -1);
@@ -382,16 +382,16 @@ like(){
       }else if(this.ench == "false" && this.infoUser != null){
 
       console.log(this.ench)
-        this.firedataMenu.child(this.productId).on('value', (snapshot)=>{
+        this.firedataMenu.child(this.productId).on('value', (snapshot:any)=>{
           if(snapshot.val().idvendeur == this.infoUser.uid){
             //liste des prix proposés si cest le vendeur qui consulte
             this.nbrPrix = 0;
             const xx = this.db.list('/menu/' + this.productId + '/prix');
             console.log(xx)
-            xx.snapshotChanges().subscribe(prix => {
+            xx.snapshotChanges().subscribe((prix:any) => {
               this.spinnerService.hide();
               this.listPrix = [];
-              prix.forEach(element => {
+              prix.forEach((element:any) => {
                 const y = element.payload.toJSON();
                 y["$key"] = element.key;
                 this.listPrix.push(y as Cart);
@@ -400,22 +400,22 @@ like(){
                 console.log(this.nbrPrix);
               });
             });
-            this.listPrix = this.listPrix.sort((a, b) => a["prix"] < b["prix"] ? 1 : a["prix"] === b["prix"] ? 0 : -1);
-            
+            this.listPrix = this.listPrix.sort((a:any, b:any) => a["prix"] < b["prix"] ? 1 : a["prix"] === b["prix"] ? 0 : -1);
+
           }else{
             //654879167
             this.allPrix2 = [];
-            this.firedataMenu.child(this.productId).child('prix').child(this.infoUser.uid).child(snapshot.val().idvendeur).once('value', (snapshot)=>{
+            this.firedataMenu.child(this.productId).child('prix').child(this.infoUser.uid).child(snapshot.val().idvendeur).once('value', (snapshot:any)=>{
                 for(var i in snapshot.val()){
                   this.allPrix2.push(snapshot.val()[i])
                 }
-                
-              this.firedataMenu.child(this.productId).child('prix').child(this.infoUser.uid).child(this.infoUser.uid).once('value', (snapshotirem)=>{
+
+              this.firedataMenu.child(this.productId).child('prix').child(this.infoUser.uid).child(this.infoUser.uid).once('value', (snapshotirem:any)=>{
                   for(var i in snapshotirem.val()){
                     this.allPrix2.push(snapshotirem.val()[i])
                   }
                   console.log( this.allPrix2);
-                  
+
                 })
               })
               this.allPrix2 = this.allPrix2.sort((a, b) => a["prix"] < b["prix"] ? 1 : a["prix"] === b["prix"] ? 0 : -1);
@@ -426,25 +426,25 @@ like(){
       }
 
 }
-  
+
   //*****************AJOUT DE COMMENTAIRE */
-  
+
   //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-    open(content) {
+    open(content:any) {
       if(this.infoUser == null){
         alert("vous devez vous connecter svp!!!");
       }else{
         this.modalService.open(content);
       }
-      
+
     }
-  
-   
+
+
   //AJOUTER UN COMMENTAIRE
   addCommentaire(commentForm: NgForm) {
     const dataform = commentForm.value;
     console.log(this.ench);
-    
+
       console.log(this.infos.image_profile);
     if(this.ench == "false"){
         this.firedataMenu.child(this.productId).child('comment').push({
@@ -453,7 +453,7 @@ like(){
           comment: dataform.commentaire,
           image: this.infos.image_profile,
           date: new Date().toISOString()
-        
+
         });
         const toastOption: ToastOptions = {
           title: "Ajout du commentaire",
@@ -474,7 +474,7 @@ like(){
           comment: dataform.commentaire,
           image: this.infos.image_profile,
           date: new Date().toISOString()
-        
+
         });
         const toastOption: ToastOptions = {
           title: "Ajout du commentaire",
@@ -489,21 +489,21 @@ like(){
           this.modalService.dismissAll();
         }, 500);
       }
-    
+
     }
 
 
-  
+
     //COMPTER LE NOMBRE DE COMMENTAIRES
     nobreComment(){
       if(this.ench == "true"){
         this.nbrcomment = 0;
         const x = this.db.list('/enchere/'+ this.productId + '/comment');
         console.log(x);
-        x.snapshotChanges().subscribe(comment => {
+        x.snapshotChanges().subscribe((comment:any) => {
           this.spinnerService.hide();
           this.listComment = [];
-          comment.forEach(element => {
+          comment.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.listComment.push(y as Cart);
@@ -516,10 +516,10 @@ like(){
         this.nbrcomment = 0;
         const x = this.db.list('/menu/'+ this.productId + '/comment');
         console.log(x);
-        x.snapshotChanges().subscribe(comment => {
+        x.snapshotChanges().subscribe((comment:any) => {
           this.spinnerService.hide();
           this.listComment = [];
-          comment.forEach(element => {
+          comment.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.listComment.push(y as Cart);
@@ -529,16 +529,16 @@ like(){
           });
         });
       }
-      
+
     }
-  
+
     getInfoUser(){
       console.log(this.infoUser);
       const x = this.productService.getUsers(this.infoUser.uid);
       console.log(x);
-      x.snapshotChanges().subscribe(use => {
+      x.snapshotChanges().subscribe((use:any) => {
         console.log(use);
-        use.forEach(element => {
+        use.forEach((element:any) => {
           const inf = element.payload.toJSON();
           console.log(inf);
           this.infos = inf;
@@ -547,7 +547,7 @@ like(){
 
   }
 //fonction pour geolocaliser le vendeur
-  localise(keyvendeur){
+  localise(keyvendeur:any){
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -555,18 +555,18 @@ like(){
      this.lng = position.coords.longitude;
   console.log(this.infoUser)
   console.log(this.product)
-  firebase.database().ref('/locations').orderByChild('uid').equalTo(keyvendeur).once('value',(snapshot) =>{
-    
+  firebase.database().ref('/locations').orderByChild('uid').equalTo(keyvendeur).once('value',(snapshot:any) =>{
+
     if(snapshot.val()){
       this.markers = [];
       for (var i in snapshot.val()){
         console.log(snapshot.val()[i].l[0])
-  
+
         var local = [this.lat, this.lng];
         var lautre = [snapshot.val()[i].l[0], snapshot.val()[i].l[1]];
         this.distance = GeoFire.distance(local, lautre).toFixed(2);
         console.log(this.distance)
-  
+
         this.markers.push({
           location: snapshot.val()[i].l,
           distance: this.distance,
@@ -576,15 +576,15 @@ like(){
           tel: snapshot.val()[i].tel,
           uid: snapshot.val()[i].uid
         });
-  
-        
+
+
         }
         console.log(this.markers)
     }else{
       this.paslocal = true;
       alert("ce vendeur n'a pas active sa localisation")
     }
-    
+
     });
   });
 
@@ -593,7 +593,7 @@ like(){
 //fin
 
   //discussion de prix
-  openPrix(contentPrix){
+  openPrix(contentPrix:any){
     if(this.infoUser == null){
       alert("Vous devez etre connecté pour démarrer la discussion")
     }else
@@ -612,7 +612,7 @@ like(){
     var firedataMenu = this.firedataMenu;
     var firedataUser = this.firedataUser;
     var modalService = this.modalService;
-    firedataMenu.child(productId).child('prix').child(userId.uid).once('value', function(itemsnapshot){
+    firedataMenu.child(productId).child('prix').child(userId.uid).once('value', function(itemsnapshot:any){
       console.log(itemsnapshot.val())
       if(itemsnapshot.val()){
         firedataMenu.child(productId).child('prix').child(userId.uid).child(idvendeur).push({
@@ -675,16 +675,16 @@ like(){
   }
 
 
-  discussionClient(prix, contentPrixDiscut){
+  discussionClient(prix:any, contentPrixDiscut:any){
     this.modalService.dismissAll();
     this.listPrixTemp = [];
-    this.firedataMenu.child(this.productId).child('prix').child(prix.uid).child(this.infoUser.uid).once('value', (snapshot)=>{
+    this.firedataMenu.child(this.productId).child('prix').child(prix.uid).child(this.infoUser.uid).once('value', (snapshot:any)=>{
       console.log(snapshot.val())
       for(var i in snapshot.val()){
         this.listPrixTemp.push(snapshot.val()[i])
       }
-      
-      this.firedataMenu.child(this.productId).child('prix').child(prix.uid).child(prix.uid).once('value', (snapshotirem)=>{
+
+      this.firedataMenu.child(this.productId).child('prix').child(prix.uid).child(prix.uid).once('value', (snapshotirem:any)=>{
         for(var i in snapshotirem.val()){
           this.listPrixTemp.push(snapshotirem.val()[i])
         }
@@ -698,7 +698,7 @@ like(){
   }
 
 
-  donPixvendeur(prixForm: NgForm, model){
+  donPixvendeur(prixForm: NgForm, model:any){
     console.log(model)
     var dataform = prixForm.value;
     this.firedataMenu.child(this.productId).child('prix').child(model.uid).child(model.uid).push({
@@ -711,25 +711,25 @@ like(){
       telephone: this.infos.telephone || 'pas renseigné',
       quartier: this.infos.quartier || 'pas renseigné',
       ville: this.infos.ville || 'pas renseigné'
-    
+
       });
       console.log(this.infos.idOnesignal)
       this.modalService.dismissAll();
       this.sendNotif(this.infos.idOnesignal, dataform.prix)
-      
+
   }
-  
+
 
   //VALIDATION DE LA VENTE ON GENERE LE ORDER
-  
-  validPrix(model){
+
+  validPrix(model:any){
     console.log(model);
     console.log(this.product);
-    
+
         if(this.product.idvendeur == model.uid){
           //SI ON VALID LA PROPOSITION DU VENDEUR
           var n =0;
-          this.firedataOrder.orderByChild("product_id").equalTo(this.productId).on('value', (itemsnap)=>{
+          this.firedataOrder.orderByChild("product_id").equalTo(this.productId).on('value', (itemsnap:any)=>{
             console.log(itemsnap.val())
             if(!itemsnap.val()){
               console.log('si la commande du produit nexiste pas on cree')
@@ -743,10 +743,10 @@ like(){
                   idvendeur: this.product.idvendeur,
                   nomvendeur: this.product.nomvendeur,
                   phonevendeur: this.product.phone_vendeur,
-        
+
                   //item data
                   item_qty: 1,
-        
+
                   //Order data
                   user_id: this.infos.uid,
                   user_name:this.infos.name,
@@ -758,10 +758,10 @@ like(){
                   date_commande: new Date().toISOString(),
                   status: "En attente",
                   message: "Appeler pour la livraison"
-                  
+
                 });
                 //sendNotifValidPrix(this.infos.idOnesignal, this.infos.name)
-              
+
 
             }else if(itemsnap.val() && n == 0){
               console.log('si elle existe on met à jour')
@@ -781,7 +781,7 @@ like(){
         }else{
           //SI LE VENDEUR VALID LA PROPOSITION DU CLIENT
           var n =0;
-          this.firedataOrder.orderByChild("product_id").equalTo(this.productId).on('value', (itemsnap)=>{
+          this.firedataOrder.orderByChild("product_id").equalTo(this.productId).on('value', (itemsnap:any)=>{
             console.log(itemsnap.val())
             console.log(n)
             if(!itemsnap.val()){
@@ -798,10 +798,10 @@ like(){
                 idvendeur: this.product.idvendeur,
                 nomvendeur: this.product.nomvendeur,
                 phonevendeur: this.product.phone_vendeur,
-      
+
                 //item data
                 item_qty: 1,
-      
+
                 //Order data
                 user_id: model.uid,
                 user_name:model.name,
@@ -813,10 +813,10 @@ like(){
                 date_commande: new Date().toISOString(),
                 status: "En attente",
                 message: "Appeler pour la livraison"
-                
+
               });
               //sendNotifValidPrix(model.idOnesignal, this.product.nomvendeur)
-              //sharedUtils.showAlert("Félicitation","Vous etes tombé d'accord sur ce prix une commande a été générée") 
+              //sharedUtils.showAlert("Félicitation","Vous etes tombé d'accord sur ce prix une commande a été générée")
               //$state.go('offers', {}, {location: "replace", reload: true,inherit: false, notify: true});
             }else if(itemsnap.val() && n == 0){
               n += 1;
@@ -824,7 +824,7 @@ like(){
               for(var key in itemsnap.val()){
                 console.log(key)
                 var key = key;
-               
+
               }
               console.log(key)
               this.firedataOrder.child(key).update({
@@ -835,11 +835,11 @@ like(){
                 user_phone:model.telephone,
                 user_quartier:model.quartier,
                 address_id: model.ville
-                
+
               });
 
             }//fin else
-            
+
           })
         }
         const toastOption: ToastOptions = {
@@ -851,19 +851,19 @@ like(){
         };
         this.toastyService.success(toastOption);
         this.modalService.dismissAll();
-        
+
         this.sendNotifValidPrix(this.infos.idOnesignal, this.product.nomvendeur)
     //sharedUtils.showAlert("Félicitation","Vous etes tombé d'accord sur ce prix une commande a été générée")
-    
+
 
   }
 
 
   //LA NOTIF
-  sendNotif(id, prix){
+  sendNotif(id:any, prix:any){
     console.log('notif')
-    window["plugins"].getIds(function(ids) {
-      
+    window["plugins"].getIds(function(ids:any) {
+
       var notificationObj = { contents: {en: prix + " pour " + this.product.name},
         include_player_ids: [id],
         data: {data_key: "data_value", openURL: "https://imgur.com/", id: this.productId},
@@ -871,11 +871,11 @@ like(){
 
       };
         window["plugins"].OneSignal.postNotification(notificationObj,
-          function(successResponse) {
+          function(successResponse:any) {
               console.log("Notification Post Success:", successResponse);
               alert("Notification envoyé: " + successResponse);
           },
-          function (failedResponse) {
+          function (failedResponse:any) {
               console.log("Notification Post Failed: ", failedResponse);
               //alert("Notification a échoué:\n" + JSON.stringify(failedResponse));
               alert("la notification n'a pas été envoyé")
@@ -885,19 +885,19 @@ like(){
   }
 
 
-  sendNotifValidPrix(id, nomvendeur){
+  sendNotifValidPrix(id:any, nomvendeur:any){
 
-    window["plugins"].OneSignal.getIds(function(ids) {
+    window["plugins"].OneSignal.getIds(function(ids:any) {
       var notificationObj = { contents: {en: " vous avez reçu une commande de "+ nomvendeur},
         include_player_ids: [id],
         data: {data_key: "commande", openURL: "https://imgur.com/", id: this.productId},
       };
         window["plugins"].OneSignal.postNotification(notificationObj,
-          function(successResponse) {
+          function(successResponse:any) {
               console.log("Notification Post Success:", successResponse);
               alert("Notification a été envoyé: " + successResponse);
           },
-          function (failedResponse) {
+          function (failedResponse:any) {
               console.log("Notification Post Failed: ", failedResponse);
               //alert("Notification a échoué:\n" + JSON.stringify(failedResponse));
               alert("la notification n'a pas été envoyé")
@@ -909,13 +909,13 @@ like(){
 
 
   //  COMPTE A REBOURS
-  compte_a_rebour(id){
+  compte_a_rebour(id:any){
       this.date_actuelle = new Date();
       this.date_evenement = new Date(this.product["date_enchere"]);
       var total_secondes = Math.round((this.date_evenement - this.date_actuelle) / 1000);
       var prefixe = "Temps restant: ";
       if (total_secondes < 0)
-      {         
+      {
          prefixe = "Terminé il y a "; // On modifie le préfixe si la différence est négatif
         total_secondes = Math.abs(total_secondes); // On ne garde que la valeur absolue
 
@@ -984,20 +984,20 @@ like(){
       }
 
       if(total_secondes == 0)
-      {         
+      {
           var compte_a_rebours = 'Compte à rebours terminé.';
 
-      }  
-      //setTimeout(this.compte_a_rebour(id),1000); 
+      }
+      //setTimeout(this.compte_a_rebour(id),1000);
       //setInterval(this.compte_a_rebour(id), 1000);
       return compte_a_rebours;
   };
-  
+
 
   //OVREIR LE FAIRE UNE OFFRE
-  openOffre(contentOffre, data) {
+  openOffre(contentOffre:any, data:any) {
     this.data = data;
-    
+
     if(this.infoUser != null){
       this.modalService.open(contentOffre);
     }else {
@@ -1007,23 +1007,23 @@ like(){
   }
 
   //AJOUTER UNE ADRESSE DE LIVRAISON
-  offreEnchere(offreForm: NgForm, data) {
-    
+  offreEnchere(offreForm: NgForm, data:any) {
+
     console.log(data);
     console.log(data.$key);
     console.log(offreForm.value["montant"]);
     this.enchere = offreForm.value["montant"];
     const x = this.productService.getUsers(this.infoUser.uid);
     console.log(x);
-    x.snapshotChanges().subscribe(use => {
+    x.snapshotChanges().subscribe((use:any) => {
       console.log(use);
-      use.forEach(element => {
+      use.forEach((element:any) => {
         const inf = element.payload.toJSON();
         console.log(inf);
         this.infos = inf;
         console.log(this.data);
         this.firedataEnchere.child(data.$key).child("offres").push({
-          
+
           montant_enchere: this.enchere,
           country: data.country,
           date_commande: new Date().toISOString(),
@@ -1045,13 +1045,13 @@ like(){
   }
 
 //CALCULER LA MEILLEURE OFFRE
-  getMaxOffre(id){
+  getMaxOffre(id:any){
     var tab = [];
       if (this.product.$key == id){
         for (var m in this.product["offres"]){
           tab.push(this.product["offres"][m].montant_enchere);
           //console.log(Math.max(...tab));
-         
+
         }
       }
     this.max = Math.max(...tab);
@@ -1059,7 +1059,7 @@ like(){
   }
 
 
-  changeImageBg(img){
+  changeImageBg(img:any){
     if(img==1){
       this.hidde1 = false;
       this.hidde2 = true;
@@ -1075,7 +1075,7 @@ like(){
       this.hidde2 = true;
       this.hidde1 = true;
     }
-    
+
   }
 
 }

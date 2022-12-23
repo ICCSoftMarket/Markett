@@ -41,9 +41,9 @@ export class ProductService {
   navbarFavProdCount = 0;
   user: Observable<firebase.User>;
   userDetails: firebase.User = null;
-  key;
-  encherespays;
-  encherescateg;
+  key:any;
+  encherespays:any;
+  encherescateg:any;
 
   constructor(
     private db: AngularFireDatabase, private authService: AuthService,
@@ -96,48 +96,48 @@ export class ProductService {
   }
 
 //avoir les infos du user
-  getUsers(userUid) {
-    this.users = this.db.list("users", ref =>
+  getUsers(userUid:any) {
+    this.users = this.db.list("users", (ref:any) =>
     ref.orderByChild("uid").equalTo(userUid));
     console.log(this.users);
     return this.users;
   }
 
 //avoir les produits dun user
-  getProductUser(userUid) {
-    this.productuser = this.db.list("menu", ref =>
+  getProductUser(userUid:any) {
+    this.productuser = this.db.list("menu", (ref:any) =>
     ref.orderByChild("idvendeur").equalTo(userUid));
     console.log(this.productuser);
     return this.productuser;
   }
 
   //avoir les produits dun pays
-  getProducByCountry(country) {
-    this.productuser = this.db.list("menu", ref =>
+  getProducByCountry(country:any) {
+    this.productuser = this.db.list("menu", (ref:any) =>
     ref.orderByChild("country").equalTo(country));
     console.log(this.productuser);
     return this.productuser;
   }
 
   //avoir les produits dune categorie
-  getProducByCateg(categ) {
-    this.productcateg = this.db.list("menu", ref =>
+  getProducByCateg(categ:any) {
+    this.productcateg = this.db.list("menu", (ref:any) =>
     ref.orderByChild("category").equalTo(categ));
     // console.log(this.productuser);
     return this.productcateg;
   }
 /***************************COMMANDES************************************ */
 //avoir les commandes de mes clients
-  getProductOrderClient(userUid) {
-    this.productorder = this.db.list("orders", ref =>
+  getProductOrderClient(userUid:any) {
+    this.productorder = this.db.list("orders", (ref:any) =>
     ref.orderByChild("idvendeur").equalTo(userUid));
     console.log(this.productorder);
     return this.productorder;
   }
 
   //avoir mes commandes
-  getProductOrderMy(userUid) {
-    this.productordermy = this.db.list("orders", ref =>
+  getProductOrderMy(userUid:any) {
+    this.productordermy = this.db.list("orders", (ref:any) =>
     ref.orderByChild("user_id").equalTo(userUid));
     console.log(this.productordermy);
     return this.productordermy;
@@ -149,16 +149,16 @@ getEcheres() {
   return this.encheres;
 }
 // Get une enchère
-getEnchereId(montant, id) {
-  this.encheresid = this.db.list("/enchere", ref =>
+getEnchereId(montant:any, id:any) {
+  this.encheresid = this.db.list("/enchere", (ref:any) =>
     ref.child(id).child("offres").orderByChild("montant_enchere").equalTo(montant));
     console.log(this.encheresid);
   return this.encheresid;
 }
 
 // Get enchères par pays
-getEnchereByPays(pays) {
-  this.encherespays = this.db.list("/enchere", ref =>
+getEnchereByPays(pays:any) {
+  this.encherespays = this.db.list("/enchere", (ref:any) =>
     ref.orderByChild("country").equalTo(pays));
     console.log(this.encherespays);
   return this.encherespays;
@@ -178,8 +178,8 @@ getEnchereByPays(pays) {
     return this.product;
   }
 
-  getEnchereByCateg(categ) {
-    this.encherescateg = this.db.list("/enchere", ref =>
+  getEnchereByCateg(categ:any) {
+    this.encherescateg = this.db.list("/enchere", (ref:any) =>
     ref.orderByChild("category").equalTo(categ));
     // console.log(this.encherespays);
   return this.encherescateg;
@@ -200,7 +200,7 @@ getEnchereByPays(pays) {
   // Get Favourite Product based on userId
   getUsersFavouriteProduct() {
     const user = this.authService.getLoggedInUser();
-    this.favouriteProducts = this.db.list("favouriteProducts", ref =>
+    this.favouriteProducts = this.db.list("favouriteProducts", (ref:any) =>
       ref.orderByChild("userId").equalTo(user.$key)
     );
     return this.favouriteProducts;
@@ -276,7 +276,7 @@ getEnchereByPays(pays) {
   calculateFavProductCounts() {
     const x = this.getUsersFavouriteProduct()
       .snapshotChanges()
-      .subscribe(data => {
+      .subscribe((data:any) => {
         this.navbarFavProdCount = data.length;
       });
   }
@@ -288,7 +288,7 @@ getEnchereByPays(pays) {
   // Fetching Cart Products based on userId
   getUsersCartProducts() {
     const user = this.authService.getLoggedInUser();
-    this.cartProducts = this.db.list("cart", ref =>
+    this.cartProducts = this.db.list("cart", (ref:any) =>
       //ref.orderByChild("idacheteur").equalTo(user.$key)
       ref.child(user.$key)
     );
@@ -296,12 +296,12 @@ getEnchereByPays(pays) {
   }
 
   // Adding new Product to cart db if logged in else localStorage
-  addToCart(data: Product, id): void {
+  addToCart(data: Product, id: any): void {
     console.log(data)
     let a: Cart[];
     console.log(data.$key)
     let addLocal: Cart ={
-      $key: data.$key, 
+      $key: data.$key,
       item_name: data.name,
       item_image: data.image,
       item_price: data.price,
@@ -320,8 +320,8 @@ getEnchereByPays(pays) {
       if (this.userDetails != null) {
         //this.userDetails = user;
         console.log(this.userDetails.uid);
-        
-          this.firedata.child(this.userDetails.uid).child(data.$key).once("value", (snapshot) => {
+
+          this.firedata.child(this.userDetails.uid).child(data.$key).once("value", (snapshot:any) => {
             console.log('ici on est dans le once');
             console.log(snapshot);
             console.log(snapshot.val());
@@ -387,7 +387,7 @@ getEnchereByPays(pays) {
       }
    // });
 
-    
+
   }
 
   // Removing Cart product from db
@@ -415,13 +415,13 @@ getEnchereByPays(pays) {
   // Fetching Locat CartsProducts
   getLocalCartProducts(): Cart[] {
     console.log(localStorage.getItem('cartssss_item'));
-    
+
     if(localStorage.getItem('cartssss_item')){
-      const products: Cart[] = 
+      const products: Cart[] =
       JSON.parse(localStorage.getItem("cartssss_item")) || [];
       return products;
     }else{
-      const products: Cart[] = []; 
+      const products: Cart[] = [];
       return products;
     }
   }
@@ -434,9 +434,9 @@ getEnchereByPays(pays) {
   // Calculating Cart products count and assigning to variable
   calculateCartProductCounts() {
     console.log('on fait le calcul du nbre de produit enligne gggggggg')
-    
+
     const x = this.getUsersCartProducts().snapshotChanges()
-      .subscribe(data => {
+      .subscribe((data:any) => {
         console.log(data)
         this.navbarCartCount = data.length;
       });
@@ -454,7 +454,7 @@ getEnchereByPays(pays) {
         this.key = prodCart[i].$key;
 
             console.log(this.key);
-            this.firedata.child(this.userDetails.uid).child(this.key).once('value', (snapshotCart)=>{
+            this.firedata.child(this.userDetails.uid).child(this.key).once('value', (snapshotCart:any)=>{
               console.log('tout n°' + n);
               if(!snapshotCart.val() && n <= (prodCart.length -1)){
                 console.log('on ajouter un prod panier' + n);
@@ -479,11 +479,11 @@ getEnchereByPays(pays) {
                   item_qty: currentQty + prodCart[i].item_qty
                 })
               }
-              
+
             })
             console.log('produit local' + prodCart[i].item_name + 'du tour n°' + n)
             this.removeLocalCartProduct(prodCart[i])
-            
+
          n+=1;
       }
     }else{
@@ -494,12 +494,12 @@ getEnchereByPays(pays) {
   //AJOUT DES PRODUITS PAR CATEGORIE plus utilisé
   getCategVetHom() {
     this.spinnerService.show();
-    const x = this.db.list("menu", ref =>
+    const x = this.db.list("menu", (ref:any) =>
     ref.orderByChild("category").equalTo("vetement_homme"));
-    x.snapshotChanges().subscribe(product => {
+    x.snapshotChanges().subscribe((product:any) => {
       this.spinnerService.hide();
       this.productList = [];
-      product.forEach(element => {
+      product.forEach((element:any) => {
         const y = element.payload.toJSON();
         y["$key"] = element.key;
         this.productList.push(y as Product);
