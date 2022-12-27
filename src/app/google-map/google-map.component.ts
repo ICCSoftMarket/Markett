@@ -14,9 +14,9 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
   //lat: number = 51.678418;
   //lng: number = 7.809007;
 
-  lat: number;
-  lng: number;
-  distance: number;
+  lat!: number;
+  lng!: number;
+  distance!: number;
 
   markers: any;
   subscription: any;

@@ -27,7 +27,7 @@ import * as GeoFire from "geofire";
   styleUrls: ["./userid-account.component.scss"]
 })
 export class UserIdAccountComponent implements OnInit {
-  loggedUser: User;
+  loggedUser!: User;
   // Enable Update Button
 infoUser:any;
 detailUser:any;
@@ -35,7 +35,7 @@ infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
 firedataVente = firebase.database().ref('/vente');
-productList: Product[];
+productList!: Product[];
 page = 1;
 lisAddress : Cart[] = [];
 myToggle= {};
@@ -43,8 +43,8 @@ data = {};
 modal: NgbModalRef;
 users;
 supp = {};
-selectedFiles: FileList;
-currentUpload: FileItem;
+selectedFiles!: FileList;
+currentUpload!: FileItem;
 url = '';
 bg:any;
 private sub: any;
@@ -60,12 +60,12 @@ myInfos:any;
 nbrLikeComment:any;
 listLikeComment:any[] = [];
 tabvente:any[] = [];
-nbreVente : number;
+nbreVente !: number;
 geoFire: any;
 markers: any;
-lat: number;
-lng: number;
-distance: number;
+lat!: number;
+lng!: number;
+distance!: number;
 
   constructor(private authService: AuthService, private productService: ProductService, private firebaseAuth: AngularFireAuth,
               config: NgbModalConfig, private modalService: NgbModal, private db: AngularFireDatabase, private spinnerService: LoaderSpinnerService,

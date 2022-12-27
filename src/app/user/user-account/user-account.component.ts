@@ -27,14 +27,14 @@ import * as CanvasJS from '../../canvasjs.min';
   styleUrls: ["./user-account.component.scss"]
 })
 export class UserAccountComponent implements OnInit {
-  loggedUser: User;
+  loggedUser!: User;
   // Enable Update Button
 infoUser;
 detailUser:any;
 infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
-productList: Product[];
+productList!: Product[];
 page = 1;
 lisAddress: Cart[] = [];
 myToggle= {};
@@ -42,12 +42,12 @@ data = {};
 modal: NgbModalRef;
 users;
 supp = {};
-selectedFiles: FileList;
-currentUpload: FileItem;
+selectedFiles!: FileList;
+currentUpload!: FileItem;
 url = '';
 bg:any;
-latUser: number;
-lngUser: number;
+latUser!: number;
+lngUser!: number;
 firedataVente = firebase.database().ref('/vente');
 nbrVente:any;
 nbrAchat:any;

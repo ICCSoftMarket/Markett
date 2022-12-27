@@ -15,7 +15,7 @@ import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
   styleUrls: ["./order-account.component.scss"]
 })
 export class OrderAccountComponent implements OnInit {
-  loggedUser: User;
+  loggedUser!: User;
   // Enable Update Button
 infoUser;
 detailUser:any;
@@ -26,7 +26,7 @@ firedataOrder = firebase.database().ref('/orders');
 firedataMenu = firebase.database().ref('/menu');
 firedataEchere = firebase.database().ref('/enchere');
 firedataVente = firebase.database().ref('/vente');
-orderList: Product[];
+orderList!: Product[];
 page = 1;
 lisAddress: any[] = [];
 myToggle= {};

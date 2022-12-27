@@ -42,8 +42,8 @@ export class AddProductComponent implements OnInit {
   urls = [];
   private IMAGES_FOLDER: string = 'images';
   files: Array<FileItem[]> = [];
-  selectedFiles: FileList;
-  currentUpload: FileItem;
+  selectedFiles!: FileList;
+  currentUpload!: FileItem;
   userInfos:any;
   zone:any;
   phone:any;
@@ -337,9 +337,9 @@ uploadphoto(upload: FileItem){
 
 
 
- private saveFileData(nbre_sec, discutable, temps, reduction, paysvendeur, phonevendeur, villevendeur, quartiervendeur,
-  categ, nom, description, prix, stock, etat, enchere, pointure, taille, superficie, nbr_piece,
-  transmission, kilometrage, model) {
+ private saveFileData(nbre_sec:any, discutable:any, temps:any, reduction:any, paysvendeur:any, phonevendeur:any, villevendeur:any, quartiervendeur:any,
+  categ:any, nom:any, description:any, prix:any, stock:any, etat:any, enchere:any, pointure:any, taille:any, superficie:any, nbr_piece:any,
+  transmission:any, kilometrage:any, model:any) {
 
 
     //ON PREPARE LES REFERENCES

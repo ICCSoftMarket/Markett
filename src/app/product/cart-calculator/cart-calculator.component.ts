@@ -14,7 +14,7 @@ import { Product } from "../../shared/models/product";
   styleUrls: ["./cart-calculator.component.scss"]
 })
 export class CartCalculatorComponent implements OnInit, OnChanges {
-  @Input() products: Product[];
+  @Input() products!: Product[];
 
   totalValue = 0;
   constructor() {}

@@ -30,10 +30,10 @@ export class LoginComponent implements OnInit {
   errorMessage: any;
   createUser;
   firedata = firebase.database().ref('/users');
-  paysList= [];
+  paysList:any[] = [];
   uid:any;
-  latUser: number;
-  lngUser: number;
+  latUser!: number;
+  lngUser!: number;
 
   constructor(
     private authService: AuthService,private toastyService: ToastyService,private router: Router,

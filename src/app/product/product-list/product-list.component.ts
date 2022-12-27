@@ -25,41 +25,41 @@ import { LabelType, Options } from "ng5-slider";
   styleUrls: ["./product-list.component.scss"]
 })
 export class ProductListComponent implements OnInit {
-  productList: Product[];
-  categoryList= [];
+  productList!: Product[];
+  categoryList:any[] = [];
   segment: string = 'vetement_homme';
   selectedSegment: string = this.segment;
   firedata = firebase.database().ref('/category');
 
   brands = ["All", "Google", "Apple", "Samsung", "OnePlus", "Lenovo", "Nokia", "Motorolla"];
 
-  selectedBrand: "All";
-  selectedPays: "All"
-  searchText;
-  userConnect;
+  selectedBrand!: "All";
+  selectedPays!: "All"
+  searchText:any;
+  userConnect:any;
   user: Observable<firebase.User>;
 
   page = 1;
 
-  nbrLike;
-  listLike = [];
-  nbrNoLike;
-  listNoLike = [];
-  dejaLike;
-  dejaNoLike;
-  listComment = [];
-  nbrcomment;
-  infoUser;
+  nbrLike:any;
+  listLike:Cart[] = [];
+  nbrNoLike:any;
+  listNoLike: Cart[] = [];
+  dejaLike:any;
+  dejaNoLike:any;
+  listComment:Cart[] = [];
+  nbrcomment:any;
+  infoUser:any;
   firedataMenu = firebase.database().ref('/menu');
-  infos;
+  infos:any;
   selectedTab = 0;
 
-  searchAmount;
-  searchAmountmin;
-  paysList= [];
+  searchAmount:any;
+  searchAmountmin:any;
+  paysList:any[] = [];
 
   slides: any = [[]];
-  chunk(arr, chunkSize) {
+  chunk(arr:any, chunkSize:any) {
     let R = [];
     for (let i = 0, len = arr.length; i < len; i += chunkSize) {
       R.push(arr.slice(i, i + chunkSize));
@@ -91,17 +91,17 @@ export class ProductListComponent implements OnInit {
     this.getAllPays()
 
     console.log('navig', navigator.geolocation);
-    
+
   }
 
   getAllProducts() {
     this.spinnerService.show();
     const x = this.productService.getProducts();
     console.log(x);
-    x.snapshotChanges().subscribe(product => {
+    x.snapshotChanges().subscribe((product:any) => {
       this.spinnerService.hide();
       this.productList = [];
-      product.forEach(element => {
+      product.forEach((element:any) => {
         const y = element.payload.toJSON();
         y["$key"] = element.key;
         this.productList.push(y as Product);
@@ -111,8 +111,8 @@ export class ProductListComponent implements OnInit {
   }
 
   getCateg(){
-    this.firedata.once('value', (snapshot) =>{
-      
+    this.firedata.once('value', (snapshot:any) =>{
+
       for (var categ in snapshot.val()){
         this.categoryList.push(snapshot.val()[categ])
       }
@@ -124,8 +124,8 @@ export class ProductListComponent implements OnInit {
   //recherche des pays
   getAllPays() {
     const x = this.productService.getPays();
-    x.snapshotChanges().subscribe(categ => {
-      categ.forEach(element => {
+    x.snapshotChanges().subscribe((categ:any) => {
+      categ.forEach((element:any) => {
         const y = element.payload.toJSON();
         y["$key"] = element.key;
         // console.log("yyy", y)
@@ -134,7 +134,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  removeProduct(key: string, name) {
+  removeProduct(key: string, name:any) {
     this.productService.deleteProduct(key);
     this.deleteFileStorage(name);
   }
@@ -154,7 +154,7 @@ export class ProductListComponent implements OnInit {
   }
 
 
-  brandFunction(brand){
+  brandFunction(brand:any){
     this.selectedBrand = brand;
     console.log(this.selectedBrand);
   }
@@ -191,16 +191,16 @@ export class ProductListComponent implements OnInit {
   //   }
   // }
 
-  paysFunction(pays){
+  paysFunction(pays:any){
     console.log("mon log pays", pays)
     if(!pays){
       this.spinnerService.show();
         const x = this.productService.getProducts();
         // console.log(x);
-        x.snapshotChanges().subscribe(product => {
+        x.snapshotChanges().subscribe((product:any) => {
           this.spinnerService.hide();
           this.productList = [];
-          product.forEach(element => {
+          product.forEach((element:any) => {
             const y = element.payload.toJSON();
             y["$key"] = element.key;
             this.productList.push(y as Product);
@@ -210,10 +210,10 @@ export class ProductListComponent implements OnInit {
     }else{
       this.spinnerService.show();
       const x = this.productService.getProducByCountry(pays);
-      x.snapshotChanges().subscribe(pro => {
+      x.snapshotChanges().subscribe((pro:any) => {
         this.spinnerService.hide();
         this.productList = [];
-        pro.forEach(element => {
+        pro.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           // console.log(y["$key"]);
@@ -221,17 +221,17 @@ export class ProductListComponent implements OnInit {
         });
       });
     }
-      
-    
+
+
   }
 
 
 
     //*******************DONNEZ DES LIKE */
-like(product){
+like(product:any){
   console.log(product);
-  
-  this.firedataMenu.child(product.$key).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+
+  this.firedataMenu.child(product.$key).child('like').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
       console.log(snapshot.val());
       if (snapshot.val()){
         console.log('il a déjà voté');
@@ -241,21 +241,21 @@ like(product){
           uid: this.infoUser.uid,
           name: this.infoUser.displayName,
           dejavote: true
-        
+
         });
       }
     })
   }
-  
-  nobreVote(key){
+
+  nobreVote(key:any){
     this.nbrLike = 0;
     const x = this.db.list('/menu/'+ key + '/like');
     console.log(x);
-    x.snapshotChanges().subscribe(prod => {
+    x.snapshotChanges().subscribe((prod:any) => {
       this.spinnerService.hide();
       console.log(prod);
       this.listLike = [];
-      prod.forEach(element => {
+      prod.forEach((element:any) => {
         const y = element.payload.toJSON();
         y["$key"] = element.key;
         this.listLike.push(y as Cart);
@@ -265,10 +265,10 @@ like(product){
     });
   }
   //********************DONNEZ DES NOLIKE */
-  noLike(product){
+  noLike(product:any){
     console.log(product);
-    
-    this.firedataMenu.child(product.$key).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+
+    this.firedataMenu.child(product.$key).child('nolike').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
         console.log(snapshot.val());
         if (snapshot.val()){
           console.log('il a déjà no voté');
@@ -278,20 +278,20 @@ like(product){
             uid: this.infoUser.uid,
             name: this.infoUser.displayName,
             dejanovote: true
-          
+
           });
         }
       })
     }
-    
-    nobreNoVote(key){
+
+    nobreNoVote(key:any){
       this.nbrNoLike = 0;
       const x = this.db.list('/menu/'+ key + '/nolike');
       console.log(x);
-      x.snapshotChanges().subscribe(prod => {
+      x.snapshotChanges().subscribe((prod:any) => {
         this.spinnerService.hide();
         this.listNoLike = [];
-        prod.forEach(element => {
+        prod.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           this.listNoLike.push(y as Cart);
@@ -301,49 +301,49 @@ like(product){
       });
       return this.nbrNoLike
     }
-  
+
   //*****************AJOUT DE COMMENTAIRE */
-  
+
   //OUVRIR LE FORMULAIRE AJOUT ADRESSE LIVRAISON
-    open(content, key) {
+    open(content:any, key:any) {
       this.modalService.open(content);
-      
+
     }
-  
-  
+
+
   //AJOUTER UN COMMENTAIRE
-  addCommentaire(commentForm: NgForm, key) {
+  addCommentaire(commentForm: NgForm, key:any) {
     const dataform = commentForm.value;
     console.log(dataform);
-    
-    this.firedataMenu.child(key).child('comment').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot)=>{
+
+    this.firedataMenu.child(key).child('comment').orderByChild('uid').equalTo(this.infoUser.uid).once('value', (snapshot:any)=>{
       console.log(snapshot.val());
       console.log(this.infos.image_profile);
-      
+
         console.log('pas');
         this.firedata.child(this.infoUser).child('comment').push({
           uid: this.infoUser.uid,
           name: this.infoUser.displayName,
           comment: dataform.commentaire,
           image: this.infos.image_profile
-        
+
         });
-      
+
     })
-      
+
       this.modalService.dismissAll();
-    
+
     }
-  
+
     //COMPTER LE NOMBRE DE COMMENTAIRES
-    nobreComment(key){
+    nobreComment(key:any){
       this.nbrcomment = 0;
       const x = this.db.list('/menu/'+ key + '/comment');
       console.log(x);
-      x.snapshotChanges().subscribe(prod => {
+      x.snapshotChanges().subscribe((prod:any) => {
         this.spinnerService.hide();
         this.listComment = [];
-        prod.forEach(element => {
+        prod.forEach((element:any) => {
           const y = element.payload.toJSON();
           y["$key"] = element.key;
           this.listComment.push(y as Cart);
@@ -358,9 +358,9 @@ like(product){
       console.log(this.infoUser.uid);
       const x = this.productService.getUsers(this.infoUser.uid);
       console.log(x);
-      x.snapshotChanges().subscribe(use => {
+      x.snapshotChanges().subscribe((use:any) => {
         console.log(use);
-        use.forEach(element => {
+        use.forEach((element:any) => {
           const inf = element.payload.toJSON();
           console.log(inf);
           this.infos = inf;
@@ -376,7 +376,7 @@ like(product){
     //     this.router.navigate(this.categoryList[this.selectedTab].link);
     //   }
     // }
-  
+
     // back() {
     //   if (this.selectedTab > 0) {
     //     this.selectedTab--;

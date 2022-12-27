@@ -17,7 +17,7 @@ import { Router } from "@angular/router";
 })
 export class ProductsComponent implements OnInit {
   //checkoutProducts: Product[];
-  checkoutProducts: Cart[];
+  checkoutProducts!: Cart[];
 
   totalPrice = 0;
   user: Observable<firebase.User>;

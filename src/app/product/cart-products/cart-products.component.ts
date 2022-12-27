@@ -15,7 +15,7 @@ import { Observable } from "rxjs";
   styleUrls: ["./cart-products.component.scss"]
 })
 export class CartProductsComponent implements OnInit {
-  cartProducts: Cart[];
+  cartProducts!: Cart[];
   showDataNotFound = true;
   firedata = firebase.database().ref('/cart');
   firedataMenu = firebase.database().ref('/menu');
@@ -124,7 +124,7 @@ export class CartProductsComponent implements OnInit {
   }
 
   //on decremente
-  decrement(item_id){
+  decrement(item_id:any){
 
     //check if item is existt in the cart or not
     if(this.userDetails){

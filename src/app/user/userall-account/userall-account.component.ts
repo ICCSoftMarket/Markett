@@ -24,14 +24,14 @@ import { Router } from "@angular/router";
   styleUrls: ["./userall-account.component.scss"]
 })
 export class UserAllAccountComponent implements OnInit {
-  loggedUser: User;
+  loggedUser!: User;
   // Enable Update Button
 infoUser:any;
 detailUser:any;
 infos:any;
 infosList= [];
 firedata = firebase.database().ref('/users');
-productList: Product[];
+productList!: Product[];
 page = 1;
 listusers: Cart[] = [];
 myToggle= {};

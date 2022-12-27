@@ -13,7 +13,7 @@ import { Product } from "../shared/models/product";
 
 export class IndexComponent implements OnInit {
   mesProduits:any;
-  productList: Product[];
+  productList!: Product[];
   constructor(private productService: ProductService,private spinnerService: LoaderSpinnerService) {
 
   }

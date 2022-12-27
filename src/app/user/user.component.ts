@@ -32,10 +32,10 @@ export class UserComponent implements OnInit {
   listLike: Cart[] = [];
   listNoLike: Cart[] = [];
   listComment: Cart[] = [];
-  orderList: Product[];
+  orderList!: Product[];
   nbreOrderClient:any;
 
-  orderListMy: Product[];
+  orderListMy!: Product[];
   nbreOrderMy:any;
   infos:any;
   firedata = firebase.database().ref('/users');
