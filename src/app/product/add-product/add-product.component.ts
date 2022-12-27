@@ -13,7 +13,7 @@ import * as firebase from "firebase/app";
 //add
 import { FileItem } from '../../shared/directives/file-item';
 import 'firebase/storage';
-import { AngularFireAuth } from "angularfire2/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from "@angular/router";
 
 declare var $: any;
@@ -273,19 +273,19 @@ export class AddProductComponent implements OnInit {
 
   suppImg(){
     console.log("ggg", this.urls);
-    this.url = undefined;
-    this.currentUpload = undefined;
-    this.deleteFileStorage(this.urls[0].name);
+    this.url = undefined!;
+    this.currentUpload = undefined!;
+    this.deleteFileStorage(this.urls[0]['name']);
   }
   suppImg1(){
-    this.url2 = undefined;
-    this.currentUpload = undefined;
-    this.deleteFileStorage(this.urls[1].name)
+    this.url2 = undefined!;
+    this.currentUpload = undefined!;
+    this.deleteFileStorage(this.urls[1]['name'])
   }
   suppImg2(){
-    this.url3 = undefined;
-    this.currentUpload = undefined;
-    this.deleteFileStorage(this.urls[2].name)
+    this.url3 = undefined!;
+    this.currentUpload = undefined!;
+    this.deleteFileStorage(this.urls[2]['name'])
   }
 
 uploadphoto(upload: FileItem){

@@ -17,24 +17,24 @@ import * as firebase from "firebase/app";
 
 @Injectable()
 export class ProductService {
-  products: AngularFireList<Product>;
-  encheres: AngularFireList<Product>;
-  encheresid: AngularFireList<Product>;
-  product: AngularFireObject<Product>;
-  addLocal: AngularFireObject<Product>;
-  category: AngularFireList<Product>;
-  pays: AngularFireList<Product>;
-  productList: Product[];
-  users: AngularFireList<Product>;
-  productuser: AngularFireList<Product>;
-  productcateg: AngularFireList<Product>;
-  productorder: AngularFireList<Product>;
-  productordermy: AngularFireList<Product>;
+  products!: AngularFireList<Product>;
+  encheres!: AngularFireList<Product>;
+  encheresid!: AngularFireList<Product>;
+  product!: AngularFireObject<Product>;
+  addLocal!: AngularFireObject<Product>;
+  category!: AngularFireList<Product>;
+  pays!: AngularFireList<Product>;
+  productList!: Product[];
+  users!: AngularFireList<Product>;
+  productuser!: AngularFireList<Product>;
+  productcateg!: AngularFireList<Product>;
+  productorder!: AngularFireList<Product>;
+  productordermy!: AngularFireList<Product>;
   firedata = firebase.database().ref('/cart');
 
   // favouriteProducts
-  favouriteProducts: AngularFireList<FavouriteProduct>;
-  cartProducts: AngularFireList<FavouriteProduct>;
+  favouriteProducts!: AngularFireList<FavouriteProduct>;
+  cartProducts!: AngularFireList<FavouriteProduct>;
 
   // NavbarCounts
   navbarCartCount = 0;
