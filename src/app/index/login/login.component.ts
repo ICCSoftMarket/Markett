@@ -7,8 +7,9 @@ import { AuthService } from "../../shared/services/auth.service";
 import { User } from "../../shared/models/user";
 
 //ajoute
+import firebase from 'firebase/compat/app';
 import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/compat/app";
 import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner";
 import { ProductService } from "../../shared/services/product.service";
 import { GeoService } from '../../geo.service'

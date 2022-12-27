@@ -4,8 +4,9 @@ import { User } from "../../shared/models/user";
 import { AuthService } from "../../shared/services/auth.service";
 
 //add
+import firebase from 'firebase/compat/app';
 import { ProductService } from "../../shared/services/product.service";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 import { Product } from "../../shared/models/product";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from "angularfire2/auth";
@@ -505,18 +506,18 @@ adressLivraison(addressForm: NgForm, data:any) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(cityName)!.style.display = "block";
     evt.currentTarget.className += " active";
   }
 
 
   //tchat bot
   openForm() {
-    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myForm")!.style.display = "block";
   }
 
   closeForm() {
-    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm")!.style.display = "none";
   }
 
 

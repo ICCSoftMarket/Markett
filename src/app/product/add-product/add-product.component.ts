@@ -3,7 +3,7 @@ import {
   ToastyConfig,
   ToastOptions,
   ToastData
-} from "ng2-toasty";
+} from 'ng2-toasty';
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Product } from "../../shared/models/product";
@@ -377,16 +377,16 @@ uploadphoto(upload: FileItem){
 
 
     //add image
-    name_img : this.urls[0]?this.urls[0].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",
-    image : this.urls[0]?this.urls[0].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",
-    url_image1 : this.urls[0]?this.urls[0].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url1;
-    url_image2 : this.urls[1]?this.urls[1].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url2;
-    url_image3 : this.urls[2]?this.urls[2].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url3;
+    name_img : this.urls[0]?this.urls[0]['url']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",
+    image : this.urls[0]?this.urls[0]['url']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",
+    url_image1 : this.urls[0]?this.urls[0]['url']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url1;
+    url_image2 : this.urls[1]?this.urls[1]['url']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url2;
+    url_image3 : this.urls[2]?this.urls[2]['url']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url3;
     // url_image4 : this.urls[3]?this.urls[3].url:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url4;
 
-    name_image1 : this.urls[0]?this.urls[0].name:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url1;
-    name_image2 : this.urls[1]?this.urls[1].name:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url2;
-    name_image3 : this.urls[2]?this.urls[2].name:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url3;
+    name_image1 : this.urls[0]?this.urls[0]['name']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url1;
+    name_image2 : this.urls[1]?this.urls[1]['name']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url2;
+    name_image3 : this.urls[2]?this.urls[2]['name']:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url3;
     // name_image4 : this.urls[3]?this.urls[3].name:"https://firebasestorage.googleapis.com/v0/b/shopping-8abd0.appspot.com/o/baner%2Fmymarket.png?alt=media&token=ec804404-5c4b-4125-abe8-6e3a8ec2c1e7",// url4;
   }
    //this.af.database.list(`/${this.IMAGES_FOLDER}`).push(image);
