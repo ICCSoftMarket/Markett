@@ -5,7 +5,7 @@ import { AuthService } from "../../shared/services/auth.service";
 
 //add
 import { ProductService } from "../../shared/services/product.service";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { Product } from "../../shared/models/product";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -15,7 +15,7 @@ import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
   styleUrls: ["./ordermy-account.component.scss"]
 })
 export class OrderMyAccountComponent implements OnInit {
-  loggedUser: User;
+  loggedUser!: User;
   // Enable Update Button
 infoUser;
 detailUser:any;
@@ -24,7 +24,7 @@ infosList= [];
 firedata = firebase.database().ref('/users');
 firedataOrder = firebase.database().ref('/orders');
 firedataMenu = firebase.database().ref('/menu');
-orderListMy: Product[];
+orderListMy!: Product[];
 page = 1;
 lisAddress: any[] = [];
 myToggle= {};

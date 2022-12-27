@@ -4,7 +4,7 @@ import { fadeAnimation } from "./shared/animations/fadeIntRoute";
 
 import { ProductService } from "./shared/services/product.service";
 import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 declare var $: any;
 
 @Component({

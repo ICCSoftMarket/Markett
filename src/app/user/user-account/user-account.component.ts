@@ -261,6 +261,7 @@ adressLivraison(addressForm: NgForm, data:any) {
   }
 
   cancel(){
+    // @ts-ignore
     location.reload(true);
     console.log("CANCEL");
   }
@@ -371,6 +372,7 @@ adressLivraison(addressForm: NgForm, data:any) {
   uploadImage(bg:any){
     console.log(bg);
     let file = this.selectedFiles.item(0)
+    // @ts-ignore
     this.currentUpload = new FileItem(file);
     this.pushUpload(this.currentUpload, bg);
     const toastOption: ToastOptions = {
