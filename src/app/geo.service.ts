@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import * as GeoFire from "geofire";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseApp } from 'angularfire2';
 import * as firebase from "firebase/app";
 import { LoaderSpinnerService } from "./shared/loader-spinner/loader-spinner";
