@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Product } from "../../shared/models/product";
 import { ProductService } from "../../shared/services/product.service";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app';
 
 //add
 import { FileItem } from '../../shared/directives/file-item';

@@ -38,8 +38,8 @@ export class ProductListComponentCateg implements OnInit {
   searchText:any;
   userConnect:any;
   user: Observable<firebase.User>;
-  selectedBrand: "All";
-  selectedPays: "All"
+  selectedBrand!: "All";
+  selectedPays!: "All"
 
   page = 1;
 
