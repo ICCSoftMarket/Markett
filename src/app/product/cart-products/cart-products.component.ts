@@ -3,7 +3,7 @@ import { Product } from "../../shared/models/product";
 import { ProductService } from "../../shared/services/product.service";
 //add
 import { AuthService } from "../../shared/services/auth.service";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner";
 import { Cart } from "../../shared/models/cart";
 import { AngularFireAuth } from "angularfire2/auth";

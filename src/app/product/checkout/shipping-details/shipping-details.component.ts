@@ -2,7 +2,8 @@ import { UserDetail, User } from "./../../../shared/models/user";
 import { AuthService } from "./../../../shared/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "../../../../../node_modules/@angular/forms";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
+
 
 //add
 import { AngularFireAuth } from "angularfire2/auth";

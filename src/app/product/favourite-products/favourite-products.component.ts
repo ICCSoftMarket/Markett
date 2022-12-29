@@ -4,7 +4,7 @@ import { ProductService } from "../../shared/services/product.service";
 
 //add
 import { Observable } from "rxjs";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
@@ -13,10 +13,10 @@ import { AngularFireAuth } from "angularfire2/auth";
   styleUrls: ["./favourite-products.component.scss"]
 })
 export class FavouriteProductsComponent implements OnInit {
-  favoruiteProducts: Product[];
+  favoruiteProducts!: Product[];
   showDataNotFound = true;
   user: Observable<firebase.User>;
-  infoUser;
+  infoUser:any;
 
   // Not Found Message
   messageTitle = "Vous n'avez pas de produit favori";

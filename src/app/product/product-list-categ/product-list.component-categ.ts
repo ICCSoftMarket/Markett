@@ -5,7 +5,7 @@ import { ProductService } from "../../shared/services/product.service";
 import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner";
 
 //add
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { Observable } from "rxjs";
 import { AngularFireAuth } from "angularfire2/auth";
 import {
@@ -17,7 +17,7 @@ import { NgForm, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Cart } from "../../shared/models/cart";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from "@angular/router";
-import { LabelType, Options } from "ng5-slider";
+import { LabelType, Options } from 'ng5-slider';
 
 @Component({
   selector: "app-product-list-categ",

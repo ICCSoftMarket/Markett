@@ -5,7 +5,7 @@ import { AuthService } from "../../shared/services/auth.service";
 
 //add
 import { ProductService } from "../../shared/services/product.service";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { Product } from "../../shared/models/product";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from "angularfire2/auth";

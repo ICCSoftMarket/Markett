@@ -7,7 +7,7 @@ import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner
 //add
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { AngularFireAuth } from "angularfire2/auth";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
@@ -19,9 +19,9 @@ import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
   styleUrls: ["./enchere-list.component.scss"]
 })
 export class enchereListComponent implements OnInit {
-  enchereList: Product[];
- clotureList: Product[];
-  enchereId: Product[];
+  enchereList!: Product[];
+ clotureList!: Product[];
+  enchereId!: Product[];
   user: Observable<firebase.User>;
   categoryList: any[] = [];
   segment: string = 'vetement_homme';
@@ -44,7 +44,7 @@ export class enchereListComponent implements OnInit {
   objetCateg = {};
   brands = ["All", "Google", "Apple", "Samsung", "OnePlus", "Lenovo", "Nokia", "Motorolla"];
 
-  selectedBrand: "All";
+  selectedBrand!: "All";
   searchText:any;
   firedataCateg = firebase.database().ref('/category');
 

@@ -13,7 +13,8 @@ import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner
 import { Cart } from "../models/cart";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Observable } from "rxjs";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
+
 
 @Injectable()
 export class ProductService {
@@ -510,7 +511,7 @@ getEnchereByPays(pays:any) {
 }
 
 export class FavouriteProduct {
-  product: Product;
-  productId: string;
-  userId: string;
+  product!: Product;
+  productId!: string;
+  userId!: string;
 }
