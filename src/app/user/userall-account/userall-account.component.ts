@@ -36,7 +36,7 @@ page = 1;
 listusers: Cart[] = [];
 myToggle= {};
 data = {};
-modal: NgbModalRef;
+modal!: NgbModalRef;
 users;
 nbrLike:any;
 nbrNoLike:any;

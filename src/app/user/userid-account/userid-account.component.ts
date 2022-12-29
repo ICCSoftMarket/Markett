@@ -40,7 +40,7 @@ page = 1;
 lisAddress : Cart[] = [];
 myToggle= {};
 data = {};
-modal: NgbModalRef;
+modal!: NgbModalRef;
 users;
 supp = {};
 selectedFiles!: FileList;

@@ -5,7 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as GeoFire from "geofire";
 import { BehaviorSubject } from 'rxjs';
 import { FirebaseApp } from 'angularfire2';
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { LoaderSpinnerService } from "./shared/loader-spinner/loader-spinner";
 import { Cart } from "./shared/models/cart";
 //import GeoFire = require('geofire');

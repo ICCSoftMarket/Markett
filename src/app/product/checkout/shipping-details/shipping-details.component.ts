@@ -37,7 +37,7 @@ export class ShippingDetailsComponent implements OnInit {
   userinfos:any;
   data = {};
   supp = {};
-  closeResult: string;
+  closeResult!: string;
 
   userDetail: UserDetail;
 
