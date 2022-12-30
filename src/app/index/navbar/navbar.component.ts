@@ -6,7 +6,8 @@ import { ProductService } from "../../shared/services/product.service";
 //add
 import { User } from "../../shared/models/user";
 import { AngularFireAuth } from "angularfire2/auth";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
+
 // import { ProductListComponent } from "src/app/product/product-list/product-list.component";
 
 declare var $: any;
@@ -19,7 +20,7 @@ declare var $: any;
 export class NavbarComponent implements OnInit {
   infoUser:any;
   infos:any;
-  loggedUser: User;
+  loggedUser!: User;
   users;
   firedata = firebase.database().ref('/category');
   categoryList= [];

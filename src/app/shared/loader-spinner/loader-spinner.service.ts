@@ -10,7 +10,7 @@ export class LoaderSpinnerService {
    * @type {Observer<any>}
    * @memberof LoaderSpinnerComponent
    */
-  private spinnerObserver: Observer<any>;
+  private spinnerObserver!: Observer<any>;
   /**
    * Spinner observable
    * @type {Observable<any>}

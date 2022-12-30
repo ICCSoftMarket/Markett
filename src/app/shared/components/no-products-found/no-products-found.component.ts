@@ -7,9 +7,9 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class NoProductsFoundComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
-  @Input("title") title: String;
+  @Input("title") title!: String;
   // tslint:disable-next-line:no-input-rename
-  @Input("description") description: String;
+  @Input("description") description!: String;
   constructor() {}
 
   ngOnInit() {}

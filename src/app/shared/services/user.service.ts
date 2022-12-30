@@ -7,7 +7,7 @@ import { User } from "../models/user";
 @Injectable()
 export class UserService {
   selectedUser: User = new User();
-  users: AngularFireList<User>;
+  users!: AngularFireList<User>;
 
   location = {
     lat: null,

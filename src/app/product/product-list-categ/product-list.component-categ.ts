@@ -25,7 +25,7 @@ import { LabelType, Options } from 'ng5-slider';
   styleUrls: ["./product-list.component-categ.scss"]
 })
 export class ProductListComponentCateg implements OnInit {
-  productList: Product[];
+  productList!: Product[];
   categoryList: any[] = [];
   // segment: string = 'vetement_homme';
   // selectedSegment: string = this.segment;

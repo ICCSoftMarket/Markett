@@ -14,7 +14,7 @@ import {
 import { NgForm, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Cart } from "../../shared/models/cart";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { Observable } from "rxjs";
 import { User } from "../../shared/models/user";
 import { AuthService } from "../../shared/services/auth.service";

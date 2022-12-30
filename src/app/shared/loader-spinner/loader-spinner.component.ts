@@ -91,12 +91,12 @@ export class LoaderSpinnerComponent implements OnInit, OnDestroy {
    * @type {Subscription}
    * @memberof LoaderSpinnerComponent
    */
-  subscription: Subscription;
+  subscription!: Subscription;
   /**
    * Enable/Disable spinner
    * @memberof LoaderSpinnerComponent
    */
-  showSpinner = false;
+  showSpinner:any = false;
 
   constructor(private loaderService: LoaderSpinnerService) {}
 

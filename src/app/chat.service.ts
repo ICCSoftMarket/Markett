@@ -3,10 +3,10 @@ import { environment } from '../environments/environment';
 
 //import { ApiAiClient } from 'api-ai-javascript';
 
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import { ApiAiClient } from 'api-ai-javascript/es6/ApiAiClient';
+import {ApiAiClient} from "api-ai-javascript";
 
 // Message class for displaying messages in the component
 export class Message {

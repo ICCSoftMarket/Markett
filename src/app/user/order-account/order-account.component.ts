@@ -31,7 +31,7 @@ page = 1;
 lisAddress: any[] = [];
 myToggle= {};
 data = {};
-modal: NgbModalRef;
+modal!: NgbModalRef;
 
 
   constructor(private authService: AuthService, private productService: ProductService,
