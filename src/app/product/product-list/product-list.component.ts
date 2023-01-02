@@ -5,7 +5,7 @@ import { ProductService } from "../../shared/services/product.service";
 import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner";
 
 //add
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { Observable } from "rxjs";
 import { AngularFireAuth } from "angularfire2/auth";
 import {
