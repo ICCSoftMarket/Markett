@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GeoService } from '../geo.service'
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
+
 import * as GeoFire from "geofire";
 
 @Component({

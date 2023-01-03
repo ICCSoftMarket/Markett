@@ -303,7 +303,7 @@ uploadphoto(upload: FileItem){
       },
       () => {
         // upload success
-        upload.url = uploadTask.snapshot. downloadURL;
+        upload.url = uploadTask.snapshot.downloadURL;
         upload.name = upload.file[0].name;
         this.urls.push({'url': upload.url, 'name': upload.name})
       })

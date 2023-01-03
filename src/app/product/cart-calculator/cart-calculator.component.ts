@@ -20,7 +20,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    const dataChanges: SimpleChange = changes.products;
+    const dataChanges: SimpleChange = changes["products"];
 
     const products: Product[] = dataChanges.currentValue;
     this.totalValue = 0;
@@ -28,6 +28,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
       console.log(
         "Adding: " + product.productName + " $ " + product.productPrice
       );
+      // @ts-ignore
       this.totalValue += (product["item_price"]*product["item_qty"]);
     });
   }

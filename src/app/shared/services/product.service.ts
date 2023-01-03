@@ -41,7 +41,7 @@ export class ProductService {
   navbarCartCount = 0;
   navbarFavProdCount = 0;
   user: Observable<firebase.User>;
-  userDetails: firebase.User = null;
+  userDetails:any;
   key:any;
   encherespays:any;
   encherescateg:any;
@@ -229,7 +229,7 @@ getEnchereByPays(pays:any) {
     };
 
     let a: Product[];
-    a = JSON.parse(localStorage.getItem("avf_item")) || [];
+    a = JSON.parse(localStorage.getItem("avf_item") || '[]');
     console.log(a);
     a.push(data);
     this.toastyService.wait(toastAdd);
@@ -242,7 +242,7 @@ getEnchereByPays(pays:any) {
   // Fetching unsigned users favourite proucts
   getLocalFavouriteProducts(): Product[] {
     const products: Product[] =
-      JSON.parse(localStorage.getItem("avf_item")) || [];
+      JSON.parse(localStorage.getItem("avf_item") || '[]');
 
     return products;
   }
@@ -254,7 +254,7 @@ getEnchereByPays(pays:any) {
 
   // Removing Favourite Product from localStorage
   removeLocalFavourite(product: Product) {
-    const products: Product[] = JSON.parse(localStorage.getItem("avf_item"));
+    const products: Product[] = JSON.parse(localStorage.getItem("avf_item") || '[]');
 
     for (let i = 0; i < products.length; i++) {
       if (products[i].$key === product.$key) {
@@ -367,7 +367,7 @@ getEnchereByPays(pays:any) {
         console.log('on est pas connecté')
         this.userDetails = null;
         console.log(localStorage)
-        a = JSON.parse(localStorage.getItem("cartssss_item")) || [];
+        a = JSON.parse(localStorage.getItem("cartssss_item") || '[]');
         console.log(a);
         a.push(addLocal);
 
@@ -398,7 +398,7 @@ getEnchereByPays(pays:any) {
 
   // Removing cart from local
   removeLocalCartProduct(product: Cart) {
-    const products: Cart[] = JSON.parse(localStorage.getItem("cartssss_item"));
+    const products: Cart[] = JSON.parse(localStorage.getItem("cartssss_item") || '[]');
 
     for (let i = 0; i < products.length; i++) {
       if (products[i].$key === product.$key) {
@@ -419,7 +419,7 @@ getEnchereByPays(pays:any) {
 
     if(localStorage.getItem('cartssss_item')){
       const products: Cart[] =
-      JSON.parse(localStorage.getItem("cartssss_item")) || [];
+      JSON.parse(localStorage.getItem("cartssss_item") || '[]');
       return products;
     }else{
       const products: Cart[] = [];
