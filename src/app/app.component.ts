@@ -59,11 +59,11 @@ export class AppComponent implements OnInit {
   //tchat bot
   openForm() {
     console.log('dedan dedan')
-    document.getElementById("myForm").style.display = "block";
+    // document.getElementById("myForm").style.display = "block";
   }
 
   closeForm() {
-    document.getElementById("myForm").style.display = "none";
+    // document.getElementById("myForm").style.display = "none";
   }
 
 

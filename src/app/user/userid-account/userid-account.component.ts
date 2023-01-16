@@ -329,6 +329,7 @@ addCommentaire(commentForm: NgForm) {
   }
 
   cancel(){
+    // @ts-ignore
     location.reload(true);
     console.log("CANCEL");
   }

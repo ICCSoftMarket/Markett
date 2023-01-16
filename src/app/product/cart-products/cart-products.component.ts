@@ -20,7 +20,7 @@ export class CartProductsComponent implements OnInit {
   firedata = firebase.database().ref('/cart');
   firedataMenu = firebase.database().ref('/menu');
   user: Observable<firebase.User>;
-  userDetails: firebase.User = null;
+  userDetails!: firebase.User;
 
   // Not Found Message
   messageTitle = "Vous n'avez pas de produit dans votre pannier";
@@ -44,7 +44,7 @@ export class CartProductsComponent implements OnInit {
         console.log(this.userDetails);
         this.productService.removeCart(key);
       } else {
-        this.userDetails = null;
+        this.userDetails;
         this.productService.removeLocalCartProduct(product);
       }
     });
@@ -74,7 +74,7 @@ export class CartProductsComponent implements OnInit {
           });
 
       } else {
-        this.userDetails = null;
+        this.userDetails;
         console.log('on est dans le else');
         this.cartProducts = this.productService.getLocalCartProducts();
       }

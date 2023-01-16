@@ -12,8 +12,8 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: "index",
-        loadChildren: "./index/index.module#IndexModule"
-      },
+        // loadChildren: "./index/index.module#IndexModule"
+        loadChildren: () => import('./index/index.module').then(m => m.IndexModule)},
       {
         path: "products",
         loadChildren: "./product/product.module#ProductModule"

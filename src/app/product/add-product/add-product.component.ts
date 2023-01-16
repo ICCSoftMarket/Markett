@@ -150,7 +150,6 @@ export class AddProductComponent implements OnInit {
       alert("Vous devez vérifier les champs obligatoires (*) sont saisie");
       this.obligatoire = true;
       this.product = data;
-      return ""
     }
 
 
@@ -290,7 +289,7 @@ export class AddProductComponent implements OnInit {
 
 uploadphoto(upload: FileItem){
   let storageRef = firebase.storage().ref();
-    let uploadTask = storageRef.child('images/'+ upload.file[0].name).put(upload.file[0]);
+    let uploadTask = storageRef.child('images/'+ upload.file.name).put(upload.file); //upload.file[0]
   // let url, name;
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot:any) =>  {
@@ -303,9 +302,9 @@ uploadphoto(upload: FileItem){
       },
       () => {
         // upload success
-        upload.url = uploadTask.snapshot.downloadURL;
-        upload.name = upload.file[0].name;
-        this.urls.push({'url': upload.url, 'name': upload.name})
+        // upload.url = uploadTask.snapshot.downloadURL;
+        // upload.name = upload.file[0].name;
+        // this.urls.push({'url': upload.url, 'name': upload.name})
       })
       // this.urls.push({'url': upload.url, 'name': upload.name})
 }

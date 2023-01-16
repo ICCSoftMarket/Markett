@@ -97,7 +97,7 @@ nbrcomment:any;
 
 
   cancel(){
-    location.reload(true);
+    location.reload();
     console.log("CANCEL");
   }
 

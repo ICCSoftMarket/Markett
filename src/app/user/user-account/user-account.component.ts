@@ -18,7 +18,7 @@ import {
 import { LoaderSpinnerService } from "../../shared/loader-spinner/loader-spinner";
 import { Cart } from "../../shared/models/cart";
 import { FileItem } from '../../shared/directives/file-item';
-import { GeoService } from '../../geo.service';
+// import { GeoService } from '../../geo.service';
 import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
 import * as CanvasJS from '../../canvasjs.min';
 

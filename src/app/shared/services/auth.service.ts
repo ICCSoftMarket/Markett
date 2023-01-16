@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
-  userDetails: firebase.User = null;
+  userDetails!: firebase.User ;
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = firebaseAuth.authState;
@@ -17,7 +17,7 @@ export class AuthService {
         this.userDetails = user;
         console.log(this.userDetails);
       } else {
-        this.userDetails = null;
+        this.userDetails= user;
       }
     });
   }
@@ -56,7 +56,7 @@ export class AuthService {
         loggedUser.isAdmin = user.email === "admin@gmail.com" ? true : false;
       }
     } else {
-      this.userDetails = null;
+      this.userDetails = user;
     }
 
     return loggedUser;
@@ -69,6 +69,7 @@ export class AuthService {
         return true;
       }
     }
+    return false
   }
 
   signInRegular(email:any, password:any) {

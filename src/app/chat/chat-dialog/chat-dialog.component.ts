@@ -11,7 +11,7 @@ import 'rxjs/add/operator/scan';
 })
 export class ChatDialogComponent implements OnInit {
 
-  messages: Observable<Message[]>;
+  messages!: Observable<Message[]>;
   formValue!: string;
 
   constructor(public chat: ChatService) { }

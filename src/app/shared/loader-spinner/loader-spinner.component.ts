@@ -96,7 +96,7 @@ export class LoaderSpinnerComponent implements OnInit, OnDestroy {
    * Enable/Disable spinner
    * @memberof LoaderSpinnerComponent
    */
-  showSpinner:any = false;
+  showSpinner:boolean = false;
 
   constructor(private loaderService: LoaderSpinnerService) {}
 
@@ -118,14 +118,14 @@ export class LoaderSpinnerComponent implements OnInit, OnDestroy {
           return;
         }
 
-        timer = setTimeout(
-          function() {
-            timer = null;
-
-            this.showSpinner = show;
-          }.bind(this),
-          this._threshold
-        );
+        // timer = setTimeout(
+        //   function() {
+        //     timer = null;
+        //
+        //     this.showSpinner = show;
+        //   }.bind(this),
+        //   this._threshold
+        // );
       } else {
         if (timer) {
           clearTimeout(timer);
