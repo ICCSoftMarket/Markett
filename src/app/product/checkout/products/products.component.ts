@@ -6,7 +6,8 @@ import { Product } from "../../../shared/models/product";
 import { Cart } from "../../../shared/models/cart";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Observable } from "rxjs";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
 import { LoaderSpinnerService } from "../../../shared/loader-spinner/loader-spinner";
 import { Router } from "@angular/router";
 
@@ -21,7 +22,7 @@ export class ProductsComponent implements OnInit {
 
   totalPrice = 0;
   user: Observable<firebase.User>;
-  userDetails: firebase.User = null;
+  userDetails!: firebase.User;
   constructor(private productService: ProductService, private firebaseAuth: AngularFireAuth,
     private spinnerService: LoaderSpinnerService, private router: Router) {
 
@@ -48,7 +49,7 @@ export class ProductsComponent implements OnInit {
 
 
       } else {
-        this.userDetails = null;
+        this.userDetails;
         this.router.navigate(["/index/login"]);
       }
     });

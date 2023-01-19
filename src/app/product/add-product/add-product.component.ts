@@ -13,7 +13,7 @@ import firebase from 'firebase/compat/app';
 //add
 import { FileItem } from '../../shared/directives/file-item';
 import 'firebase/storage';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from "@angular/router";
 
 declare var $: any;

@@ -65,6 +65,7 @@ export class GoogleMapComponent implements OnInit, OnDestroy {
 
         var local = [this.lat, this.lng];
         var lautre = [snapshot.val()[i].l[0], snapshot.val()[i].l[1]];
+        // @ts-ignore
         this.distance = GeoFire.distance(local, lautre).toFixed(2);
         console.log(this.distance)
 

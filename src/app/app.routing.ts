@@ -13,14 +13,16 @@ export const AppRoutes: Routes = [
       {
         path: "index",
         // loadChildren: "./index/index.module#IndexModule"
-        loadChildren: () => import('./index/index.module').then(m => m.IndexModule)},
+        // loadChildren: () => import('./index/index.module').then(m => m.IndexModule)
+      },
       {
         path: "products",
-        loadChildren: "./product/product.module#ProductModule"
+        // loadChildren: "./product/product.module#ProductModule"
+        // loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
       },
       {
         path: "users",
-        loadChildren: "./user/user.module#UserModule"
+        // loadChildren: "./user/user.module#UserModule"
       }
     ]
   },

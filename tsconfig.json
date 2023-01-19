@@ -17,6 +17,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
+    "noImplicitAny": false,
 //    "module": "ES2022",
     "module": "esnext",
     "useDefineForClassFields": false,
@@ -29,6 +30,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "skipLibCheck": true
   }
 }

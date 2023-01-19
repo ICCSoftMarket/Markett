@@ -2,8 +2,7 @@ import { UserDetail, User } from "./../../../shared/models/user";
 import { AuthService } from "./../../../shared/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "../../../../../node_modules/@angular/forms";
-import firebase from 'firebase/compat/app'
-
+import firebase from 'firebase/compat/app';
 
 //add
 import { AngularFireAuth } from "angularfire2/auth";
@@ -26,7 +25,7 @@ import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
 })
 export class ShippingDetailsComponent implements OnInit {
   userDetails: User;
-  addresses = [];
+  addresses:any;
   firedata = firebase.database().ref('/users');
   users;
   addressList: Cart[] = [];
@@ -35,7 +34,7 @@ export class ShippingDetailsComponent implements OnInit {
   firedataVente = firebase.database().ref('/vente');
   firedataCart = firebase.database().ref('/cart');
   userinfos:any;
-  data = {};
+  data:UserDetail= new UserDetail();
   supp = {};
   closeResult!: string;
 
@@ -77,7 +76,7 @@ export class ShippingDetailsComponent implements OnInit {
         });
 
       } else {
-        this.userDetails = null;
+        this.userDetails;
       }
     });
   }
@@ -119,6 +118,7 @@ export class ShippingDetailsComponent implements OnInit {
          // sharedUtils.showAlert("Error","Vous devez dabord ajouter les produits dans votre panier puis les commander.")
          alert("vous n'avez pas de produit dans votre pannier!");
     }else{
+      // @ts-ignore
       console.log(this.addresses["phone"]);
       var address = {
         ville: this.addresses["address"],
@@ -231,7 +231,6 @@ adressLivraison(addressForm: NgForm, data:any) {
     if(dataform.nickname== undefined || dataform.phone== undefined || dataform.address== undefined || dataform.quartier== undefined || dataform.pin== undefined){
       alert("Un champs n'est pas saisie!");
       this.data = dataform;
-      return ""
     }else{
 
       this.firedata.child(this.userinfos.uid).child("address").push({

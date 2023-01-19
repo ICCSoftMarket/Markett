@@ -234,7 +234,7 @@ export class enchereListComponent implements OnInit {
     for (var key in this.enchereList){
       if (this.enchereList[key].$key == id){
         for (var m in this.enchereList[key]["offres"]){
-          tab.push(this.enchereList[key]["offres"][m].montant_enchere);
+          tab.push(this.enchereList[key]["offres"][m].price);
           //console.log(Math.max(...tab));
 
         }
@@ -251,7 +251,7 @@ export class enchereListComponent implements OnInit {
     for (var key in this.enchereList){
       if (this.enchereList[key].$key == id){
         for (var m in this.enchereList[key]["offres"]){
-          tab.push(this.enchereList[key]["offres"][m].montant_enchere);
+          tab.push(this.enchereList[key]["offres"][m].price);
           //console.log(Math.max(...tab));
 
         }
@@ -383,6 +383,7 @@ export class enchereListComponent implements OnInit {
 
   compte_a_rebour(id:any){
     //console.log(id);
+    var compte_a_rebours;
     //LISTE DES PRODUITS AUX ENCHERE
     for (var key in this.enchereList){
       //console.log(this.enchereList[key].$key);
@@ -472,13 +473,13 @@ export class enchereListComponent implements OnInit {
 
           //console.log($scope.compte_a_rebour);
           //setInterval($scope.compte_a_rebour, 1000);
-          var compte_a_rebours = prefixe + this.jours + ' ' + mot_jour + ' ' + this.heures + ' ' + mot_heure + ' ' + this.minutes + ' ' + mot_minute + ' ' + this.secondes + ' ' + mot_seconde;
+          compte_a_rebours = prefixe + this.jours + ' ' + mot_jour + ' ' + this.heures + ' ' + mot_heure + ' ' + this.minutes + ' ' + mot_minute + ' ' + this.secondes + ' ' + mot_seconde;
 
       }
 
       if(total_secondes == 0)
       {
-          var compte_a_rebours = 'Compte à rebours terminé r.';
+          compte_a_rebours = 'Compte à rebours terminé r.';
 
       }
       //setTimeout(this.compte_a_rebour(id),1000);

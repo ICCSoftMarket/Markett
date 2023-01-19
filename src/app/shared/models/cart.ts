@@ -9,4 +9,16 @@ export class Cart {
   item_phonevendeur!: number;
   item_qty!: number;
   name_img!:string;
+  length:any ;
+  uid:any;
+  date:any;
+  image!: string;
+  comment!: string;
+  phone:any;
+  name!: string;
+  pin:any;
+  nickname:any;
+  quartier:any;
+  address:any;
+  $id:any;
 }

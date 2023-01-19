@@ -1,3 +1,5 @@
+import {Cart} from "./cart";
+
 export class Product {
   $key!: string;
   productId!: number;
@@ -55,5 +57,14 @@ export class Product {
 
   distance!: number;
   // location: [];
+  offres!: Product[];
+  item_qty:any;
+  user_acheteur:any;
+  user_phone:any;
+
+  encore:any;
+  product_image:any;
+  date_commande:any;
+  message:any;
 }
 

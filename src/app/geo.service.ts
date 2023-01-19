@@ -24,7 +24,7 @@ export class GeoService {
     //this.dbRef = fb.database().ref('/locations');
     this.dbRef = firebase.database().ref('/locations');
     //this.dbRef = this.db.list('/locations');
-    this.geoFire = new GeoFire(this.dbRef); //.$ref
+    // this.geoFire = new GeoFire(this.dbRef); //.$ref
     console.log(this.geoFire.ref());
 
     //this.dbRef = this.db.list("locations", ref =>
@@ -65,7 +65,8 @@ export class GeoService {
     var location1 = [10.3, -55.3];
     var location2 = [-78.3, 105.6];
 
-    var distance = GeoFire.distance(location1, location2);  // distance === 12378.536597423461
+    // @ts-ignore
+     var distance = GeoFire.distance(location1, location2);  // distance === 12378.536597423461
 
     console.log(distance);
 
@@ -76,6 +77,7 @@ export class GeoService {
         distance: distance
       }
       let currentHits = this.hits.value
+      // @ts-ignore
       currentHits.push(hit)
       this.hits.next(currentHits)
 

@@ -32,7 +32,7 @@
             <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
               <p class="card-title" style="margin:1px;">
                 <strong>
-                  <a [routerLink]="['/products/product', product.product_id]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.product_name }}</a>
+                  <a [routerLink]="['/products/product', product.productId]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.productName }}</a>
                 </strong>
               </p>
               <!--Description-->
@@ -41,17 +41,17 @@
 
               <!--Card footer-->
               <div class="card-footer" style="padding:0px;margin:0px;">
-                
+
                 <div class="row">
                   <span class="right" style="font-size:12px;margin-left:20px;"><strong>Vendeur</strong> : {{product.nomvendeur}}</span>
-                  <span class="left" style="font-size:12px;margin-left:10px;"><strong>Tel</strong> : {{product.phonevendeur}}</span>
+                  <span class="left" style="font-size:12px;margin-left:10px;"><strong>Tel</strong> : {{product.phone_vendeur}}</span>
                 </div>
                 <div class="row">
                     <span class="right" style="font-weight: bold;font-size:12px;margin-left:20px;">Quantité: {{ product.item_qty }}</span><br>
-                    <span class="left" style="font-weight: bold;font-size:12px;margin-left:10px;">total: {{ product.item_qty * product.product_price }} FCFA</span>   
+                    <span class="left" style="font-weight: bold;font-size:12px;margin-left:10px;">total: {{ product.item_qty * product.productPrice }} FCFA</span>
                 </div>
-                
-                
+
+
                 <!--<del class="right" style="color: red;font-size:10px;" *ngIf="product.reduct != 1">{{product.reduct}} Fcfa </del>
                 <span class="right">
                   <a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">

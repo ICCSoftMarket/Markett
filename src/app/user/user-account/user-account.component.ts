@@ -20,7 +20,9 @@ import { Cart } from "../../shared/models/cart";
 import { FileItem } from '../../shared/directives/file-item';
 // import { GeoService } from '../../geo.service';
 import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
+// @ts-ignore
 import * as CanvasJS from '../../canvasjs.min';
+import {GeoService} from "../../geo.service";
 
 @Component({
   selector: "app-user-account",
@@ -39,7 +41,7 @@ productList!: Product[];
 page = 1;
 lisAddress: Cart[] = [];
 myToggle= {};
-data = {};
+data;
 modal!: NgbModalRef;
 users;
 supp = {};
@@ -54,6 +56,9 @@ nbrVente:any;
 nbrAchat:any;
 tabVente: any[] = [];
 tabAchat: any[] = [];
+  addFavourite:any;
+
+addToCart:any;
 
   constructor(private authService: AuthService, private productService: ProductService, private firebaseAuth: AngularFireAuth,
               config: NgbModalConfig, private modalService: NgbModal, private db: AngularFireDatabase, private spinnerService: LoaderSpinnerService,
@@ -132,7 +137,6 @@ adressLivraison(addressForm: NgForm, data:any) {
     if(dataform.nickname== undefined || dataform.phone== undefined || dataform.address== undefined || dataform.quartier== undefined || dataform.pin== undefined){
       alert("Un champs n'est pas saisie!");
       this.data = dataform;
-      return ""
     }else{
       this.firedata.child(this.infoUser).child("address").push({
         nickname: addressForm.value["nickname"],
@@ -401,6 +405,7 @@ adressLivraison(addressForm: NgForm, data:any) {
       },
       () => {
         // upload success
+        // @ts-ignore
         upload.url = uploadTask.snapshot.downloadURL
         upload.name = upload.file.name
         console.log(upload.name)
@@ -498,6 +503,7 @@ adressLivraison(addressForm: NgForm, data:any) {
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
+      // @ts-ignore
       tabcontent[i].style.display = "none";
     }
 
@@ -531,7 +537,7 @@ adressLivraison(addressForm: NgForm, data:any) {
     for (var i in this.tabVente) {
       console.log(this.tabVente[i].product_name)
       console.log(this.tabVente[i].product_name)
-      var a = {y: this.tabVente[i].nbre_vente, name: this.tabVente[i].product_name}
+      const a:string[] = [{y: this.tabVente[i].nbre_vente, name: this.tabVente[i].product_name}]
       tablo.push(a);
     }
     let chart = new CanvasJS.Chart("chartContainer", {
@@ -564,7 +570,7 @@ adressLivraison(addressForm: NgForm, data:any) {
       console.log(this.tabAchat[i].product_name)
       console.log(this.tabAchat[i].product_name)
       var a = {y: this.tabAchat[i].nbre_vente, name: this.tabAchat[i].product_name}
-      tablo.push(a);
+      tablo.push(ga);
     }
     let chart = new CanvasJS.Chart("chartContainerAchat", {
       theme: "light2",

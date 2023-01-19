@@ -15,7 +15,8 @@ import { Product } from "../shared/models/product";
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastOptions, ToastyService, ToastyConfig } from "ng2-toasty";
-import * as firebase from "firebase/app";
+import firebase from 'firebase/compat/app'
+import {Commentaire} from "../shared/models/user";
 
 @Component({
   selector: "app-user",
@@ -39,7 +40,10 @@ export class UserComponent implements OnInit {
   nbreOrderMy:any;
   infos:any;
   firedata = firebase.database().ref('/users');
-  data = {};
+  data:Commentaire = new Commentaire();
+
+  openCommentateur:any;
+
 
   constructor(public authService: AuthService, private spinnerService: LoaderSpinnerService, private firebaseAuth: AngularFireAuth,
     private db: AngularFireDatabase,private productService: ProductService,private modalService: NgbModal,

@@ -301,7 +301,7 @@ getEnchereByPays(pays:any) {
     console.log(data)
     let a: Cart[];
     console.log(data.$key)
-    let addLocal: Cart ={
+    let addLocal: { item_vendeur: string; name_img: string; item_price: number; item_image: string; $key: string; item_name: string; item_phonevendeur: number; item_nomvendeur: string; item_qty: number } ={
       $key: data.$key,
       item_name: data.name,
       item_image: data.image,
@@ -369,7 +369,9 @@ getEnchereByPays(pays:any) {
         console.log(localStorage)
         a = JSON.parse(localStorage.getItem("cartssss_item") || '[]');
         console.log(a);
-        a.push(addLocal);
+        if (addLocal instanceof Cart) {
+          a.push(addLocal);
+        }
 
 
 

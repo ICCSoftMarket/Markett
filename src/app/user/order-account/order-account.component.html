@@ -28,14 +28,14 @@
             <div class="card-body text-center no-padding" style="margin:1px;padding:5px;">
               <p class="card-title" style="margin:1px;">
                 <strong>
-                  <a [routerLink]="['/products/product', product.product_id]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.product_name }}</a>
+                  <a [routerLink]="['/products/product', product.productId]" routerLinkActive="router-link-active" style="font-size:12px;">{{ product.product_name }}</a>
                 </strong>
               </p>
               <!--Description-->
               <p class="card-text" style="font-size:10px;margin:1px;padding:5px;">{{ product.message }}
               </p>
               <p style="font-size:10px;">Qté : {{ product.item_qty }}</p>
-              <p style="font-size:10px;">Total: {{ product.item_qty * product.product_price }} FCFA</p>
+              <p style="font-size:10px;">Total: {{ product.item_qty * product.productPrice }} FCFA</p>
               <!--Card footer-->
               <div class="card-footer" mdbTooltip="Informations du client">
                 <a [routerLink]="['/products/userid', product.idvendeur]">
@@ -49,12 +49,12 @@
                       <span class="left" style="font-weight: bold;font-size:10px;">Depuis le: </span> <p style="font-weight: bold;font-size:10px;color:black;margin-left:5px;">{{product.date_commande | date: "dd/MM/yyyy à H:mm"}}</p>
                   </div>
                 </a>
-                
 
 
-                
-                
-                
+
+
+
+
                 <!--<del class="right" style="color: red;font-size:10px;" *ngIf="product.reduct != 1">Ancien Prix: {{product.reduct}} Fcfa </del>-->
                 <span class="right">
                   <!--<a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">
@@ -66,7 +66,7 @@
                   <a placement="top" mdbTooltip="Remove Product" container="body" *ngIf="authService.userDetails.uid == product.idvendeur" (click)="removeProduct(product.$key)">
                     <i class="fa fa-trash"></i>
                   </a>-->
-                  
+
                 </span>
               </div>
 

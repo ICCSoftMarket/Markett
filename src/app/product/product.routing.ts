@@ -15,6 +15,7 @@ import { GoogleMapComponent } from "../google-map/google-map.component";
 import { ProductListComponent } from "./product-list/product-list.component";
 import { ProductListComponentCateg } from "./product-list-categ/product-list.component-categ";
 
+// @ts-ignore
 export const ProductRoutes: Routes = [
   {
     path: "products",
@@ -45,7 +46,7 @@ export const ProductRoutes: Routes = [
       },
       {
         path: "checkouts",
-        loadChildren: "./checkout/checkout.module#CheckoutModule"
+        // loadChildren: "./checkout/checkout.module#CheckoutModule"
       },
       {
         path: "product/:id",

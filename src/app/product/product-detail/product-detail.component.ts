@@ -30,7 +30,7 @@ import { Router } from "@angular/router";
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   private sub: any;
-  product: Product;
+  product: any;
 
   user!: Observable<firebase.User>;
   nbrLike:any;
@@ -564,7 +564,7 @@ like(){
 
         var local = [this.lat, this.lng];
         var lautre = [snapshot.val()[i].l[0], snapshot.val()[i].l[1]];
-        this.distance = GeoFire.distance(local, lautre).toFixed(2);
+        // this.distance = GeoFire.distance(local, lautre).toFixed(2);
         console.log(this.distance)
 
         this.markers.push({
@@ -726,11 +726,13 @@ like(){
     console.log(model);
     console.log(this.product);
 
+
         if(this.product.idvendeur == model.uid){
           //SI ON VALID LA PROPOSITION DU VENDEUR
           var n =0;
           this.firedataOrder.orderByChild("product_id").equalTo(this.productId).on('value', (itemsnap:any)=>{
             console.log(itemsnap.val())
+            var key ="";
             if(!itemsnap.val()){
               console.log('si la commande du produit nexiste pas on cree')
                 this.firedataOrder.push({
@@ -767,11 +769,11 @@ like(){
               console.log('si elle existe on met à jour')
               n += 1;
               console.log('on update')
-              for(var key in itemsnap.val()){
+              for(var k in itemsnap.val()){
                 console.log(key)
-                var key = key;
+                key = k;
               }
-              console.log(key)
+              // console.log(key)
               this.firedataOrder.child(key).update({
                 product_price: model.prix
               });
@@ -821,12 +823,13 @@ like(){
             }else if(itemsnap.val() && n == 0){
               n += 1;
               console.log('on update')
-              for(var key in itemsnap.val()){
-                console.log(key)
-                var key = key;
+              for(var k in itemsnap.val()){
+                console.log(k)
+                var key = k;
 
               }
-              console.log(key)
+              var key ="";
+              // console.log(k)
               this.firedataOrder.child(key).update({
                 product_price: model.prix,
                 user_id: model.uid,
@@ -862,7 +865,8 @@ like(){
   //LA NOTIF
   sendNotif(id:any, prix:any){
     console.log('notif')
-    window["plugins"].getIds(function(ids:any) {
+    // @ts-ignore
+    window["plugins"].getIds((ids: any) => {
 
       var notificationObj = { contents: {en: prix + " pour " + this.product.name},
         include_player_ids: [id],
@@ -870,7 +874,8 @@ like(){
         //buttons: [{"id": "1", "text": "suivre", "icon": "ic_menu_share"}, {"id": "2", "text": "just button2", "icon": "ic_menu_send"}]
 
       };
-        window["plugins"].OneSignal.postNotification(notificationObj,
+        // @ts-ignore
+      window["plugins"].OneSignal.postNotification(notificationObj,
           function(successResponse:any) {
               console.log("Notification Post Success:", successResponse);
               alert("Notification envoyé: " + successResponse);
@@ -887,12 +892,14 @@ like(){
 
   sendNotifValidPrix(id:any, nomvendeur:any){
 
-    window["plugins"].OneSignal.getIds(function(ids:any) {
+    // @ts-ignore
+    window["plugins"].OneSignal.getIds((ids: any) => {
       var notificationObj = { contents: {en: " vous avez reçu une commande de "+ nomvendeur},
         include_player_ids: [id],
         data: {data_key: "commande", openURL: "https://imgur.com/", id: this.productId},
       };
-        window["plugins"].OneSignal.postNotification(notificationObj,
+        // @ts-ignore
+      window["plugins"].OneSignal.postNotification(notificationObj,
           function(successResponse:any) {
               console.log("Notification Post Success:", successResponse);
               alert("Notification a été envoyé: " + successResponse);
@@ -990,7 +997,8 @@ like(){
       }
       //setTimeout(this.compte_a_rebour(id),1000);
       //setInterval(this.compte_a_rebour(id), 1000);
-      return compte_a_rebours;
+      // @ts-ignore
+    return compte_a_rebours;
   };
 
 
